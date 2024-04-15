@@ -1,0 +1,180 @@
+body {
+    height: 100vh;
+    width: auto;
+    /* Set the background gradient */
+    background-color: #D9357B;
+    background-image: linear-gradient(to bottom left, #D9357B, #23D9C4); /* Replace colors with your desired gradient */
+    /* Optional: Center and cover the background */
+    background-position: center;
+    background-size: cover;
+    align-content: center;
+    overflow: hidden;
+}
+
+.login-forum{
+    width: 436px;
+    height: 750px;
+    flex-shrink: 0;
+    margin-top: 2.5%;
+    align-items: center;
+    border-radius: 25px;
+    background: #FFFEFE;
+    margin-left: 500px;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    /*background-color: white;*/
+}
+
+.login-forum h1{
+    display: flex;
+    width: 254px;
+    height: 41px;
+    flex-direction: column;
+    flex-shrink: 0;
+    color: #000;
+    font-family: "Anek Gurmukhi";
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-top: 10%;
+    margin-left: 90px;
+}
+
+form{
+    padding-top: 20%;
+    font-family: "Anek Gurmukhi";
+    line-height: 5px;
+    
+}
+
+label{
+    display: flex;
+    width: 149px;
+    height: 28px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0; 
+    color: #000;
+    text-align: center;
+    font-family: "Anek Gurmukhi";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal; 
+    padding-bottom: 2%;   
+    /*background-color: yellow;*/
+}
+
+input[type=text]{
+    border: none;
+    background-color: #ffff;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
+    width: 80%;
+    font-size: 15px;
+}
+
+input[type=password]{
+    border: none;
+    background-color: #ffff;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
+    width: 80%;
+    font-size: 15px;
+}
+
+label[for=password]{
+    padding-top: 5%;
+}
+
+input ::placeholder{
+    display: flex;
+    width: 217px;
+    height: 22px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 0.31);
+    text-align: center;
+    font-family: "Anek Gurmukhi";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#loginBtn{
+    width: 280px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 17px;
+    background: linear-gradient(89deg, #23D9C4 0%, #D9357B 101.76%);
+    color: #ffff;
+    font-family: "Anek Gurmukhi";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 20%;
+}
+
+h2{
+    display: flex;
+    width: 200px;
+    height: 28px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #000;
+    text-align: center;
+    font-family: "Anek Gurmukhi";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+    margin-top: 25%;
+    margin-left: 120px;
+}
+
+h3{
+    color: #000;
+    text-align: center;
+    font-family: "Anek Gurmukhi";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: normal;
+}
+
+#solid-block-1{
+    width: 519px;
+    height: 376px;
+    transform: rotate(-33.602deg);
+    border-radius: 19px;
+    background: rgba(217, 53, 123, 0.26);
+    position:absolute;
+    margin-left: 75%;
+    margin-top: -50px;
+}
+
+#solid-block-2{
+    width: 519px;
+    height: 376px;
+    transform: rotate(-45.491deg);
+    flex-shrink: 0;
+    border-radius: 19px;
+    background: rgba(35, 217, 196, 0.08);
+    position:absolute;
+    margin-left: 45%;
+    margin-top: 50%;
+}
+
+#solid-block-3{
+    width: 519px;
+    height: 376px;
+    border-radius: 19px;
+    background: rgba(217, 53, 123, 0.08);
+    position:absolute;
+    margin-left: -200px;
+    margin-top: -200px;
+}
