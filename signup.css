@@ -1,12 +1,15 @@
+
 .phone-container {
-    width: 200px; /* Adjust the width as needed */
-    margin: 80px auto;
+    width: 280px;
+    height: 600px; /* Adjust the width as needed */
     position: relative;
     perspective: 1000px;
   }
   
   .container {
-    width: 100%;
+    align-self: center;
+    width: 280px;
+    height: 600px;
     padding: 40px;
     border-radius: 40px; /* Adjust border radius to create rounded corners */
     overflow: hidden; /* Hide overflowing content */
