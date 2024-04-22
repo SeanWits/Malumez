@@ -1,27 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function Header() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+    <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    </head>
+    <body>
+      <header className="homeHeader">
+        <img src={require("./assets/Malume'zLogoFull.png")} alt="Malume'z Logo" height = "60" width="auto"/>
+        <section>
+          <i className='fa fa-question-circle icon'/>
+          <i className='fa fa-shopping-basket icon'/>
+          <i className='fa fa-user-circle icon'/>
+        </section>
       </header>
-    </div>
+    </body>
+    </>
   );
 }
 
 //Wassup
 
-export default App;
+export default Header;
