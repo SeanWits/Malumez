@@ -14,11 +14,11 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const emailElement = xmlDoc.getElementById("email");
-    const emailValue = emailElement.textContent;
+    //const emailElement = xmlDoc.getElementById("email");
+    //const emailValue = emailElement.textContent;
 
-    const passwordElement = xmlDoc.getElementById("password");
-    const passwordValue = passwordElement.textContent;
+   //const passwordElement = xmlDoc.getElementById("password");
+    //const passwordValue = passwordElement.textContent;
 
     setEmail(emailValue);
     setPassword(passwordValue);
