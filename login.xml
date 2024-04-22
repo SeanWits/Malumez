@@ -15,11 +15,11 @@
         <h1>Welcome to</h1>
         <img src="./src/assets/Malume'zLogoFull.png" alt="Malume'z Logo" height="150" width="400"/>
         <form action="">
-            <label for="uname">Username</label><br/>
-            <input type="text" id="uname" name="uname" value="" placeholder="Type your username"/><br/>
+            <label for="email">Email</label><br/>
+            <input type="text" id="email" name="email" value="" placeholder="Type your Email"/><br/>
             <label for="password">Password</label><br/>
             <input type="password" id="password" name="lname" value="" placeholder="Type your password"/><br/><br/>
-            <input type="button" id="loginBtn" value="Login"/>
+            <input type="button" onclick = "Login()" id="loginBtn" value="Login"/>
           </form> 
           <h2>Don't have an account?</h2>
 
