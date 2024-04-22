@@ -1,5 +1,4 @@
 import { auth } from '../firebase.js';
-import { auth } from '../firebase.js';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import './login.css';
@@ -41,7 +40,7 @@ function Login() {
                 <div id="solid-block-3"></div>
                 <section className="login-forum">
                     <h1>Welcome to</h1>
-                    <img src="./Malume'zLogoFull.png" alt="Malume'z Logo" height="150" width="400" />
+                    <img src= {require("./Malume'zLogoFull.png")} alt="Malume'z Logo" height="150" width="400" />
                     <form onSubmit={login} id="userForm">
                         <label htmlFor="email">Email Adress</label><br />
                         <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
