@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./login.css"/>
+    <script src="src/pages/login.js"></script>
+    <title>Login Page</title>
+</head>
+<body>
+    <div id="solid-block-1"/>
+    <div id="solid-block-2"/>
+    <div id="solid-block-3"/>
+    <section class="login-forum">
+        <h1>Welcome to</h1>
+        <img src="./src/assets/Malume'zLogoFull.png" alt="Malume'z Logo" height="150" width="400"/>
+        <form action="">
+            <label for="uname">Username</label><br/>
+            <input type="text" id="uname" name="uname" value="" placeholder="Type your username"/><br/>
+            <label for="password">Password</label><br/>
+            <input type="password" id="password" name="lname" value="" placeholder="Type your password"/><br/><br/>
+            <input type="button" id="loginBtn" value="Login"/>
+          </form> 
+          <h2>Don't have an account?</h2>
+
+          <!-- <button id="signUp" onclick="openPopup()"> Sign Up</button> -->
+          <a id="signupLink" href="signup.html">Sign Up</a>
+    </section>
+</body>
+</html>
+
