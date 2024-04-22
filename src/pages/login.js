@@ -1,11 +1,7 @@
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-function openPopup() {
-    //window.open("signup.html",popup=yes, rel="noreferrer", "Signup Popup", "width=500,height=700");
-    window.open("signup.html", "Signup Popup", "width=500,height=700,left=" + ((window.screen.width - 500) / 2) + ",top=" + ((window.screen.height - 700) / 2) + ",toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,copyhistory=0,resizable=0");
-
-}
+import './login.css';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -30,22 +26,34 @@ function Login() {
     };
 
     return (
-        <form onSubmit={login} name='login_form'>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-            />
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button type="submit">Login</button>
-            {error && <p>{error}</p>}
-        </form>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Login Page</title>
+                <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+                <script src="https://unpkg.com/web3@0.20.5/dist/web3.min.js"></script>
+            </head>
+            <body>
+                <div id="solid-block-1"></div>
+                <div id="solid-block-2"></div>
+                <div id="solid-block-3"></div>
+                <section className="login-forum">
+                    <h1>Welcome to</h1>
+                    <img src="./Malume'zLogoFull.png" alt="Malume'z Logo" height="150" width="400" />
+                    <form onSubmit={login} id="userForm">
+                        <label htmlFor="email">Email Adress</label><br />
+                        <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
+                        <label htmlFor="password">Password</label><br />
+                        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type your password" required /><br /><br />
+                        <button type="submit" id="loginBtn">Login</button>
+                    </form>
+                    <h2>Don't have an account?</h2>
+                    <button id="signUp"> Sign Up</button>
+                    {error && <p>{error}</p>}
+                </section>
+            </body>
+        </html>
     );
 }
 
