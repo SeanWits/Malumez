@@ -8,17 +8,22 @@ body {
     background-position: center;
     background-size: cover;
     align-content: center;
+    margin-left: 2.5%;
     overflow: hidden;
 }
+
 img{
-    padding-top: -47%;
+    margin-top: -10%;
+    margin-bottom: 5%;
+    /*position: absolute;*/
 }
+
 
 .login-forum{
     width: 436px;
     height: 650px;
     flex-shrink: 0;
-    /*margin-top: 2.5%;*/
+    margin-top: -2.5%;
     align-items: center;
     border-radius: 25px;
     background: #FFFEFE;
@@ -52,7 +57,18 @@ form{
 
 }
 
+#passwordLabel
+{
+    margin-left: -1.75%;
+}
+
+#emailLabel{
+    margin-left: 1%;
+}
+
+
 label{
+    padding-top: 1%;
     display: flex;
     width: 149px;
     height: 28px;
@@ -65,16 +81,16 @@ label{
     font-size: 20px;
     font-style: normal;
     font-weight: 200;
-    line-height: normal; 
-    padding-bottom: 2%;   
-    /*background-color: yellow;*/
+    line-height: normal;  
+    margin-left: 3%;
 }
 
 input[type=text]{
     border: none;
-    background-color: #ffff;
+    background-color: white;
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
-    width: 80%;
+    width: 100%;
+    align-content: start;
     font-size: 15px;
 }
 
@@ -82,7 +98,8 @@ input[type=password]{
     border: none;
     background-color: #ffff;
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
-    width: 80%;
+    width: 100%;
+    align-content: start;
     font-size: 15px;
 }
 
@@ -91,33 +108,50 @@ input[type=password]{
     height: 30px;
     text-wrap: tight;
     padding: 10px;
-    background-color: #D9357B;
+    background-color: #23D9C4;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    
 }
   
-
-label[for=password]{
-    padding-top: 5%;
-}
-
-input ::placeholder{
+#emailInput
+{
     display: flex;
-    width: 217px;
-    height: 22px;
+    margin-left: 7%;
+    width: 85%;
+    height: 35px;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
-    color: rgba(0, 0, 0, 0.31);
+    color: rgba(0, 0, 0, 1);
     text-align: center;
     font-family: "Anek Gurmukhi";
-    font-size: 15px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
+
+#passwordInput{
+    display: flex;
+    margin-left: 7%;
+    width: 85%;
+    height: 35px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 1);
+    text-align: center;
+    font-family: "Anek Gurmukhi";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
 
 #loginBtn{
     width: 280px;
@@ -131,7 +165,7 @@ input ::placeholder{
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
 h2{
