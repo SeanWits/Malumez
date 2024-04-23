@@ -59,7 +59,7 @@ function Login() {
             <div id="solid-block-3"></div>
             <section className="login-forum">
                 <h1>Welcome to</h1>
-                <img src= {require("../assets/Malume'zLogoFull.png")} alt="Malume'z Logo" height="150" width="400"/>
+                <img src= {require("../assets/Malume'zLogoFullTransparent.png")} alt="Malume'z Logo" height="150" width="400"/>
                 {
                     loading ?
                         <div className="sweet-loading">
@@ -78,10 +78,10 @@ function Login() {
                         </div>
                         :
                         <form onSubmit={login} id="userForm">
-                            <label htmlFor="email">Email Adress</label><br />
-                            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
-                            <label htmlFor="password">Password</label><br />
-                            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type your password" required /><br /><br />
+                            <label id = "emailLabel" htmlFor="email">Email Adress</label><br />
+                            <input type="text" id="emailInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
+                            <label id = "passwordLabel" htmlFor="password">Password</label><br />
+                            <input type="password" id="passwordInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type your password" required /><br /><br />
                             <button type="submit" id="loginBtn">Login</button>
                         </form>
                 }
