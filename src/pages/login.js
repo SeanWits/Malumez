@@ -59,7 +59,7 @@ function Login() {
             <div id="solid-block-3"></div>
             <section className="login-forum">
                 <h1>Welcome to</h1>
-                <img src="./Malume'zLogoFull.png" alt="Malume'z Logo" height="150" width="400" />
+                <img src= {require("../assets/Malume'zLogoFull.png")} alt="Malume'z Logo" height="150" width="400"/>
                 {
                     loading ?
                         <div className="sweet-loading">
@@ -86,7 +86,7 @@ function Login() {
                         </form>
                 }
                 <h2>Don't have an account?</h2>
-                <button id="signUp"> Sign Up</button>
+                <button id="signUp" onClick={() => navigate('/SignUp')}> Sign Up</button>
                 {error && <p>{error}</p>}
             </section>
         </div>
