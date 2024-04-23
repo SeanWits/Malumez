@@ -83,45 +83,42 @@ function SignUp() {
   };
 
   return (
-    <div className="phone-container">
-      <div className="container">
-        <h2>Sign Up</h2>
+    <div>
+      <section id='container'>
+        <img src= {require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250"/>
+        <h2 id='signUpSign'>Sign Up</h2>
         <form id="signup-form" onSubmit={register}>
-          <div className="form-control">
             <label htmlFor="Name">Name</label>
-            <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-          <div className="form-control">
+            <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)}  />
+          
             <label htmlFor="Surname">Surname</label>
             <input type="text" id="Surname" name="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
-          </div>
-          <div className="form-control">
+          
             <label htmlFor="Username">Username</label>
             <input type="text" id="Username" name="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-          </div>
-          <div className="form-control">
+          
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div className="form-control">
+            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  required />
+          
             <label htmlFor="password">Password</label>
             <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          </div>
-          <div className="form-control">
+          
+          
             <label htmlFor="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-          </div>
-          <div className="form-control">
-            <label htmlFor="UserType">User type:</label>
+          
+            <section id='sectionUserType'>
+            <label id = "userType" htmlFor="UserType">User type:</label>
             <select name="Account type" id="type" onChange={handleRoleChange}>
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
             </select>
-          </div>
-          <button type="submit">Sign Up</button>
+            </section>
+
+          <button type="submit" id='signUpButton'>Sign Up</button>
           {error && <p>{error}</p>}
         </form>
-      </div>
+      </section>
     </div>
   );
   
