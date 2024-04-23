@@ -59,11 +59,13 @@ form{
 
 #passwordLabel
 {
-    margin-left: -1.75%;
+    border: none;
+    margin-left: 5%;
 }
 
 #emailLabel{
-    margin-left: 1%;
+    border: none;
+    margin-left: 5%;
 }
 
 
@@ -108,7 +110,7 @@ input[type=password]{
     height: 30px;
     text-wrap: tight;
     padding: 10px;
-    background-color: #23D9C4;
+    background-color:#D9357B;
     color: white;
     border: none;
     border-radius: 4px;
@@ -119,6 +121,8 @@ input[type=password]{
 #emailInput
 {
     display: flex;
+    border: none;
+    border-bottom: 1px solid black;
     margin-left: 7%;
     width: 85%;
     height: 35px;
@@ -139,6 +143,8 @@ input[type=password]{
     margin-left: 7%;
     width: 85%;
     height: 35px;
+    border: none;
+    border-bottom: 1px solid black;
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;

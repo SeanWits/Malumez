@@ -1,65 +1,101 @@
-.phone-container {
-  width: 200px; /* Adjust the width as needed */
-  margin: 80px auto;
-  position: relative;
-  perspective: 1000px;
+#logoHat{
+  margin-top: -6%;
+  margin-left: 22%;
+  align-items: center;
 }
 
-.container {
-  width: 100%;
-  padding: 40px;
-  border-radius: 40px; /* Adjust border radius to create rounded corners */
-  overflow: hidden; /* Hide overflowing content */
-  position: relative;
-  background-color: #fff;
-  background-image:
-    linear-gradient(5deg, turquoise 5%, transparent 5%),
-    linear-gradient(-5deg, turquoise 5%, transparent 5%),
-    linear-gradient(5deg, pink 5%, transparent 5%),
-    linear-gradient(-5deg, rgb(255, 192, 227) 5%, transparent 5%);
-  background-size: 20px 10px;
-  background-position: 0 0, 10px 0, 0 10px;
-}
-
-select{
-  padding: 2%;
-  margin-bottom: 10%;
-}
-
-
-.container h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: calc(100% - 10px); /* Adjusted width to account for padding and border */
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-button {
-  width: 100%;
+#signUpButton{
+  width: 200px;
+  height: 20%;
+  text-wrap: tight;
+  margin-top: 5%;
+  font-size: large;
+  margin-left: 28%;
   padding: 10px;
-  background-image: linear-gradient(to right, #23D9C4, #D9357B);
-  color: #fff;
+  background: linear-gradient(89deg, #23D9C4 0%, #D9357B 101.76%);
+  color: white;
   border: none;
+  align-self: center;
   border-radius: 4px;
   cursor: pointer;
 }
 
-button:hover {
-  background-image: linear-gradient(to right, #15ad9c, #ad2e60);
+#signUpSign
+{
+  margin-top: -5%;
+  font-weight: 700;
+  font-size: xx-large;
 }
 
-#message {
-  text-align: center;
-  margin-top: 20px;
-  color: #007bff;
+
+#sectionUserType
+{
+  display: flex;
+  align-items: center;
+}
+
+#userType {
+  margin-right: 10px; /* Adjust the margin as needed */
+  width: 20%;  
+}
+
+#type
+{
+  width: 70px;
+  height: 33px;
+  margin-top: 1.75%;
+  font-size: medium;
+  font-family: "Anek Gurmukhi";
+}
+
+input[type=text]{
+  margin-left: 10%;
+  width: 80%;
+  border: 1px solid black;
+  height: 25px;
+}
+
+label{
+  font-size: large;
+  text-wrap: pretty;
+  width: 200px;
+  margin-left: 10%;
+  margin-top: 1%;
+  text-align: start;
+}
+
+input[type=email]
+{
+
+  margin-left: 10%;
+  width: 80%;
+  height: 25px;
+}
+
+input[type=password]
+{
+
+  margin-left: 10%;
+  border: 1px solid black;
+  width: 80%;
+  height: 25px;
+}
+
+#container
+{
+  background-color:white;
+  width: 30%;
+  height: 670px;
+  align-self: center;
+  margin-left: 35%;
+  border-radius: 5%;
+  background-color: #fff;
+    background-image:
+      linear-gradient(5deg, turquoise 5%, transparent 5%),
+      linear-gradient(-5deg, turquoise 5%, transparent 5%),
+      linear-gradient(5deg, pink 5%, transparent 5%),
+      linear-gradient(-5deg, rgb(255, 192, 227) 5%, transparent 5%);
+    background-size: 20px 10px;
+    background-position: 0 0, 10px 0, 0 10px;
+  
 }
