@@ -12,7 +12,7 @@ function Admin(){
         <link rel="stylesheet" href="admin.css"/>
     </head>
     <body>
-        <header><img alt="" src="Malume'zLogoFull copy.png"/></header>
+        <header><a href="/"><img alt="" src={require("../assets/Malume'zLogoFull.png")}/></a></header>
         
         <section class="main-content">
             <nav>
