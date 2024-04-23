@@ -195,3 +195,16 @@ h3{
     margin-left: -200px;
     margin-top: -200px;
 }
+
+.sweet-loading {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 200px; /* Adjust height as needed */
+}
+
+.loader {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
