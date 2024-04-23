@@ -64,6 +64,16 @@
 
 #passwordLabel
 {
+    margin-left: -1.75%;
+}
+
+#emailLabel{
+    margin-left: 1%;
+}
+
+
+#passwordLabel
+{
     border: none;
     margin-left: 5%;
 }
