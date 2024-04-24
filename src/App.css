@@ -10,3 +10,10 @@
   padding: 10px;
   color: #23D9C4 ;
 }
+
+.searchBar
+{
+  display: flex;
+  justify-content: space-between;
+  background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+}

@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from "./assets/Malume'zLogoFullNoBackground.png";
 import './App.css';
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
     </head>
     <body>
       <header className="homeHeader">
-        <img src={require("./assets/Malume'zLogoFull.png")} alt="Malume'z Logo" height = "60" width="auto"/>
+        <img src={logo} alt="Malume'z Logo" height = "60" width="auto"/>
         <section>
           <i className='fa fa-question-circle icon'/>
           <i className='fa fa-shopping-basket icon'/>
@@ -19,6 +19,21 @@ function Header() {
     </body>
     </>
   );
+}
+
+export function SearchBar()
+{
+  return (
+    <>
+      <section className="searchBar">
+        <button type ="button" id="search_options" className="options_button" />
+        <section>
+          <input type="text" placeholder="Search.."/>
+          <button type ="button" id="search_options" className="options_button" />
+        </section>
+      </section>
+    </>
+  )
 }
 
 //Wassup
