@@ -8,6 +8,7 @@ import { SearchBar } from "./App"
 import { AdsBar } from './App';
 import { FeaturedProducts } from './App';
 import { Categories } from './App';
+import { MoreOptions } from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
     <AdsBar />
     <FeaturedProducts />
     <Categories />
+    <MoreOptions />
   </React.StrictMode>
 );
 

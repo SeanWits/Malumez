@@ -44,9 +44,9 @@ export function AdsBar()
   return (
     <>
       <section className="adsBar">
-        <i className="fa fa-chevron-left icon"></i>
+        <i className="fa fa-chevron-left icon left"></i>
         <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-        <i className="fa fa-chevron-right icon"></i>
+        <i className="fa fa-chevron-right icon right"></i>
       </section>
     </>
   )
@@ -59,11 +59,11 @@ export function FeaturedProducts()
   return (
     <>
       <section  className="featuredProducts">
-        <i className="fa fa-chevron-left icon"></i>
+        <i className="fa fa-chevron-left icon left"></i>
         <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
         <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
         <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <i className="fa fa-chevron-right icon"></i>
+        <i className="fa fa-chevron-right icon right"></i>
       </section>
     </>
   )
@@ -76,9 +76,14 @@ export function Categories()
   return (
     <>
       <section className="categorySection">
-        <h2 className="categoryHeading">
-          {categoryName}
-        </h2>
+        <section className="categoryText">
+          <h2 className="categoryHeading">
+            {categoryName}
+          </h2>
+          <a className="viewMoreLink" href="">
+            View more
+          </a>
+        </section>
         <section className="productSection">
           <img className="productImage" src={productImage} alt="Image of product" />
           <img className="productImage" src={productImage} alt="Image of product" />
@@ -87,7 +92,55 @@ export function Categories()
       </section>
     </>
   )
+  
+}
 
+export function MoreOptions()
+{
+  return (
+    <>
+      <section className="contactSection">
+        <h3 className="contactUsHeading">
+          Contact Us
+        </h3>
+        <ul className="contactList">
+          <li>
+          <i className="fa fa-at icon"></i>
+            <a href="mailto:malumez@gmail.com">
+              malumez@gmail.com
+            </a>
+            </li>
+          <li>
+          <i className="fa fa-phone icon"></i>
+            <a href="tel:malumez@gmail.com">
+              011 625 8639
+            </a>
+            </li>
+          <li>
+          <i className="fa fa-instagram icon"></i>
+            <a href="https://www.instagram.com/malumez/">
+              @malumez
+            </a>
+            </li>
+          <li>
+          <i className="fa fa-facebook icon"></i>
+            <a href="https://www.facebook.com/malumez/">
+              @malumez
+            </a>
+            </li>
+          <li>
+          <i className="fa fa-twitter icon"></i>
+            <a href="https://www.twitter.com/malumez/">
+              @malumez
+            </a>
+              </li>
+          </ul>
+      </section>
+      <section className="storeSection"></section>
+      <section className="accountSection"></section>
+      <section className="helpSection"></section>
+    </>
+  )
 }
 //Wassup
 
