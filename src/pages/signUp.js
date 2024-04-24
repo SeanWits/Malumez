@@ -1,7 +1,8 @@
 import { auth, db } from '../firebase';
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 function SignUp() {
@@ -14,6 +15,7 @@ function SignUp() {
   const [error, setError] = useState('');
   const [buyer, setBuyer] = useState(true);
   const [seller, setSeller] = useState(false);
+  const navigate = useNavigate();
 
   const handleRoleChange = (e) => {
     if (e.target.value === 'Buyer') {
@@ -69,6 +71,7 @@ function SignUp() {
         const user = userCredential.user;
         await addUser(user);
         console.log("User registered:", user);
+        navigate('/home');
       } catch (error) {
         setError(error.message);
         console.error("Error registering user: ", error);
