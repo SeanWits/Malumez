@@ -3,14 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Header from './App';
+import { Header } from './App';
 import { SearchBar } from "./App"
+import { AdsBar } from './App';
+import { FeaturedProducts } from './App';
+import { Categories } from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Header />
     <SearchBar />
+    <AdsBar />
+    <FeaturedProducts />
+    <Categories />
   </React.StrictMode>
 );
 

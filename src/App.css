@@ -14,6 +14,68 @@
 .searchBar
 {
   display: flex;
+  /* background-color: #D9357B ; */
   justify-content: space-between;
   background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+}
+
+.searchBar .icon
+{
+  font-size: 40px;
+  padding: 10px;
+  color: #fff ;
+}
+
+.searchBar .search
+{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+.searchBar .search .inputSearch
+{
+  height: 40px;
+  width: 500px;
+}
+
+.adsBar
+{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 200px;
+}
+
+.adsBar .icon
+{
+  font-size: 16px;
+}
+
+.adsBar .adsImage
+{
+  height: 200px;
+}
+
+.categorySection
+{
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+}
+
+.categorySection .productSection
+{
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.categorySection .productSection .productImage
+{
+  height: 144px;
+  width: 144px;
+  padding: 20px;
 }
