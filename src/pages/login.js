@@ -71,7 +71,7 @@ function Login() {
             navigate('/home');
         }
         } catch (error) {
-            setError(error.message);
+            setError("Invalid or Missing Credentials");
             console.error("Error logging in: ", error);
             setNotfiyF(true);
         }
@@ -146,7 +146,7 @@ function Login() {
                 }
                 <h2>Don't have an account?</h2>
                 <button id="signUp" onClick={() => navigate('/SignUp')}> Sign Up</button>
-                {error && <p>{error}</p>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </section>
             <ToastContainer
                 position="top-center"

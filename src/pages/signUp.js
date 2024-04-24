@@ -1,5 +1,5 @@
 import { auth, db } from '../firebase';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,8 @@ function SignUp() {
   const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
 
+
+
   const handleRoleChange = (e) => {
     if (e.target.value === 'Buyer') {
       setBuyer(true);
@@ -32,10 +34,10 @@ function SignUp() {
     if (password !== '' && confirmPassword !== '') {
       if (password !== confirmPassword) {
         isValid = false;
-        setError('Passwords do not match');
+        alert('Passwords do not match');
       } else if (password.length < 8) {
         isValid = false;
-        setError('Password should be at least 8 characters long');
+        alert('Password should be at least 8 characters long');
       }
     }
     return isValid;
@@ -72,9 +74,13 @@ function SignUp() {
         await addUser(user);
         console.log("User registered:", user);
         navigate('/home');
-      } catch (error) {
-        setError(error.message);
-        console.error("Error registering user: ", error);
+      } catch (error) { 
+        if (error.code === "auth/email-already-in-use") {
+          alert("Email already linked to an account");
+        } else {
+          console.error("Error registering user: ", error);
+          alert(error.message);
+        }
       }
     }
     setName('');
@@ -84,6 +90,7 @@ function SignUp() {
     setPassword('');
     setConfirmPassword('');
   };
+
 
   return (
     <div>
@@ -119,7 +126,7 @@ function SignUp() {
             </section>
 
           <button type="submit" id='signUpButton'>Sign Up</button>
-          {error && <p>{error}</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </section>
     </div>
