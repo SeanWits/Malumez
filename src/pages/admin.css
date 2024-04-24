@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    /*background-color: aquamarine;*/
+
+}
+
+header {
+    width:auto;
+    height: 100px;
+    background-color: white;
+    top:0;
+}
+
+header img{
+    margin-left: 5%;
+    margin-top: 50px;
+    height: 50px;
+    width: auto;
+}
+
+nav {
+    width: 250px;
+    display:table;
+    height: 100vh;
+    background-color: white;
+    text-align: center;
+}
+
+nav button{
+    width: 200px;
+    
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 25%;
+    color: white;
+    font-size: 18px;
+    font-family: "Anek Gurmukhi";
+    background-color: #D9357B;
+    background-image: linear-gradient(to bottom left, #D9357B, #23D9C4); /* Replace colors with your desired gradient */
+}
+
+.main-content{
+    width: auto;
+    height: 100vh;
+    background-color: #E7E7E7;
+    display: flex;
+}
+
+.main-idea{
+    width: 1140px;
+    height: 95vh;
+    background-color: white;
+    margin-left: 2%;
+    margin-top: 2%;
+    border-radius: 1.5%;;
+}
+
+table{
+    width: 1000px;
+    height: 5vh;
+    margin-left: 2%;
+    margin-top: 2%;
+    border-radius: 2%;
+    /*background-color: violet;*/
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    padding-top: 2%;
+    padding-left: 2%;
+}
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding-left: 1%;
+    border-radius: 2%;
+  }

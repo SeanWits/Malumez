@@ -241,6 +241,7 @@ h3{
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     height: 200px; /* Adjust height as needed */
+    margin-right: 50px;
 }
 
 .loader {
