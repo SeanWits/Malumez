@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Header } from './App';
 import { SearchBar } from "./App"
@@ -9,6 +8,7 @@ import { AdsBar } from './App';
 import { FeaturedProducts } from './App';
 import { Categories } from './App';
 import { MoreOptions } from './App';
+import { Footer } from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +19,7 @@ root.render(
     <FeaturedProducts />
     <Categories />
     <MoreOptions />
+    <Footer />
   </React.StrictMode>
 );
 
