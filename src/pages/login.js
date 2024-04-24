@@ -28,17 +28,17 @@ function Login() {
         transition: Flip,
     });
 
-    const notify_error = () => toast.error('Missng or Invalid Credentials', {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Flip,
-    });
+    // const notify_error = () => toast.error('Missng or Invalid Credentials', {
+    //     position: "bottom-center",
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "colored",
+    //     transition: Flip,
+    // });
 
     // useEffect(() => {
     //     setLoading(true)
