@@ -65,10 +65,13 @@ function SignUp() {
   const register = async (e) => {
     e.preventDefault();
     setError('');
-    // Store passwords to maintain their values in case of error
-    const storedPassword = password;
-    const storedConfirmPassword = confirmPassword;
-
+    
+    
+    const storedName = name;
+    const storedSurname = surname;
+    const storedUsername = username;
+    const storedEmail = email;
+    
     if (validatePassword()) {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -83,16 +86,17 @@ function SignUp() {
           console.error("Error registering user: ", error);
           alert(error.message);
         }
-        // Restore password values
-        setPassword(storedPassword);
-        setConfirmPassword(storedConfirmPassword);
       }
+    } else {
+      
+      setName(storedName);
+      setSurname(storedSurname);
+      setUsername(storedUsername);
+      setEmail(storedEmail);
+      // Clear password values
+      setPassword('');
+      setConfirmPassword('');
     }
-    // Clear other input values
-    setName('');
-    setSurname('');
-    setUsername('');
-    setEmail('');
   };
 
   return (
@@ -137,4 +141,6 @@ function SignUp() {
 }
 
 export default SignUp;
+
+
 
