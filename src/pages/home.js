@@ -35,13 +35,16 @@ const Home = () => {
       console.error("Error signing out: ", error);
     });
   };
-
+  const handleNavigateToCheckout = () => {
+    navigate('/checkout'); // Navigate to the checkout page
+  };
   return (
     <div>
       <h1>Welcome to the Home Page</h1>
-      {currentUser && (
+      {currentUser ? (
         <button onClick={handleSignOut}>Sign Out</button>
-      )}
+      ) : null}
+      <button onClick={handleNavigateToCheckout}>Go to Checkout</button>
     </div>
   );
 };
