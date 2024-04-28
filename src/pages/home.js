@@ -47,34 +47,70 @@ export function AdsBar()
   let adImage2=require("../assets/Ad2.png");
   let adImage3=require("../assets/Ad3.png");
 
+  let slides = document.querySelectorAll(".slides img");
+
+  // we use this to start at the first slide
+  let slideIndex = 0;
+
+  //initializeSlider();
+  document.addEventListener("DOMContentLoaded", initializeSlider());
+  //function to initialize slider -  SHow first slide
+  function initializeSlider(){
+
+    if(slides.length>0){
+      slides[slideIndex].classList.add("displaySlide");
+      // this is to automatically display the next slide after 5 seconds
+      // intervalID = setInterval(nextSlide,5000);
+      // console.log(intervalID);
+      }
+        
+  }
+
+
+  function showSlide(index){
+    // to check the images and make sure they loop
+        if(index>= slides.length){
+          slideIndex =0;
+        }
+        else if(index<0)
+        {
+          slideIndex = slides.length -1;
+        }
+        slides.forEach(slide =>{
+          slide.classList.remove("displaySlide")
+        });
+        slides[slideIndex].classList.add("displaySlide");
+    }
+
+  function prevAd(){
+      slideIndex--;
+      showSlide(slideIndex);
+  }
+
+  function nextAd(){
+      slideIndex++;
+      showSlide(slideIndex);
+  }
+
+
   return (
-    <div class="slideshow">
-      <arrow id="leftArrow" icon= "fa fa-chevron-right icon right"></arrow>
-      <slides>
-        <slide id="slide1">
-        <img className="adsImage" src={adImage1} alt="Image of an Ad"></img>
-        </slide>
+    <div>
+        <div className="slider">
+              <div className="slides">
+                <img alt="Ad 1"cl assName="slide" src={adImage1}/>
 
-        <slide id="slide2">
-        <img className="adsImage" src={adImage2} alt="Image of an Ad"></img>
-        </slide>
+                <img alt="Ad 2" className="slide" src={adImage2}/>
 
-        <slide id="slide3">
-        <img className="adsImage" src={adImage3} alt="Image of an Ad"></img>
-        </slide>
-      </slides>
-      <arrow id="rightArrow" icon = "fa fa-chevron-right icon right"></arrow>
-    </div>
-
-    // <>
-    //   <section className="adsBar">
-    //     <i className="fa fa-chevron-left icon left"></i>
-    //     <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-    //     <i className="fa fa-chevron-right icon right"></i>
-    //   </section>
-    // </>
+                <img alt="Ad 3" className="slide" src={adImage3} />
+              </div>
+          <button id="adLeftArrow" onClick={prevAd}> {' '}❮ </button>
+          <button id="adRightArrow" onClick= {nextAd}> {' '}❯ </button>
+        </div>
+   </div>
+    
   )
 }
+
 
 export function FeaturedProducts()
 {
@@ -83,6 +119,7 @@ export function FeaturedProducts()
   let brand3=require("../assets/SaskoLogo.png");
   let brand4=require("../assets/SimbaLogo.png");
   let brand5=require("../assets/SunlightLogo.png");
+
 
 
   return (
