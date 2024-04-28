@@ -40,29 +40,59 @@ export function SearchBar()
 
 export function AdsBar()
 {
-  let adImage=require("../assets/Malume'zLogoFull.png");
+
+
+  let brand1=require("../assets/Malume'zLogoFull.png");
+  let adImage1=require("../assets/Ad1.png");
+  let adImage2=require("../assets/Ad2.png");
+  let adImage3=require("../assets/Ad3.png");
+
   return (
-    <>
-      <section className="adsBar">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
-    </>
+    <div class="slideshow">
+      <arrow id="leftArrow" icon= "fa fa-chevron-right icon right"></arrow>
+      <slides>
+        <slide id="slide1">
+        <img className="adsImage" src={adImage1} alt="Image of an Ad"></img>
+        </slide>
+
+        <slide id="slide2">
+        <img className="adsImage" src={adImage2} alt="Image of an Ad"></img>
+        </slide>
+
+        <slide id="slide3">
+        <img className="adsImage" src={adImage3} alt="Image of an Ad"></img>
+        </slide>
+      </slides>
+      <arrow id="rightArrow" icon = "fa fa-chevron-right icon right"></arrow>
+    </div>
+
+    // <>
+    //   <section className="adsBar">
+    //     <i className="fa fa-chevron-left icon left"></i>
+    //     <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
+    //     <i className="fa fa-chevron-right icon right"></i>
+    //   </section>
+    // </>
   )
 }
 
 export function FeaturedProducts()
 {
-  let brandImage=require("../assets/Malume'zLogoFull.png");
+  let brand1=require("../assets/ColgateBrand");
+  let brand2=require("../assets/LucyStarLogo.png");
+  let brand3=require("../assets/SaskoLogo.png");
+  let brand4=require("../assets/SimbaLogo.png");
+  let brand5=require("../assets/SunlightLogo.png");
+
 
   return (
     <>
+      
       <section  className="featuredProducts">
         <i className="fa fa-chevron-left icon left"></i>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+        <img className="brandImage" src={brand1} alt="Image of a featured product"></img>
+        <img className="brandImage" src={brand2} alt="Image of a featured product"></img>
+        <img className="brandImage" src={brand3} alt="Image of a featured product"></img>
         <i className="fa fa-chevron-right icon right"></i>
       </section>
     </>

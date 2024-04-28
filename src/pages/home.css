@@ -58,6 +58,22 @@
   height: 200px;
 }
 
+.slideshow{
+  width:10vw;
+
+}
+slides{
+  
+  justify-content: center;
+  align-items: center;
+  margin-left: 100%;
+}
+
+.arrow{
+cursor: pointer;
+color: black;
+}
+
 .categorySection
 {
   display: flex;
@@ -131,8 +147,8 @@
 
 .icon.right
 {
-  padding-right: 5px;
-}
+  padding-right: px;
+} 
 
 ul
 {
