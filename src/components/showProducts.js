@@ -22,6 +22,7 @@ const ShowProducts = () => {
               imageUrl: productData.src,
               name: productData.name,
               price: productData.price,
+              category: productData.category
             });
           });
         });

@@ -36,8 +36,20 @@ function Owners() {
 
     return (
         <div>
-            {/* Your Owners component JSX here */}
-        </div>
+        <h1>Shops Data:</h1>
+        <ul>
+            {shopsData.map((shop, index) => (
+                <li key={index}>
+                    <strong>Name:</strong> {shop.name}<br />
+                    <strong>Email:</strong> {shop.email}<br />
+                    <strong>Location:</strong> {shop.location}<br />
+                    <strong>Contact:</strong> {shop.contact}<br />
+                    <strong>Owner Name:</strong> {shop.owner_name}<br />
+                    <hr />
+                </li>
+            ))}
+        </ul>
+    </div>
     );
 }
 
