@@ -51,16 +51,18 @@ export function AdsBar()
 
   // we use this to start at the first slide
   let slideIndex = 0;
+  //let intervalID = 0;
 
-  //initializeSlider();
-  document.addEventListener("DOMContentLoaded", initializeSlider());
+  initializeSlider();
+  // an event listener would be good to make sure the page only loads when everything is included but otherwise its fine
+  //document.addEventListener("DOMContentLoaded", initializeSlider());
   //function to initialize slider -  SHow first slide
   function initializeSlider(){
 
     if(slides.length>0){
       slides[slideIndex].classList.add("displaySlide");
       // this is to automatically display the next slide after 5 seconds
-      // intervalID = setInterval(nextSlide,5000);
+      //intervalID = setInterval(nextAd,5000);
       // console.log(intervalID);
       }
         
