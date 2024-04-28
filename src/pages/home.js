@@ -114,34 +114,94 @@ export function AdsBar()
 }
 
 
-export function FeaturedProducts()
-{
-  let brand1=require("../assets/ColgateBrand");
-  let brand2=require("../assets/LucyStarLogo.png");
-  let brand3=require("../assets/SaskoLogo.png");
-  let brand4=require("../assets/SimbaLogo.png");
-  let brand5=require("../assets/SunlightLogo.png");
+export function FeaturedProducts(){
+
+  let slides = document.querySelectorAll(".slides section");
+
+  // we use this to start at the first slide
+  let slideIndex = 0;
+  let intervalID = 0;
+
+  //initializeSlider();
+  document.addEventListener("DOMContentLoaded", initializeSlider());
+  //function to initialize slider -  SHow first slide
+  function initializeSlider(){
+
+      if(slides.length>0){
+          slides[slideIndex].classList.add("displaySlide");
+          // this is to automatically display the next slide after 5 seconds
+          intervalID = setInterval(nextFeature,5000);
+          console.log(intervalID);
+      }
+      
+  }
 
 
+  function showSlide(index){
+
+      // to check the images and make sure they loop
+      if(index>= slides.length){
+          slideIndex =0;
+
+      }
+      else if(index<0)
+      {
+          slideIndex = slides.length -1;
+      }
+      slides.forEach(slide =>{
+          slide.classList.remove("displaySlide")
+      });
+      slides[slideIndex].classList.add("displaySlide");
+  }
+
+  function prevFeature(){
+      slideIndex--;
+      showSlide(slideIndex);
+  }
+
+  function nextFeature(){
+      slideIndex++;
+      showSlide(slideIndex);
+  }
 
   return (
-    <>
-      
-      <section  className="featuredProducts">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="brandImage" src={brand1} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brand2} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brand3} alt="Image of a featured product"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
-    </>
+    
+    <div class ="slider" id="featureSlider">
+      <h2 id = "featuresHeader">Brands</h2>
+            
+            <div class ="slides" id="featureSlides">
+
+                <section class="slide"> 
+                    <img src={require("../assets/LuckyStarLogo.png")} alt="Ad 1"></img>
+                    <img  src={require("../assets/ColgateLogo.png")} alt="Ad 2"></img>
+                    <img  src={require("../assets/SaskoLogo.png")} alt="Ad 3"></img>
+                </section>
+
+                <section class="slide"> 
+                    <img src={require("../assets/SimbaLogo.png")} alt="Ad 1"></img>
+                    <img  src={require("../assets/KooLogo.png")} alt="Ad 2"></img>
+                    <img  src={require("../assets/SunlightLogo.png")} alt="Ad 3"></img>
+                </section>
+
+                <section class="slide"> 
+                    <img src={require("../assets/AlbanyLogo.png")} alt="Ad 1"></img>
+                    <img  src={require("../assets/DettolLogo.png")} alt="Ad 2"></img>
+                    <img  src={require("../assets/TasticLogo.png")} alt="Ad 3"></img>
+                </section>
+
+                 
+            </div>
+
+            <button id="featureLeftArrow" onClick={prevFeature} > &#10094</button>
+            <button id="featureRightArrow" onClick={nextFeature} > &#10095</button>
+         </div>
   )
 }
 
 export function Categories()
 {
   let productImage=require("../assets/Malume'zLogoFull.png");
-  let categoryName = "Category"
+  let categoryName = "Products"
   return (
     <>
       <section className="categorySection">

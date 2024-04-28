@@ -1,21 +1,25 @@
-.slider img{
-    height: 200px;
-    width: 70vw;
+/* Different */
+.slides section{
     align-items: center;
     margin-left: 16%;
     display: none;
    
 }
+ /* Different */
+.slides section img{
+    padding-left: 10%;
+}
 
-.slider{
+
+/* Different */
+#featureSlider{
     position: relative;
-    width: 100%;
     margin: auto;
     justify-content: center;
     overflow: hidden;
 }
 
-img.displaySlide{
+section.displaySlide{
     display: block;
     
 }
@@ -24,7 +28,9 @@ button{
     border: none;
     height: 60px;
     width: 45px;
-    background: linear-gradient(to right, #23D9C4,#D9357B);
+    background-color: white;
+    font-weight: bolder;
+    font-size: 150em;
     font-size: larger;
     position: absolute;
     top: 50%;
@@ -32,13 +38,13 @@ button{
 }
 
 /* to align the button to the right */
-#adLeftArrow
+#featureLeftArrow
 {
     left: 0;
 }
 
 /* to align the button to the left */
-#adRightArrow
+#featureRightArrow
 {
     right: 0;
 }

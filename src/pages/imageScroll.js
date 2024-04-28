@@ -1,6 +1,6 @@
 //image slider
 
-let slides = document.querySelectorAll(".slides img");
+let slides = document.querySelectorAll(".slides section");
 
 // we use this to start at the first slide
 let slideIndex = 0;
@@ -13,7 +13,7 @@ function initializeSlider(){
     if(slides.length>0){
         slides[slideIndex].classList.add("displaySlide");
         // this is to automatically display the next slide after 5 seconds
-        intervalID = setInterval(nextSlide,5000);
+        intervalID = setInterval(nextFeature,5000);
         console.log(intervalID);
     }
     
@@ -37,12 +37,12 @@ function showSlide(index){
     slides[slideIndex].classList.add("displaySlide");
 }
 
-function prevAd(){
+function prevFeature(){
     slideIndex--;
     showSlide(slideIndex);
 }
 
-function nextAd(){
+function nextFeature(){
     slideIndex++;
     showSlide(slideIndex);
 }
