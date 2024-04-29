@@ -1,22 +1,21 @@
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
+import * as FaIcons from "react-icons/fa";
+
 
 export function Header() {
   return (
     <>
-    <head>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    </head>
-    <body>
       <header className="homeHeader">
         <img src={logo} alt="Malume'z Logo" height = "60" width="auto"/>
-        <section>
-          <i className='fa fa-question-circle icon'/>
-          <i className='fa fa-shopping-basket icon'/>
-          <i className='fa fa-user-circle icon'/>
+        <section id="headerBar">
+        <button onClick={() => alert('Icon clicked!')}><FaIcons.FaQuestionCircle /></button>
+
+          {/* <i className='fa fa-question-circle icon'/> */}
+          {/* <i className='fa fa-shopping-basket icon'/> */}
+          {/* <i className='fa fa-user-circle icon'/> */}
         </section>
       </header>
-    </body>
     </>
   );
 }
@@ -26,11 +25,11 @@ export function SearchBar()
   return (
     <>
       <section className="searchBar">
-          <i className='fa fa-bars icon'/>
+          {/* <i className='fa fa-bars icon'/> */}
         {/* <button type ="button" id="search_options" className="options_button" /> */}
         <section className="search">
           <input className="inputSearch" type="text" placeholder="Search.."/>
-          <i className='fa fa-search icon'/>
+          {/* <i className='fa fa-search icon'/> */}
           {/* <button type ="button" id="search_options" className="options_button" /> */}
         </section>
       </section>
@@ -97,7 +96,7 @@ export function AdsBar()
     <div>
         <div className="slider">
               <div className="slides">
-                <img alt="Ad 1"cl assName="slide" src={adImage1}/>
+                <img alt="Ad 1" className="slide" src={adImage1}/>
 
                 <img alt="Ad 2" className="slide" src={adImage2}/>
 
@@ -126,11 +125,11 @@ export function FeaturedProducts()
     <>
       
       <section  className="featuredProducts">
-        <i className="fa fa-chevron-left icon left"></i>
+        {/* <i className="fa fa-chevron-left icon left"></i> */}
         <img className="brandImage" src={brand1} alt="Image of a featured product"></img>
         <img className="brandImage" src={brand2} alt="Image of a featured product"></img>
         <img className="brandImage" src={brand3} alt="Image of a featured product"></img>
-        <i className="fa fa-chevron-right icon right"></i>
+        {/* <i className="fa fa-chevron-right icon right"></i> */}
       </section>
     </>
   )
@@ -173,31 +172,31 @@ export function MoreOptions()
         </h3>
         <ul className="contactList">
           <li>
-          <i className="fa fa-at icon"></i>
+          {/* <i className="fa fa-at icon"></i> */}
             <a href="mailto:malumez@gmail.com">
               malumez@gmail.com
             </a>
             </li>
           <li>
-          <i className="fa fa-phone icon"></i>
+          {/* <i className="fa fa-phone icon"></i> */}
             <a href="tel:malumez@gmail.com">
               011 625 8639
             </a>
             </li>
           <li>
-          <i className="fa fa-instagram icon"></i>
+          {/* <i className="fa fa-instagram icon"></i> */}
             <a href="https://www.instagram.com/malumez/">
               @malumez
             </a>
             </li>
           <li>
-          <i className="fa fa-facebook icon"></i>
+          {/* <i className="fa fa-facebook icon"></i> */}
             <a href="https://www.facebook.com/malumez/">
               @malumez
             </a>
             </li>
           <li>
-          <i className="fa fa-twitter icon"></i>
+          {/* <i className="fa fa-twitter icon"></i> */}
             <a href="https://www.twitter.com/malumez/">
               @malumez
             </a>
@@ -210,19 +209,19 @@ export function MoreOptions()
         </h3>
         <ul className="storeList">
           <li>
-          <i className="fa fa-seacrh icon"></i>
+          {/* <i className="fa fa-seacrh icon"></i> */}
             <a href="">
               Find a store
             </a>
             </li>
           <li>
-          <i className="fa fa-money icon"></i>
+          {/* <i className="fa fa-money icon"></i> */}
             <a href="">
               Become a seller
             </a>
             </li>
           <li>
-          <i className="fa fa-phone icon"></i>
+          {/* <i className="fa fa-phone icon"></i> */}
             <a href="">
               Contact a seller
             </a>
@@ -235,13 +234,13 @@ export function MoreOptions()
         </h3>
         <ul className="accountList">
           <li>
-          <i className="fa fa-user icon"></i>
+          {/* <i className="fa fa-user icon"></i> */}
             <a href="">
               Manage my account
             </a>
             </li>
           <li>
-          <i className="fa fa-truck icon"></i>
+          {/* <i className="fa fa-truck icon"></i> */}
             <a href="">
               Track my order
             </a>
@@ -254,19 +253,19 @@ export function MoreOptions()
         </h3>
         <ul className="helpList">
           <li>
-          <i className="fa fa-question-circle icon"></i>
+          {/* <i className="fa fa-question-circle icon"></i> */}
             <a href="">
               FAQ
             </a>
             </li>
           <li>
-          <i className="fa fa-question-circle icon"></i>
+          {/* <i className="fa fa-question-circle icon"></i> */}
             <a href="">
               Support
             </a>
             </li>
           <li>
-          <i className="fa fa-flag icon"></i>
+          {/* <i className="fa fa-flag icon"></i> */}
             <a href="">
               Report a seller
             </a>

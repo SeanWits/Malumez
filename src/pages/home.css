@@ -4,6 +4,11 @@
   justify-content: space-between;
 }
 
+.headerIcon
+{
+  color: black;
+}
+
 .homeHeader .icon
 {
   font-size: 40px;
@@ -11,6 +16,10 @@
   color: #23D9C4 ;
 }
 
+#headerBar
+{
+  height: 60px;
+}
 .searchBar
 {
   display: flex;
@@ -38,6 +47,7 @@
 {
   height: 40px;
   width: 500px;
+  margin-left: 50%;
 }
 
 .adsBar

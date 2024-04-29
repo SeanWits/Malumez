@@ -2,22 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Header } from './pages/home';
-import { SearchBar } from "./pages/home"
-import { AdsBar } from './pages/home';
-import { FeaturedProducts } from './pages/home';
-import { Categories } from './pages/home';
-import { MoreOptions } from './pages/home';
-import { Footer } from './pages/home';
+import { Header } from './pages/home2';
+import { SearchBar } from "./pages/home2"
+import { AdsBar } from './pages/home2';
+import { FeaturedProducts } from './pages/home2';
+import { Categories } from './pages/home2';
+import { MoreOptions } from './pages/home2';
+import { Footer } from './pages/home2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Header />
-    <SearchBar />
+    {/* <SearchBar />
     <AdsBar />
     <FeaturedProducts />
-    <Categories />
+    <Categories /> */}
     <MoreOptions />
     <Footer />
   </React.StrictMode>
