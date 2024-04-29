@@ -11,6 +11,19 @@
   color: #23D9C4 ;
 }
 
+#searchOptions
+{
+  color: #000;
+  background-color: #23D9C4;
+  width: 60px;
+  height: 60px;
+}
+
+#searchOptions:hover
+{
+  background-color: #D9357B;
+  border: none;
+}
 .searchBar
 {
   display: flex;
@@ -32,6 +45,8 @@
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
+  justify-content: center;
+  
 }
 
 .searchBar .search .inputSearch

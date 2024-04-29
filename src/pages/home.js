@@ -23,15 +23,24 @@ export function Header() {
 
 export function SearchBar()
 {
+  // Function to navigate to the products page, and display the items 
+  
+
+  function getSearchedProduct()
+  {
+    let lookingFor = document.getElementById("userSearch");
+    console.log(lookingFor);
+  }
+
   return (
     <>
       <section className="searchBar">
           <i className='fa fa-bars icon'/>
         {/* <button type ="button" id="search_options" className="options_button" /> */}
-        <section className="search">
-          <input className="inputSearch" type="text" placeholder="Search.."/>
-          <i className='fa fa-search icon'/>
-          {/* <button type ="button" id="search_options" className="options_button" /> */}
+        <section className="search" >
+          <input className="inputSearch" type="text" placeholder="Search.." id="userSearch"/>
+           {/* <button class="button" type="button" id="searchOptions" ><i class="fa fa-search icon" ></i></button> */} 
+           <button id="searchOptions" class="button" onClick={getSearchedProduct}><i class="fa fa-search icon" ></i></button>
         </section>
       </section>
     </>
@@ -41,8 +50,6 @@ export function SearchBar()
 export function AdsBar()
 {
 
-
-  let brand1=require("../assets/Malume'zLogoFull.png");
   let adImage1=require("../assets/Ad1.png");
   let adImage2=require("../assets/Ad2.png");
   let adImage3=require("../assets/Ad3.png");
@@ -67,7 +74,6 @@ export function AdsBar()
       }
         
   }
-
 
   function showSlide(index){
     // to check the images and make sure they loop
@@ -352,5 +358,5 @@ export function Footer()
     </>
   )
 }
-//Wassup
+
 
