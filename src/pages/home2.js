@@ -35,50 +35,50 @@ export function AdsBar()
     let adImage2=require("../assets/Ad2.png");
     let adImage3=require("../assets/Ad3.png");
   
-    let slides = document.querySelectorAll(".slides img");
+    // let slides = document.querySelectorAll(".slides img");
   
-    // we use this to start at the first slide
-    let slideIndex = 0;
+    // // we use this to start at the first slide
+    // let slideIndex = 0;
   
-    //initializeSlider();
-    document.addEventListener("DOMContentLoaded", initializeSlider());
-    //function to initialize slider -  SHow first slide
-    function initializeSlider(){
+    // //initializeSlider();
+    // document.addEventListener("DOMContentLoaded", initializeSlider());
+    // //function to initialize slider -  SHow first slide
+    // function initializeSlider(){
   
-      if(slides.length>0){
-        slides[slideIndex].classList.add("displaySlide");
-        // this is to automatically display the next slide after 5 seconds
-        // intervalID = setInterval(nextSlide,5000);
-        // console.log(intervalID);
-        }
+    //   if(slides.length>0){
+    //     slides[slideIndex].classList.add("displaySlide");
+    //     // this is to automatically display the next slide after 5 seconds
+    //     // intervalID = setInterval(nextSlide,5000);
+    //     // console.log(intervalID);
+    //     }
           
-    }
+    // }
   
   
-    function showSlide(index){
-      // to check the images and make sure they loop
-          if(index>= slides.length){
-            slideIndex =0;
-          }
-          else if(index<0)
-          {
-            slideIndex = slides.length -1;
-          }
-          slides.forEach(slide =>{
-            slide.classList.remove("displaySlide")
-          });
-          slides[slideIndex].classList.add("displaySlide");
-      }
+    // function showSlide(index){
+    //   // to check the images and make sure they loop
+    //       if(index>= slides.length){
+    //         slideIndex =0;
+    //       }
+    //       else if(index<0)
+    //       {
+    //         slideIndex = slides.length -1;
+    //       }
+    //       slides.forEach(slide =>{
+    //         slide.classList.remove("displaySlide")
+    //       });
+    //       slides[slideIndex].classList.add("displaySlide");
+    //   }
   
-    function prevAd(){
-        slideIndex--;
-        showSlide(slideIndex);
-    }
+    // function prevAd(){
+    //     slideIndex--;
+    //     showSlide(slideIndex);
+    // }
   
-    function nextAd(){
-        slideIndex++;
-        showSlide(slideIndex);
-    }
+    // function nextAd(){
+    //     slideIndex++;
+    //     showSlide(slideIndex);
+    // }
 
     return (
         <div>
@@ -86,12 +86,12 @@ export function AdsBar()
                   <div className="slides">
                     <img alt="Ad 1" className="slide" src={adImage1}/>
     
-                    <img alt="Ad 2" className="slide" src={adImage2}/>
+                    {/* <img alt="Ad 2" className="slide" src={adImage2}/>
     
-                    <img alt="Ad 3" className="slide" src={adImage3} />
+                    <img alt="Ad 3" className="slide" src={adImage3} /> */}
                   </div>
-              <button id="adLeftArrow" onClick={prevAd}> {' '}❮ </button>
-              <button id="adRightArrow" onClick= {nextAd}> {' '}❯ </button>
+              <button id="adLeftArrow" onClick={() => alert('Back clicked!')}> {' '}❮ </button>
+              <button id="adRightArrow" onClick= {() => alert('forward clicked!')}> {' '}❯ </button>
             </div>
        </div>
         
