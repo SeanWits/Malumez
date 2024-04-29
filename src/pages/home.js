@@ -105,7 +105,7 @@ export function AdsBar()
     <div>
         <div className="slider">
               <div className="slides">
-                <img alt="Ad 1"cl assName="slide" src={adImage1}/>
+                <img alt="Ad 1"className="slide" src={adImage1}/>
 
                 <img alt="Ad 2" className="slide" src={adImage2}/>
 
