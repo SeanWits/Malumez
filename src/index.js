@@ -18,7 +18,7 @@ root.render(
     <AdsBar />
     <FeaturedProducts />
     <Categories /> */}
-    <MoreOptions />
+    {/* <MoreOptions /> */}
     <Footer />
   </React.StrictMode>
 );

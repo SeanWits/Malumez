@@ -1,20 +1,67 @@
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 
+header{
+    background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+    display: flex;
+    position:fixed;
+    width: 100%;
+    height: 50px;
+}
+
+#headerSection
+{
+    width: 100%;
+    display: flex;
+}
+
+#searchButton
+{
+    margin-top: 5px;
+}
+
+input[type = text]
+{
+    margin-top: 10px;
+    margin-left: 70%;
+    width: 200px;
+    height: 25px;
+    border: none; 
+}
+
+
+#logo{
+    margin-right: 65%;
+}
+
+.headerButton
+{
+    margin-left: 40px;    
+    color: #D9357B;
+    background-color: blue;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+    
+}
+
+
 .moreOptions
 {
+    font-size: 80%;
     width:100%;
     height: 207.83px;
-    background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+    background-color:  yellow;
     display: flex;
     bottom: 1;
     margin-bottom: 0;
     padding-top: 28%;
-    
+    /* position: fixed; */
 }
 
 .contactSection 
 {
-    padding-left: 10%;
+    padding-left: 15%;
+    margin-bottom: 0;
 }
 
 .storeSection
