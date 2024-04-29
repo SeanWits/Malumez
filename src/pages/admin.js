@@ -5,16 +5,47 @@ import ReactDOM from 'react-dom/client';
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection } from "firebase/firestore";
-import Owners from '../components/owners';
+import buyers1 from '../components/owners';
 
+
+let test=[];
+let test1=[];
 
 function Admin(){
 
-    const [showOwners, setShowOwners] = useState(false); // State to control the visibility of Owners component
+    const [shopsData, setShopsData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
 
-    const toggleOwners = () => {
-        setShowOwners(!showOwners); // Toggle the state
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch data from the "shops" collection
+        const shopsQuerySnapshot = await getDocs(collection(db, "shops"));
+        const shopsData = [];
+        shopsQuerySnapshot.forEach((doc) => {
+          const { name, email, location, contact, owner_name } = doc.data();
+          shopsData.push({ name, email, location, contact, owner_name });
+        });
+        setShopsData(shopsData);
+        test=shopsData;
+        // Fetch data from the "users" collection
+        const usersQuerySnapshot = await getDocs(collection(db, "users"));
+        const usersData = [];
+        usersQuerySnapshot.forEach((doc) => {
+          const { email, name, roles, surname, user_id, username, verified } = doc.data();
+          usersData.push({ email, name, roles, surname, user_id, username, verified });
+        });
+        setUsersData(usersData);
+        test1=usersData;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+
+    fetchData();
+  }, []); 
+
+    
     
 
     return(<html lang="en">
@@ -31,7 +62,7 @@ function Admin(){
             <nav>
                 <button class="button" id="dashboardBtn" onClick={dashboard}>Dashboard</button>
                 {/* Toggle the visibility of Owners component when button is clicked */}
-                <button id="OwnersBtn" onClick={toggleOwners}>Store Owners</button>
+                <button id="OwnersBtn" onClick={owners}>Store Owners</button>
                 <button id="Buyers" onClick={buyers}>Buyers</button>
             </nav>
     
@@ -46,7 +77,7 @@ function Admin(){
                 </table>
             </section>
             
-            {showOwners && <Owners />}
+            
             
         </section>
     </body>
@@ -98,7 +129,7 @@ function dashboard(){
         };
     };
 
-
+    const count = test.length + test1.length;
     const newRow = table.insertRow(0);
     const cell = newRow.insertCell(0);
     cell.innerHTML = "<b>BUYER OR SELLER</b>";
@@ -110,31 +141,121 @@ function dashboard(){
     cell3.innerHTML = "<b>LOCATION</b>";
     
 
-
     //Adding users to admin page
-    for(let i=0;i<users.length;i++){
+    for(let i=0;i<test.length;i++){
         //Adds new rows
         const row = table.insertRow(-1);
-        
         //cell4.innerHTML = " ";
         for(let j=0;j<4;j++){
             //Adds new cells
             const cell = row.insertCell(j);
             
             if(j==0){
-                cell.textContent = users[i].buyer;
+                cell.textContent = test[i].name;
             };
 
             if(j==1){
-                cell.textContent = users[i].username;
+                cell.textContent = test[i].owner_name;
             };
             
             if(j==2){
-                cell.textContent = users[i].email;
+                cell.textContent = test[i].email;
             };
 
             if(j==3){
-                cell.textContent = users[i].location;
+                cell.textContent = test[i].location;
+            };
+
+            
+        };
+
+        
+    };
+
+    for(let i=0;i<test1.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<4;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test1[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test1[i].username;
+            };
+            
+            if(j==2){
+                cell.textContent = test1[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test1[i].surname;
+            };
+
+            
+        };
+
+        
+    };
+
+};
+
+function owners(){
+    //---------------------------------------------------------------------------------------------------------------
+    
+
+    //---------------------------------------------------------------------------------------------------------------
+    
+    const table = document.getElementById('adminTable');
+    const rowCount = table.rows.length;
+    //table.deleteRow(0);
+    
+    if(rowCount!=0){
+        for(let k=0;k<rowCount;k++){
+            table.deleteRow(0);
+        };
+    };
+
+
+    console.log(test);
+    const newRow = table.insertRow(0);
+    const cell = newRow.insertCell(0);
+    cell.innerHTML = "<b>BUYER OR SELLER</b>";
+    const cell1 = newRow.insertCell(1);
+    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
+    const cell2 = newRow.insertCell(2);
+    cell2.innerHTML = "<b>EMAIL</b>";
+    const cell3 = newRow.insertCell(3);
+    cell3.innerHTML = "<b>LOCATION</b>";
+    
+
+    //Adding users to admin page
+    for(let i=0;i<test.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<4;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test[i].owner_name;
+            };
+            
+            if(j==2){
+                cell.textContent = test[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test[i].location;
             };
 
             
@@ -143,10 +264,6 @@ function dashboard(){
         
     };
 };
-
-// function owners(){
-//     const [shopsData, setShopsData] = useState([]);
-
 //     useEffect(() => {
 //         const fetchShopsData = async () => {
 //             try {
@@ -238,15 +355,50 @@ function buyers(){
             table.deleteRow(0);
         };
     };
+
+
+    console.log(test);
     const newRow = table.insertRow(0);
     const cell = newRow.insertCell(0);
-    cell.innerHTML = "<b>NAME</b>";
+    cell.innerHTML = "<b>BUYER OR SELLER</b>";
     const cell1 = newRow.insertCell(1);
-    cell1.innerHTML = "<b>USERNAME</b>";
+    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
     const cell2 = newRow.insertCell(2);
     cell2.innerHTML = "<b>EMAIL</b>";
     const cell3 = newRow.insertCell(3);
-    cell3.innerHTML = "<b>LOCATION</b>";
+    cell3.innerHTML = "<b>SURNAME</b>";
+    
+
+    //Adding users to admin page
+    for(let i=0;i<test1.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<4;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test1[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test1[i].username;
+            };
+            
+            if(j==2){
+                cell.textContent = test1[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test1[i].surname;
+            };
+
+            
+        };
+
+        
+    };
 };
 
 const container = document.getElementById("root");
