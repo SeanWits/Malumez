@@ -111,7 +111,11 @@ function Login() {
         }
     }, [notifyF]);
 
+    const addBodyClass = className => document.body.classList.add(className);
+    addBodyClass('bodyHidden');
     return (
+        <>
+        <body>
         <div className='background'>
             <div id="solid-block-1"></div>
             <div id="solid-block-2"></div>
@@ -175,6 +179,8 @@ function Login() {
                 theme="colored"
                 transition={Flip}/>
         </div>
+        </body>
+        </>
     );
 }
 
