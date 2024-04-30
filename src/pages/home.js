@@ -18,7 +18,7 @@ export function Header() {
         <section>
           <i className='fa fa-question-circle icon'/>
           <i className='fa fa-shopping-basket icon'/>
-          <i onClick={() => navigate('/')} className='fa fa-user-circle icon'/>
+          <i onClick={() => navigate('/login')} className='fa fa-user-circle icon'/>
         </section>
       </header>
     </body>
