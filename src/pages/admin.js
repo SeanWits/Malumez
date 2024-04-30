@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection } from "firebase/firestore";
-import buyers1 from '../components/owners';
+
 
 
 let test=[];
