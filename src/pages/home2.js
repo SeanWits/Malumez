@@ -1,4 +1,3 @@
-import { IconContext } from "react-icons";
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home2.css';
 import * as FaIcons from "react-icons/fa";
