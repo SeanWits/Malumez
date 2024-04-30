@@ -6,12 +6,16 @@
   margin: 0 auto;
   padding: 20px;
 }
+
 h2 {
   text-align: center;
+  margin-bottom: 20px; /* Add margin bottom for better spacing */
 }
+
 .centered-heading {
   text-align: center;
 }
+
 .cart-box {
   flex: 1;
   background-color: #f2f0f7;
@@ -19,6 +23,7 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .checkout-page-box {
   flex: 1;
   background-color: #4f31c5;
@@ -26,13 +31,27 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .checkout-page-box h1 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: #fff; /* Change heading color to white */
 }
+
 .checkout-details {
   margin-bottom: 20px;
 }
+
+.cart-list {
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  margin-bottom: 10px; /* Adjust spacing between cart items */
+}
+
 .button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -42,4 +61,9 @@ h2 {
   cursor: pointer;
   font-size: 16px;
   margin-right: 10px;
+}
+
+.price {
+  color: #4f31c5; /* Change price color to match the theme */
+  font-weight: bold; /* Make price bold */
 }
