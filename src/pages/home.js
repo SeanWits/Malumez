@@ -19,9 +19,6 @@ export function Header() {
         
 
         <button onClick={() => navigate('/')}><FontAwesomeIcon icon={faCircleUser} /></button>
-
-
-          
         </section>
       </header>
     
@@ -31,10 +28,14 @@ export function Header() {
 
 export function SearchBar()
 {
-  
+  const navigate = useNavigate();
   function searchButtonClicked()
   {
       let search = document.getElementById("searchText").textContent;
+      console.log(search);
+      
+      // navigate to the products page
+      navigate('/');
       
       
   }
