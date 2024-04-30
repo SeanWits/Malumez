@@ -1,5 +1,3 @@
-
-
 .homeHeader
 {
   display: flex;
@@ -155,4 +153,7 @@ footer
   margin-block-end: 0;
   margin-block-start: 0;
   height: 50px;
+  display: flex;
+  justify-content: center;
+  color: #fff;
 }
