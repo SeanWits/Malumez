@@ -6,20 +6,7 @@ import { SearchBar } from "../components/Search";
 import { MoreOptions } from "../components/More_Options";
 import { Footer } from "../components/Footer";
 import { Categories } from "../components/Categories";
-
-export function AdsBar()
-{
-  let adImage=require("../assets/Malume'zLogoFull.png");
-  return (
-    <>
-      <section className="adsBar">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
-    </>
-  )
-}
+import { AdsBar } from "../components/AdsBar";
 
 export function FeaturedProducts()
 {
