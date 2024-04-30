@@ -1,14 +1,17 @@
-name: toolkit-unit-tests
-on: [pull_request]
+name: tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-
   tests:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [20.x, 18.x, 16.x]
+        node-version: [18.x, 16.x]
 
     steps:
     - name: Checkout
