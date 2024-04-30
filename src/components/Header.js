@@ -15,10 +15,10 @@ export function Header() {
       </head>
       <body>
         <header className="homeHeader">
-          <img src={logo} alt="Malume'z Logo" height = "60" width="auto"/>
+          <img onClick={() => navigate('/')} src={logo} alt="Malume'z Logo" height = "60" width="auto"/>
           <section>
             <i className='fa fa-question-circle icon'/>
-            <i className='fa fa-shopping-basket icon'/>
+            <i onClick={() => navigate('/checkOut')} className='fa fa-shopping-basket icon'/>
             <i onClick={() => navigate('/login')} className='fa fa-user-circle icon'/>
           </section>
         </header>
