@@ -1,0 +1,159 @@
+.homeHeader
+{
+  display: flex;
+  justify-content: space-between;
+}
+
+.homeHeader .icon
+{
+  font-size: 40px;
+  padding: 10px;
+  color: #23D9C4 ;
+}
+
+.searchBar
+{
+  display: flex;
+  /* background-color: #D9357B ; */
+  justify-content: space-between;
+  background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+}
+
+.searchBar .icon
+{
+  font-size: 40px;
+  padding: 10px;
+  color: #fff ;
+}
+
+.searchBar .search
+{
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  align-content: center;
+}
+
+.searchBar .search .inputSearch
+{
+  height: 40px;
+  width: 500px;
+}
+
+.adsBar
+{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 200px;
+}
+
+.adsBar .icon
+{
+  font-size: 18px;
+}
+
+.adsBar .adsImage
+{
+  height: 200px;
+}
+
+.categorySection
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.categorySection .productSection
+{
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.categorySection .productSection .productImage
+{
+  height: 144px;
+  width: 144px;
+  padding: 20px;
+}
+
+.featuredProducts
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #23d9c42d; */
+}
+
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
+
+.categorySection .categoryHeading
+{
+  padding: 10px;
+  font-size: 32px;
+  margin: 0;
+}
+
+.categorySection .categoryText
+{
+  font-family: "MV Boli V1";
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.categorySection .categoryText .viewMoreLink
+{
+  /* align-content: end; */
+  padding: 5px;
+  color: #000 ;
+}
+
+.featuredProducts .brandImage
+{
+  height: 184px;  
+  width: 184px;
+  padding: 20px
+}
+
+.featuredProducts .icon
+{
+  font-size: 18px;
+}
+
+.icon.left
+{
+  padding-left: 5px;
+}
+
+.icon.right
+{
+  padding-right: 5px;
+}
+
+ul
+{
+  list-style-type: none;
+}
+
+.moreOptions
+{
+  display: flex;
+  justify-content: space-around;
+  font-family: "MV Boli V1";
+}
+
+footer
+{
+  background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+  margin: 0;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}

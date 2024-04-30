@@ -1,11 +1,11 @@
 import { auth,db, getDoc, doc } from '../firebase.js';
 import React, { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import './login.css';
 import { useNavigate } from 'react-router-dom';
 import FadeLoader from "react-spinners/FadeLoader";
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './login.css';
 
 
 
@@ -68,7 +68,7 @@ function Login() {
             navigate('/admin');
         } else {
             // Navigate to the home page
-            navigate('/home');
+            navigate('/');
         }
         } catch (error) {
             setError("Invalid or Missing Credentials");
@@ -111,14 +111,18 @@ function Login() {
         }
     }, [notifyF]);
 
+    const addBodyClass = className => document.body.classList.add(className);
+    addBodyClass('bodyHidden');
     return (
-        <div>
+        <>
+        <body>
+        <div className='background'>
             <div id="solid-block-1"></div>
             <div id="solid-block-2"></div>
             <div id="solid-block-3"></div>
             <section className="login-forum">
                 <h1>Welcome to</h1>
-                <img src={require("../assets/Malume'zLogoFullTransparent.png")} alt="Malume'z Logo" height="150" width="400" />
+                <img className="logo" src={require("../assets/Malume'zLogoFullTransparent.png")} alt="Malume'z Logo" height="150" width="400" />
                 {
                     loading ?
                         <div className="sweet-loading">
@@ -136,15 +140,15 @@ function Login() {
                             />
                         </div>
                         :
-                        <form onSubmit={login} id="userForm">
-                            <label id="emailLabel" htmlFor="email">Email Adress</label><br />
-                            <input type="text" id="emailInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
-                            <label id="passwordLabel" htmlFor="password">Password</label><br />
-                            <input type="password" id="passwordInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type your password" required /><br /><br />
+                        <form className='formLogin' onSubmit={login} id="userForm">
+                            <label className='labelLogin' id="emailLabel" htmlFor="email">Email Adress</label><br />
+                            <input className='inputText' type="text" id="emailInput" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Type your email adress" required /><br />
+                            <label className='labelLogin' id="passwordLabel" htmlFor="password">Password</label><br />
+                            <input className='inputPassword' type="password" id="passwordInput" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Type your password" required /><br /><br />
                             <button type="submit" id="loginBtn">Login</button>
                         </form>
                 }
-                <h2>Don't have an account?</h2>
+                <h2 className='head2' >Don't have an account?</h2>
                 <button id="signUp" onClick={() => navigate('/SignUp')}> Sign Up</button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
             </section>
@@ -175,6 +179,8 @@ function Login() {
                 theme="colored"
                 transition={Flip}/>
         </div>
+        </body>
+        </>
     );
 }
 

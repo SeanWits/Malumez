@@ -1,4 +1,8 @@
-body {
+.bodyHidden{
+    overflow: hidden;
+}
+
+.background {
     height: 100vh;
     width: auto;
     /* Set the background gradient */
@@ -8,26 +12,27 @@ body {
     background-position: center;
     background-size: cover;
     align-content: center;
-    margin-left: 2.5%;
+    /* margin-left: 2.5%; */
     overflow: hidden;
 }
 
-img{
+.logo {
     margin-top: -10%;
     margin-bottom: 5%;
     /*position: absolute;*/
 }
 
 
-.login-forum{
+.login-forum {
     width: 436px;
     height: 650px;
     flex-shrink: 0;
-    margin-top: -2.5%;
+    /* margin-top: -2.5%; */
+    margin: auto;
     align-items: center;
     border-radius: 25px;
     background: #FFFEFE;
-    margin-left: 500px;
+    /* margin-left: 500px; */
     text-align: center;
     justify-content: center;
     position: static;
@@ -50,7 +55,7 @@ img{
     margin-left: 90px;
 }
 
-form{
+.formLogin{
     
     font-family: "Anek Gurmukhi";
     line-height: 5px;
@@ -69,7 +74,7 @@ form{
 }
 
 
-label{
+.labelLogin {
     padding-top: 1%;
     display: flex;
     width: 149px;
@@ -87,7 +92,7 @@ label{
     margin-left: 3%;
 }
 
-input[type=text]{
+.inputText {
     border: none;
     background-color: white;
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
@@ -96,7 +101,7 @@ input[type=text]{
     font-size: 15px;
 }
 
-input[type=password]{
+.inputPassword {
     border: none;
     background-color: #ffff;
     border-bottom: 1.5px solid rgba(0, 0, 0, 0.31);
@@ -174,7 +179,7 @@ input[type=password]{
     margin-top: 5%;
 }
 
-h2{
+.head2 {
     display: flex;
     width: 200px;
     height: 28px;
@@ -193,7 +198,7 @@ h2{
 }
 
 
-h3{
+/* .head1 {
     color: #000;
     text-align: center;
     font-family: "Anek Gurmukhi";
@@ -201,7 +206,7 @@ h3{
     font-style: normal;
     font-weight: 200;
     line-height: normal;
-}
+} */
 
 #solid-block-1{
     width: 519px;
