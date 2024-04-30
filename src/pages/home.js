@@ -1,7 +1,7 @@
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCircleQuestion, faBasketShopping,faCircleUser, faBar, } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCircleQuestion, faBasketShopping,faCircleUser, faBars, } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from 'react';
 
 export function Header() {
@@ -30,10 +30,12 @@ export function SearchBar()
   return (
     <>
       <section className="searchBar">
+        
       <FontAwesomeIcon icon={faBars} />
-        {/* <button type ="button" id="search_options" className="options_button" /> */}
+       
         <section className="search">
           <input className="inputSearch" type="text" placeholder="Search.."/>
+          {/* Put the icon in a button  */}
           <FontAwesomeIcon icon={faMagnifyingGlass} />
           {/* <button type ="button" id="search_options" className="options_button" /> */}
         </section>
@@ -44,9 +46,7 @@ export function SearchBar()
 
 export function AdsBar()
 {
-
   let slideIndex = 1;
-  let intervalID= 1;
   let totalSlides = 3;
   let slideName = "slide"+slideIndex;
 
@@ -118,13 +118,7 @@ export function AdsBar()
             <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> &#10094</button>
             <button id="adRightArrow" onClick={() => currentSlide(1)}> &#10095</button>
          </div>
-    {/* <>
-      <section className="adsBar">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
-    </> */}
+    
     </>
   );
 }
@@ -132,15 +126,88 @@ export function AdsBar()
 export function FeaturedProducts()
 {
   let brandImage=require("../assets/Malume'zLogoFull.png");
+  let slideIndex = 1;
+  let totalSlides = 3;
+  let slideName = "productsSlide"+slideIndex;
+
+  useEffect(() => {
+    // Call startingUp function once all images are loaded
+    startingUp();
+  }, []); 
+
+  function startingUp()
+  {
+    document.getElementById("productsSlide1").style.display = 'block';
+    document.getElementById("productsSlide2").style.display = 'none';
+    document.getElementById("productsSlide3").style.display = 'none';
+  }
+  
+
+  function currentSlide(n)
+  {
+      // the current slide gets invisible
+      let prevSlide = document.getElementById(`${slideName}`);
+      console.log("Previous slide:" + slideName);
+      slideIndex = slideIndex+n;
+      let i;
+      
+      if(slideIndex>3)
+      {
+        slideIndex =1;
+      }
+
+      if(slideIndex<1)
+      {
+        slideIndex =totalSlides;
+      }
+      
+      // getting the name of the current slide
+      slideName = "productsSlide"+slideIndex;
+      let noneSlideName = null;
+      let currentSlide = document.getElementById(`${slideName}`);
+      console.log("CurrentSlide = "+ slideName);
+      currentSlide.style.display = 'block';
+
+      console.log("Starting for loop");
+      for (i = 1; i <= totalSlides; i++) {
+        if(i != slideIndex )
+        {
+            noneSlideName = "productsSlide"+i;
+            console.log("Looking at " +noneSlideName);
+            document.getElementById(`${noneSlideName}`).style.display = 'none';
+            console.log("Other Slides Removed");
+
+        }
+      }
+  }
 
   return (
     <>
+     <h2>Brands</h2>
       <section  className="featuredProducts">
-        {/* <i className="fa fa-chevron-left icon left"></i> */}
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        {/* <i className="fa fa-chevron-right icon right"></i> */}
+
+        <div className ="slides">
+
+          <section id = "productsSlide1" className="slide">
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand3"></img> 
+          </section>
+
+          <section id = "productsSlide2" classname="slide">
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand3"></img> 
+          </section>
+
+          <section id = "productsSlide3" classname="slide">
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand3"></img> 
+          </section>    
+            </div>
+            <button id="productLeftArrow"  onClick={() => currentSlide(-1)}> productLeft</button>
+            <button id="productRightArrow" onClick={() => currentSlide(1)}> productRight</button>
       </section>
     </>
   )
