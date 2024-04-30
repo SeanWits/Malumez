@@ -230,3 +230,19 @@ export function Footer()
 }
 //Wassup
 
+function Home() 
+{
+  return (
+    <>
+  <Header />
+  <SearchBar />
+  <AdsBar />
+  <FeaturedProducts />
+  <Categories />
+  <MoreOptions />
+  <Footer />  
+    </>
+  )
+}
+
+export default Home;
