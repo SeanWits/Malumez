@@ -1,42 +1,56 @@
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
 import { Router, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faCircleQuestion, faBasketShopping,faCircleUser, faBars, } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from 'react';
 
 export function Header() {
-  // const loginPage = () => {
   const navigate = useNavigate();
-  
-  // }
   return (
     <>
-    <head>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    </head>
-    <body>
+    
       <header className="homeHeader">
         <img src={logo} alt="Malume'z Logo" height = "60" width="auto"/>
         <section>
-          <i className='fa fa-question-circle icon'/>
-          <i className='fa fa-shopping-basket icon'/>
-          <i onClick={() => navigate('/')} className='fa fa-user-circle icon'/>
+        {/* The Icons should be contained within buttons */}
+        <FontAwesomeIcon icon={faCircleQuestion} />
+        <FontAwesomeIcon icon={faBasketShopping} />
+        
+
+        <button onClick={() => navigate('/')}><FontAwesomeIcon icon={faCircleUser} /></button>
+
+
+          
         </section>
       </header>
-    </body>
+    
     </>
   );
 }
 
 export function SearchBar()
 {
+  
+  function searchButtonClicked()
+  {
+      let search = document.getElementById("searchText").textContent;
+      
+      
+  }
+
   return (
     <>
       <section className="searchBar">
-          <i className='fa fa-bars icon'/>
-        {/* <button type ="button" id="search_options" className="options_button" /> */}
+        
+      <FontAwesomeIcon icon={faBars} />
+       
         <section className="search">
-          <input className="inputSearch" type="text" placeholder="Search.."/>
-          <i className='fa fa-search icon'/>
-          {/* <button type ="button" id="search_options" className="options_button" /> */}
+          <input id = "searchText" className="inputSearch" type="text" placeholder="Search.."/>
+          {/* Put the icon in a button  */}
+          <button onClick={searchButtonClicked}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+          
+          
         </section>
       </section>
     </>
@@ -45,30 +59,168 @@ export function SearchBar()
 
 export function AdsBar()
 {
-  let adImage=require("../assets/Malume'zLogoFull.png");
+  let slideIndex = 1;
+  let totalSlides = 3;
+  let slideName = "slide"+slideIndex;
+
+  useEffect(() => {
+    // Call startingUp function once all images are loaded
+    startingUp();
+  }, []); 
+
+  function startingUp()
+  {
+    document.getElementById("slide1").style.display = 'block';
+    document.getElementById("slide2").style.display = 'none';
+    document.getElementById("slide3").style.display = 'none';
+  }
+  
+
+  function currentSlide(n)
+  {
+      // the current slide gets invisible
+      let prevSlide = document.getElementById(`${slideName}`);
+      console.log("Previous slide:" + slideName);
+      slideIndex = slideIndex+n;
+      let i;
+      
+      if(slideIndex>3)
+      {
+        slideIndex =1;
+      }
+
+      if(slideIndex<1)
+      {
+        slideIndex =totalSlides;
+      }
+      
+      // getting the name of the current slide
+      slideName = "slide"+slideIndex;
+      let noneSlideName = null;
+      let currentSlide = document.getElementById(`${slideName}`);
+      console.log("CurrentSlide = "+ slideName);
+      currentSlide.style.display = 'block';
+
+      console.log("Starting for loop");
+      for (i = 1; i <= totalSlides; i++) {
+        if(i != slideIndex )
+        {
+            noneSlideName = "slide"+i;
+            console.log("Looking at " +noneSlideName);
+            document.getElementById(`${noneSlideName}`).style.display = 'none';
+            console.log("Other Slides Removed");
+
+        }
+      }
+  }
+  
   return (
     <>
-      <section className="adsBar">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
+    <div className ="slider">
+            
+            <div className ="slides">
+
+                <img id="slide1" src={require("../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
+
+                <img id="slide2" src={require("../assets/Ad2.png")} alt="Ad 2" className="slide"></img>
+
+                <img id="slide3" src={require("../assets/Ad3.png")} alt="Ad 3" className="slide"></img>
+                
+                
+            </div>
+            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> &#10094</button>
+            <button id="adRightArrow" onClick={() => currentSlide(1)}> &#10095</button>
+         </div>
+    
     </>
-  )
+  );
 }
 
 export function FeaturedProducts()
 {
   let brandImage=require("../assets/Malume'zLogoFull.png");
+  let slideIndex = 1;
+  let totalSlides = 3;
+  let slideName = "productsSlide"+slideIndex;
+
+  useEffect(() => {
+    // Call startingUp function once all images are loaded
+    startingUp();
+  }, []); 
+
+  function startingUp()
+  {
+    document.getElementById("productsSlide1").style.display = 'block';
+    document.getElementById("productsSlide2").style.display = 'none';
+    document.getElementById("productsSlide3").style.display = 'none';
+  }
+  
+
+  function currentSlide(n)
+  {
+      // the current slide gets invisible
+      let prevSlide = document.getElementById(`${slideName}`);
+      console.log("Previous slide:" + slideName);
+      slideIndex = slideIndex+n;
+      let i;
+      
+      if(slideIndex>3)
+      {
+        slideIndex =1;
+      }
+
+      if(slideIndex<1)
+      {
+        slideIndex =totalSlides;
+      }
+      
+      // getting the name of the current slide
+      slideName = "productsSlide"+slideIndex;
+      let noneSlideName = null;
+      let currentSlide = document.getElementById(`${slideName}`);
+      console.log("CurrentSlide = "+ slideName);
+      currentSlide.style.display = 'block';
+
+      console.log("Starting for loop");
+      for (i = 1; i <= totalSlides; i++) {
+        if(i != slideIndex )
+        {
+            noneSlideName = "productsSlide"+i;
+            console.log("Looking at " +noneSlideName);
+            document.getElementById(`${noneSlideName}`).style.display = 'none';
+            console.log("Other Slides Removed");
+
+        }
+      }
+  }
 
   return (
     <>
+     <h2>Brands</h2>
       <section  className="featuredProducts">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <i className="fa fa-chevron-right icon right"></i>
+
+        <div className ="slides">
+
+          <section id = "productsSlide1" className="slide">
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/SunlightLogo.png")} alt="Brand3"></img> 
+          </section>
+
+          <section id = "productsSlide2" classname="slide">
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/LucyStarLogo.png")} alt="Brand3"></img> 
+          </section>
+
+          <section id = "productsSlide3" classname="slide">
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/SimbaLogo.png")} alt="Brand3"></img> 
+          </section>    
+            </div>
+            <button id="productLeftArrow"  onClick={() => currentSlide(-1)}> productLeft</button>
+            <button id="productRightArrow" onClick={() => currentSlide(1)}> productRight</button>
       </section>
     </>
   )
@@ -111,31 +263,31 @@ export function MoreOptions()
         </h3>
         <ul className="contactList">
           <li>
-          <i className="fa fa-at icon"></i>
+          {/* <i className="fa fa-at icon"></i> */}
             <a href="mailto:malumez@gmail.com">
               malumez@gmail.com
             </a>
             </li>
           <li>
-          <i className="fa fa-phone icon"></i>
+          {/* <i className="fa fa-phone icon"></i> */}
             <a href="tel:malumez@gmail.com">
               011 625 8639
             </a>
             </li>
           <li>
-          <i className="fa fa-instagram icon"></i>
+          {/* <i className="fa fa-instagram icon"></i> */}
             <a href="https://www.instagram.com/malumez/">
               @malumez
             </a>
             </li>
           <li>
-          <i className="fa fa-facebook icon"></i>
+          {/* <i className="fa fa-facebook icon"></i> */}
             <a href="https://www.facebook.com/malumez/">
               @malumez
             </a>
             </li>
           <li>
-          <i className="fa fa-twitter icon"></i>
+          {/* <i className="fa fa-twitter icon"></i> */}
             <a href="https://www.twitter.com/malumez/">
               @malumez
             </a>
@@ -148,19 +300,19 @@ export function MoreOptions()
         </h3>
         <ul className="storeList">
           <li>
-          <i className="fa fa-seacrh icon"></i>
+          {/* <i className="fa fa-seacrh icon"></i> */}
             <a href="">
               Find a store
             </a>
             </li>
           <li>
-          <i className="fa fa-money icon"></i>
+          {/* <i className="fa fa-money icon"></i> */}
             <a href="">
               Become a seller
             </a>
             </li>
           <li>
-          <i className="fa fa-phone icon"></i>
+          {/* <i className="fa fa-phone icon"></i> */}
             <a href="">
               Contact a seller
             </a>
@@ -173,13 +325,13 @@ export function MoreOptions()
         </h3>
         <ul className="accountList">
           <li>
-          <i className="fa fa-user icon"></i>
+          {/* <i className="fa fa-user icon"></i> */}
             <a href="">
               Manage my account
             </a>
             </li>
           <li>
-          <i className="fa fa-truck icon"></i>
+          {/* <i className="fa fa-truck icon"></i> */}
             <a href="">
               Track my order
             </a>
@@ -192,19 +344,19 @@ export function MoreOptions()
         </h3>
         <ul className="helpList">
           <li>
-          <i className="fa fa-question-circle icon"></i>
+          {/* <i className="fa fa-question-circle icon"></i> */}
             <a href="">
               FAQ
             </a>
             </li>
           <li>
-          <i className="fa fa-question-circle icon"></i>
+          {/* <i className="fa fa-question-circle icon"></i> */}
             <a href="">
               Support
             </a>
             </li>
           <li>
-          <i className="fa fa-flag icon"></i>
+          {/* <i className="fa fa-flag icon"></i> */}
             <a href="">
               Report a seller
             </a>
