@@ -56,7 +56,7 @@ function Admin(){
         <link rel="stylesheet" href="admin.css"/>
     </head>
     <body>
-        <header><a href="/"><img alt="" src={require("../assets/Malume'zLogoFull.png")}/></a></header>
+        <header className="adminHeader"><a href="/"><img className='adminImage' alt="" src={require("../assets/Malume'zLogoFull.png")}/></a></header>
         
         <section class="main-content">
             <nav>
