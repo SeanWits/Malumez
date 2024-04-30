@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { SearchBar } from "../components/Search";
 import { MoreOptions } from "../components/More_Options";
 import { Footer } from "../components/Footer";
+import { Categories } from "../components/Categories";
 
 export function AdsBar()
 {
@@ -35,32 +36,6 @@ export function FeaturedProducts()
       </section>
     </>
   )
-}
-
-export function Categories()
-{
-  let productImage=require("../assets/Malume'zLogoFull.png");
-  let categoryName = "Category"
-  return (
-    <>
-      <section className="categorySection">
-        <section className="categoryText">
-          <h2 className="categoryHeading">
-            {categoryName}
-          </h2>
-          <a className="viewMoreLink" href="">
-            View more
-          </a>
-        </section>
-        <section className="productSection">
-          <img className="productImage" src={productImage} alt="Image of product" />
-          <img className="productImage" src={productImage} alt="Image of product" />
-          <img className="productImage" src={productImage} alt="Image of product" />
-        </section>
-      </section>
-    </>
-  )
-  
 }
 
 //Wassup
