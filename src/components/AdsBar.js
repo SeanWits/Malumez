@@ -62,6 +62,7 @@ export function AdsBar()
     <>
     <section className ="adsBar">
             
+            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
             <div className ="slides">
 
                 <img id="slide1" src={require("../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
@@ -72,7 +73,6 @@ export function AdsBar()
                 
                 
             </div>
-            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
             <button id="adRightArrow" onClick={() => currentSlide(1)}> adRightArrow</button>
          </section>
     
