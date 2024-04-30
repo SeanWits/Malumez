@@ -1,5 +1,5 @@
-import logo from "../assets/Malume'zLogoFullNoBackground.png";
-import './home.css';
+import logo from "./assets/Malume'zLogoFullNoBackground.png";
+import './App.css';
 
 export function Header() {
   return (
@@ -23,24 +23,15 @@ export function Header() {
 
 export function SearchBar()
 {
-  // Function to navigate to the products page, and display the items 
-  
-
-  function getSearchedProduct()
-  {
-    let lookingFor = document.getElementById("userSearch");
-    console.log(lookingFor);
-  }
-
   return (
     <>
       <section className="searchBar">
           <i className='fa fa-bars icon'/>
         {/* <button type ="button" id="search_options" className="options_button" /> */}
-        <section className="search" >
-          <input className="inputSearch" type="text" placeholder="Search.." id="userSearch"/>
-           {/* <button class="button" type="button" id="searchOptions" ><i class="fa fa-search icon" ></i></button> */} 
-           <button id="searchOptions" class="button" onClick={getSearchedProduct}><i class="fa fa-search icon" ></i></button>
+        <section className="search">
+          <input className="inputSearch" type="text" placeholder="Search.."/>
+          <i className='fa fa-search icon'/>
+          {/* <button type ="button" id="search_options" className="options_button" /> */}
         </section>
       </section>
     </>
@@ -49,165 +40,39 @@ export function SearchBar()
 
 export function AdsBar()
 {
-
-  let adImage1=require("../assets/Ad1.png");
-  let adImage2=require("../assets/Ad2.png");
-  let adImage3=require("../assets/Ad3.png");
-
-  let slides = document.querySelectorAll(".slides img");
-
-  // we use this to start at the first slide
-  let slideIndex = 0;
-  //let intervalID = 0;
-
-  initializeSlider();
-  // an event listener would be good to make sure the page only loads when everything is included but otherwise its fine
-  //document.addEventListener("DOMContentLoaded", initializeSlider());
-  //function to initialize slider -  SHow first slide
-  function initializeSlider(){
-
-    if(slides.length>0){
-      slides[slideIndex].classList.add("displaySlide");
-      // this is to automatically display the next slide after 5 seconds
-      //intervalID = setInterval(nextAd,5000);
-      // console.log(intervalID);
-      }
-        
-  }
-
-  function showSlide(index){
-    // to check the images and make sure they loop
-        if(index>= slides.length){
-          slideIndex =0;
-        }
-        else if(index<0)
-        {
-          slideIndex = slides.length -1;
-        }
-        slides.forEach(slide =>{
-          slide.classList.remove("displaySlide")
-        });
-        slides[slideIndex].classList.add("displaySlide");
-    }
-
-  function prevAd(){
-      slideIndex--;
-      showSlide(slideIndex);
-  }
-
-  function nextAd(){
-      slideIndex++;
-      showSlide(slideIndex);
-  }
-
-
+  let adImage=require("./assets/Malume'zLogoFull.png");
   return (
-    <div>
-        <div className="slider">
-              <div className="slides">
-                <img alt="Ad 1"className="slide" src={adImage1}/>
-
-                <img alt="Ad 2" className="slide" src={adImage2}/>
-
-                <img alt="Ad 3" className="slide" src={adImage3} />
-              </div>
-          <button id="adLeftArrow" onClick={prevAd}> {' '}❮ </button>
-          <button id="adRightArrow" onClick= {nextAd}> {' '}❯ </button>
-        </div>
-   </div>
-    
+    <>
+      <section className="adsBar">
+        <i className="fa fa-chevron-left icon left"></i>
+        <img className="adsImage" src={adImage} alt="Image of an Ad"></img>
+        <i className="fa fa-chevron-right icon right"></i>
+      </section>
+    </>
   )
 }
 
-
-export function FeaturedProducts(){
-
-  let slides = document.querySelectorAll(".slides section");
-
-  // we use this to start at the first slide
-  let slideIndex = 0;
-  let intervalID = 0;
-
-  //initializeSlider();
-  document.addEventListener("DOMContentLoaded", initializeSlider());
-  //function to initialize slider -  SHow first slide
-  function initializeSlider(){
-
-      if(slides.length>0){
-          slides[slideIndex].classList.add("displaySlide");
-          // this is to automatically display the next slide after 5 seconds
-          intervalID = setInterval(nextFeature,5000);
-          console.log(intervalID);
-      }
-      
-  }
-
-
-  function showSlide(index){
-
-      // to check the images and make sure they loop
-      if(index>= slides.length){
-          slideIndex =0;
-
-      }
-      else if(index<0)
-      {
-          slideIndex = slides.length -1;
-      }
-      slides.forEach(slide =>{
-          slide.classList.remove("displaySlide")
-      });
-      slides[slideIndex].classList.add("displaySlide");
-  }
-
-  function prevFeature(){
-      slideIndex--;
-      showSlide(slideIndex);
-  }
-
-  function nextFeature(){
-      slideIndex++;
-      showSlide(slideIndex);
-  }
+export function FeaturedProducts()
+{
+  let brandImage=require("./assets/Malume'zLogoFull.png");
 
   return (
-    
-    <div class ="slider" id="featureSlider">
-      <h2 id = "featuresHeader">Brands</h2>
-            
-            <div class ="slides" id="featureSlides">
-
-                <section class="slide"> 
-                    <img src={require("../assets/LuckyStarLogo.png")} alt="Ad 1"></img>
-                    <img  src={require("../assets/ColgateLogo.png")} alt="Ad 2"></img>
-                    <img  src={require("../assets/SaskoLogo.png")} alt="Ad 3"></img>
-                </section>
-
-                <section class="slide"> 
-                    <img src={require("../assets/SimbaLogo.png")} alt="Ad 1"></img>
-                    <img  src={require("../assets/KooLogo.png")} alt="Ad 2"></img>
-                    <img  src={require("../assets/SunlightLogo.png")} alt="Ad 3"></img>
-                </section>
-
-                <section class="slide"> 
-                    <img src={require("../assets/AlbanyLogo.png")} alt="Ad 1"></img>
-                    <img  src={require("../assets/DettolLogo.png")} alt="Ad 2"></img>
-                    <img  src={require("../assets/TasticLogo.png")} alt="Ad 3"></img>
-                </section>
-
-                 
-            </div>
-
-            <button id="featureLeftArrow" onClick={prevFeature} > &#10094</button>
-            <button id="featureRightArrow" onClick={nextFeature} > &#10095</button>
-         </div>
+    <>
+      <section  className="featuredProducts">
+        <i className="fa fa-chevron-left icon left"></i>
+        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+        <i className="fa fa-chevron-right icon right"></i>
+      </section>
+    </>
   )
 }
 
 export function Categories()
 {
-  let productImage=require("../assets/Malume'zLogoFull.png");
-  let categoryName = "Products"
+  let productImage=require("./assets/Malume'zLogoFull.png");
+  let categoryName = "Category"
   return (
     <>
       <section className="categorySection">
@@ -358,5 +223,5 @@ export function Footer()
     </>
   )
 }
-
+//Wassup
 
