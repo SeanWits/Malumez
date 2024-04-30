@@ -13,7 +13,7 @@ const Products = () => {
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+          const shopQuerySnapshot = await getDocs(collection(db, "products"));
           let allProducts = [];
     
           // Map each shopDoc to a promise that fetches its products
