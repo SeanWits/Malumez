@@ -1,25 +1,20 @@
-// Checkout.js
 import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './Checkout.css'; // Import the CSS file for styling
+import './Checkout.css';
 
 const Checkout = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  //console.log("CheckOut items:", location.state);
-  const cartItems = location.state;
+  const cartItems = location.state || [];
 
   useEffect(() => {
-    const dummyCartProducts = [
-      { id: 1, name: "Product 1", price: 10, quantity: 2 },
-      { id: 2, name: "Product 2", price: 20, quantity: 1 },
-      { id: 3, name: "Product 3", price: 30, quantity: 3 }
-    ];
-    setCartProducts(dummyCartProducts);
+    console.log("Cart Items:", cartItems);
+    setCartProducts(cartItems);
 
+    // Subscribe to authentication state changes
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
     });
@@ -27,7 +22,7 @@ const Checkout = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [cartItems]);
 
   const handleSignOut = () => {
     auth.signOut().then(() => {
@@ -39,41 +34,61 @@ const Checkout = () => {
   };
 
   const handleKeepShopping = () => {
-    navigate('/');
+    navigate('/products', { replace: false }); // Navigate to the products page without replacing the current entry in the history stack
   };
-
+  
+  
+  
   const calculateTotalPrice = () => {
-    return cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+    const totalPrice = cartProducts.reduce((total, product) => {
+      // Check if the product has a valid price
+      if (typeof product.price === 'number' && !isNaN(product.price)) {
+        // Check if the product has a valid quantity
+        if (typeof 1 === 'number' && !isNaN(1)) {
+          return total + (product.price * 1);
+        } else {
+          console.error(`Invalid quantity for product ${product.id}: ${1}`);
+          return total;
+        }
+      } else {
+        console.error(`Invalid price for product ${product.id}: ${product.price}`);
+        return total;
+      }
+    }, 0);
+  
+    console.log("Total Price:", totalPrice);
+    return totalPrice;
   };
-
+  
   return (
-    <div className="checkout-container">
-      <div className="cart-box">
-      <h2 class="centered-heading">Items in cart</h2>
-        {cartProducts.length === 0 ? (
-          <p>Your cart is empty.</p>
-        ) : (
-          <ul className="cart-list">
-            {cartProducts.map(product => (
-              <li key={product.id} className="cart-item">
-                <span>{product.name}</span> - <span>${product.price}</span> - <span>Quantity: {product.quantity}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <div className="checkout-page-box">
-        <h1>Checkout</h1>
-        <div className="checkout-details">
-          <p>Total Quantity: {cartProducts.reduce((total, product) => total + product.quantity, 0)}</p>
-          <p>Total Price: ${calculateTotalPrice()}</p>
+    <>
+      <div className="checkout-container">
+        <div className="cart-box">
+          <h2 className="centered-heading">Items in Cart</h2>
+          {cartProducts.length === 0 ? (
+            <p>Your cart is empty.</p>
+          ) : (
+            <ul className="cart-list">
+              {cartProducts.map(product => (
+                <li key={product.id} className="cart-item">
+                  {product.name} - R{product.price}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-        <button className="button" onClick={handleKeepShopping}>Keep Shopping</button>
-        {currentUser && (
-          <button className="button" onClick={handleSignOut}>Sign Out</button>
-        )}
+        <div className="checkout-page-box">
+          <h1>Checkout</h1>
+          <div className="checkout-details">
+            <p>Total Price: R{calculateTotalPrice()}</p>
+          </div>
+          <button className="button" onClick={handleKeepShopping}>Continue Shopping</button>
+
+            <button className="button sign-out-button" onClick={handleSignOut}>Go to home</button>
+       
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
