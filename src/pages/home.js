@@ -5,6 +5,8 @@ import { Router, useNavigate } from 'react-router-dom';
 export function Header() {
   // const loginPage = () => {
   const navigate = useNavigate();
+  const removeBodyClass = className => document.body.classList.remove(className);
+  removeBodyClass('bodyHidden');
   
   // }
   return (
