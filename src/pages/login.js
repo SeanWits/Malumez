@@ -68,7 +68,7 @@ function Login() {
             navigate('/admin');
         } else {
             // Navigate to the home page
-            navigate('/home');
+            navigate('/');
         }
         } catch (error) {
             setError("Invalid or Missing Credentials");
