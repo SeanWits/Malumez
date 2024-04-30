@@ -1,7 +1,12 @@
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
+import { Router, useNavigate } from 'react-router-dom';
 
 export function Header() {
+  // const loginPage = () => {
+  const navigate = useNavigate();
+  
+  // }
   return (
     <>
     <head>
@@ -13,7 +18,7 @@ export function Header() {
         <section>
           <i className='fa fa-question-circle icon'/>
           <i className='fa fa-shopping-basket icon'/>
-          <i className='fa fa-user-circle icon'/>
+          <i onClick={() => navigate('/')} className='fa fa-user-circle icon'/>
         </section>
       </header>
     </body>
