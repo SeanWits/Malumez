@@ -128,8 +128,8 @@ export function AdsBar()
                 
                 
             </div>
-            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> &#10094</button>
-            <button id="adRightArrow" onClick={() => currentSlide(1)}> &#10095</button>
+            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
+            <button id="adRightArrow" onClick={() => currentSlide(1)}> adRightArrow</button>
          </div>
     
     </>
@@ -208,9 +208,9 @@ export function FeaturedProducts()
           </section>
 
           <section id = "productsSlide2" classname="slide">
-                <img src={require("../assets/LucyStarLogo.png")} alt="Brand1"></img>
-                <img src={require("../assets/LucyStarLogo.png")} alt="Brand2"></img>
-                <img src={require("../assets/LucyStarLogo.png")} alt="Brand3"></img> 
+                <img src={require("../assets/TasticLogo.png")} alt="Brand1"></img>
+                <img src={require("../assets/TasticLogo.png")} alt="Brand2"></img>
+                <img src={require("../assets/TasticLogo.png")} alt="Brand3"></img> 
           </section>
 
           <section id = "productsSlide3" classname="slide">
