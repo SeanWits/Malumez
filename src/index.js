@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
 import { Header } from './pages/home';
 import { SearchBar } from "./pages/home"
 import { AdsBar } from './pages/home';
@@ -13,6 +14,7 @@ import { Footer } from './pages/home';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <App />
     <Header />
     <SearchBar />
     <AdsBar />
