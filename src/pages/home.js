@@ -1,5 +1,5 @@
-import logo from "./assets/Malume'zLogoFullNoBackground.png";
-import './App.css';
+import logo from "../assets/Malume'zLogoFullNoBackground.png";
+import './home.css';
 
 export function Header() {
   return (
@@ -40,7 +40,7 @@ export function SearchBar()
 
 export function AdsBar()
 {
-  let adImage=require("./assets/Malume'zLogoFull.png");
+  let adImage=require("../assets/Malume'zLogoFull.png");
   return (
     <>
       <section className="adsBar">
@@ -54,7 +54,7 @@ export function AdsBar()
 
 export function FeaturedProducts()
 {
-  let brandImage=require("./assets/Malume'zLogoFull.png");
+  let brandImage=require("../assets/Malume'zLogoFull.png");
 
   return (
     <>
@@ -71,7 +71,7 @@ export function FeaturedProducts()
 
 export function Categories()
 {
-  let productImage=require("./assets/Malume'zLogoFull.png");
+  let productImage=require("../assets/Malume'zLogoFull.png");
   let categoryName = "Category"
   return (
     <>
