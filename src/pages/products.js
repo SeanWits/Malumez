@@ -13,9 +13,9 @@ const Products = () => {
     useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const shopQuerySnapshot = await getDocs(collection(db, "products"));
+          const shopQuerySnapshot = await getDocs(collection(db, "shops"));
           let allProducts = [];
-    
+
           // Map each shopDoc to a promise that fetches its products
           const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
             const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
@@ -30,10 +30,10 @@ const Products = () => {
               });
             });
           });
-    
+
           // Wait for all productPromises to resolve
           await Promise.all(productPromises);
-    
+
           // Update state after all products are fetched
           setProducts(allProducts);
           console.log(allProducts);
@@ -41,7 +41,7 @@ const Products = () => {
           console.error('Error fetching products:', error);
         }
       };
-    
+
       fetchProducts();
     }, []);
 
@@ -61,7 +61,7 @@ const handleCheckout = () => {
     navigate('/checkOut',{ state: cart });
     console.log("Cart items:", cart);
 };
-  
+
 
     return (
         <div className="products-container-wrapper" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
