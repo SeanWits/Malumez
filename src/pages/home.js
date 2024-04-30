@@ -4,7 +4,7 @@ import { Router, useNavigate } from 'react-router-dom';
 
 export function Header() {
   // const loginPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   
   // }
   return (
@@ -18,7 +18,7 @@ export function Header() {
         <section>
           <i className='fa fa-question-circle icon'/>
           <i className='fa fa-shopping-basket icon'/>
-          <i onClick={() => navigate('/login')} className='fa fa-user-circle icon'/>
+          <i /*onClick={() => navigate('/login')}*/ className='fa fa-user-circle icon'/>
         </section>
       </header>
     </body>
@@ -233,15 +233,15 @@ export function Footer()
 function Home() 
 {
   return (
-    <>
-  <Header />
-  <SearchBar />
-  <AdsBar />
-  <FeaturedProducts />
-  <Categories />
-  <MoreOptions />
-  <Footer />  
-    </>
+  <>
+    <Header />
+    <SearchBar />
+    <AdsBar />
+    <FeaturedProducts />
+    <Categories />
+    <MoreOptions />
+    <Footer />  
+  </>
   )
 }
 
