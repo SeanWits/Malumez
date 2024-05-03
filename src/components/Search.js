@@ -10,31 +10,29 @@ import React, { useState } from 'react';
 export function SearchBar()
 {
 
-    const [brand, setBrand] = useState('');
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
+    const [search, setSearch] = useState('');
     const navigate = useNavigate();
-    
-    
+
     
   // fetching products from the database
-  function search(item)
+  function searchItem(item)
   {
 
+    console.log(item);
+    navigate("/products");
 
 
   }
-
 
   return (
     <>
       <section className="searchBar">
           <i className='fa fa-bars icon'/>
-        {/* <button type ="button" id="search_options" className="options_button" /> */}
+        
         <section className="search">
-          <input className="inputSearch" type="text" placeholder="Search.."/>
-          <i className='fa fa-search icon'/>
-          {/* <button type ="button" id="search_options" className="options_button" /> */}
+          <input className="inputSearch" onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." id="searchInput"/>
+          <i className='fa fa-search icon' onClick={()=> console.log(search)}/>
+          
         </section>
       </section>
     </>

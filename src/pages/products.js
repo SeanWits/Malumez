@@ -10,6 +10,8 @@ const Products = () => {
     const [cart, setCart] = useState([]);
     const navigate = useNavigate();
 
+
+
     useEffect(() => {
       const fetchProducts = async () => {
         try {
@@ -44,6 +46,8 @@ const Products = () => {
 
       fetchProducts();
     }, []);
+
+    
 
  const addToCart = (product) => {
     const updatedCart = [...cart, product];

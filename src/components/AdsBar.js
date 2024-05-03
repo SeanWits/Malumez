@@ -20,9 +20,6 @@ export function AdsBar()
     
   }, []); 
 
-  
-
-  
 
   function startingUp()
   {
@@ -36,7 +33,6 @@ export function AdsBar()
   function currentSlide(n)
   {
       // the current slide gets invisible
-      console.log("Previous slide:" + slideName);
       slideIndex = slideIndex+n;
       let i;
       
@@ -54,23 +50,17 @@ export function AdsBar()
       slideName = "slide"+slideIndex;
       let noneSlideName = null;
       let currentSlide = document.getElementById(`${slideName}`);
-      console.log("CurrentSlide = "+ slideName);
       currentSlide.style.display = 'block';
 
-      console.log("Starting for loop");
       for (i = 1; i <= totalSlides; i++) {
         if(i !== slideIndex )
         {
             noneSlideName = "slide"+i;
-            console.log("Looking at " +noneSlideName);
             document.getElementById(`${noneSlideName}`).style.display = 'none';
-            console.log("Other Slides Removed");
-
         }
       }
       
   }
-  let i =0;
   
   
   
