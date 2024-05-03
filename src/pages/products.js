@@ -2,21 +2,33 @@ import React, { useEffect, useState } from 'react';
 import Product from '../components/product';
 import { db } from '../firebase';
 import { getDocs, collection, query } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
-import './products.css'
+import { useNavigate, useLocation } from 'react-router-dom';
+import './products.css';
+import './home';
+
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [fetchAll, setFetchAll] = useState([]);
     const navigate = useNavigate();
+
+    
+
+    // gets the value passed from one file to another
+    const location = useLocation();
+    let searchItem = location.state || [];
 
 
 
     useEffect(() => {
+      if (searchItem == null)
+        {// display all the products in no particular organisation if the person has not searched anything
       const fetchProducts = async () => {
         try {
           const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-          let allProducts = [];
+           let allProducts = [];
+           
 
           // Map each shopDoc to a promise that fetches its products
           const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
@@ -28,7 +40,9 @@ const Products = () => {
                 imageUrl: productData.src,
                 name: productData.name,
                 price: productData.price,
-                category: productData.category
+                category: productData.category,
+                brand: productData.brand,
+                stock:productData.stock
               });
             });
           });
@@ -38,6 +52,7 @@ const Products = () => {
 
           // Update state after all products are fetched
           setProducts(allProducts);
+          setFetchAll(allProducts);
           console.log(allProducts);
         } catch (error) {
           console.error('Error fetching products:', error);
@@ -45,7 +60,24 @@ const Products = () => {
       };
 
       fetchProducts();
+    }
+    else{
+      filter();
+    }
+      
     }, []);
+
+    function filter()
+    {
+      // searches though the products and returns the ones which match the search in brand, name or category
+      console.log(fetchAll);
+      console.log("Now the filtered products");
+      let searchProducts = fetchAll.filter(fetchAll => fetchAll.category.toLowerCase() === searchItem.toLowerCase());
+      searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.brand.toLowerCase() === searchItem.toLowerCase());
+      searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.name.toLowerCase() === searchItem.toLowerCase());
+      console.log(searchProducts);
+
+    }
 
     
 

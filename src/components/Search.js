@@ -15,11 +15,12 @@ export function SearchBar()
 
     
   // fetching products from the database
-  function searchItem(item)
+  function searchItem()
   {
 
-    console.log(item);
-    navigate("/products");
+    console.log(search);
+    navigate('/products', {state:search});
+    
 
 
   }
@@ -31,7 +32,7 @@ export function SearchBar()
         
         <section className="search">
           <input className="inputSearch" onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." id="searchInput"/>
-          <i className='fa fa-search icon' onClick={()=> console.log(search)}/>
+          <i className='fa fa-search icon' onClick={searchItem}/>
           
         </section>
       </section>
