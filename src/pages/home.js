@@ -12,8 +12,12 @@ export function FeaturedProducts()
 {
   let brandImage=require("../assets/Malume'zLogoFull.png");
 
+  //fetching brands from the database
+
   return (
     <>
+    
+    <h2 id="brandsHeading">Brands</h2>
       <section  className="featuredProducts">
         <i className="fa fa-chevron-left icon left"></i>
         <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>

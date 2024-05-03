@@ -2,6 +2,13 @@ import { Router, useNavigate } from 'react-router-dom';
 
 export function SearchBar()
 {
+  // fetching products from the database
+  function search()
+  {
+
+  }
+
+
   return (
     <>
       <section className="searchBar">

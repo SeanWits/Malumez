@@ -1,5 +1,6 @@
-import { Router, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+
+import React, { useEffect } from 'react';
+
 
 export function AdsBar()
 {
@@ -62,7 +63,7 @@ export function AdsBar()
     <>
     <section className ="adsBar">
             
-            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
+             <i className='fa fa-chevron-left icon left' onClick={() =>currentSlide(1)} id='adLeftArrow'/>
             <div className ="slides">
 
                 <img id="slide1" src={require("../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
@@ -73,7 +74,7 @@ export function AdsBar()
                 
                 
             </div>
-            <button id="adRightArrow" onClick={() => currentSlide(1)}> adRightArrow</button>
+            <i className= 'fa fa-chevron-right icon right fa' onClick={() =>currentSlide(1)} id='adRightArrow'/>
          </section>
     
     </>
