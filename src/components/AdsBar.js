@@ -11,20 +11,31 @@ export function AdsBar()
   useEffect(() => {
     // Call startingUp function once all images are loaded
     startingUp();
+    const interval = setInterval(() => {
+      currentSlide(1); // Change to the next slide
+    }, 5000);
+  
+    // Clear interval on component unmount to prevent memory leaks
+    return () => clearInterval(interval);
+    
   }, []); 
+
+  
+
+  
 
   function startingUp()
   {
     document.getElementById("slide1").style.display = 'block';
     document.getElementById("slide2").style.display = 'none';
     document.getElementById("slide3").style.display = 'none';
+    setInterval(currentSlide(1), 5000);
   }
   
 
   function currentSlide(n)
   {
       // the current slide gets invisible
-      let prevSlide = document.getElementById(`${slideName}`);
       console.log("Previous slide:" + slideName);
       slideIndex = slideIndex+n;
       let i;
@@ -48,7 +59,7 @@ export function AdsBar()
 
       console.log("Starting for loop");
       for (i = 1; i <= totalSlides; i++) {
-        if(i != slideIndex )
+        if(i !== slideIndex )
         {
             noneSlideName = "slide"+i;
             console.log("Looking at " +noneSlideName);
@@ -57,7 +68,11 @@ export function AdsBar()
 
         }
       }
+      
   }
+  let i =0;
+  
+  
   
   return (
     <>

@@ -1,10 +1,27 @@
 import { Router, useNavigate } from 'react-router-dom';
+import { db, getDoc, doc } from '../firebase.js';
+import React, { useState } from 'react';
+
+
+
+// Your component code here
+
 
 export function SearchBar()
 {
+
+    const [brand, setBrand] = useState('');
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+    const navigate = useNavigate();
+    
+    
+    
   // fetching products from the database
-  function search()
+  function search(item)
   {
+
+
 
   }
 
