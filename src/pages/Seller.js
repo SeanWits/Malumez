@@ -1,10 +1,10 @@
-import "./Seller.css";
-import { Header } from "../components/Seller/Header";
+// import "./Seller.css";
+import { Header } from "../components/Home/Header";
 
 function Seller() {
   return (
     <>
-      <Header />;
+      <Header />
     </>
   );
 }
