@@ -65,11 +65,11 @@ export function AdsBar()
             <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
             <div className ="slides">
 
-                <img id="slide1" src={require("../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
+                <img id="slide1" src={require("../../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
 
-                <img id="slide2" src={require("../assets/Ad2.png")} alt="Ad 2" className="slide"></img>
+                <img id="slide2" src={require("../../assets/Ad2.png")} alt="Ad 2" className="slide"></img>
 
-                <img id="slide3" src={require("../assets/Ad3.png")} alt="Ad 3" className="slide"></img>
+                <img id="slide3" src={require("../../assets/Ad3.png")} alt="Ad 3" className="slide"></img>
                 
                 
             </div>
