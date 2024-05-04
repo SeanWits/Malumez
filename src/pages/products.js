@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../components/product';
 import { db } from '../firebase';
-import { getDocs, collection, query } from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import './products.css'
 
