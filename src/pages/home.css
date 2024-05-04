@@ -167,6 +167,9 @@ footer
   display: flex;
   justify-content: center;
   color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   
   
 }
