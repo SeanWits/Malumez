@@ -1,5 +1,6 @@
-import { Router, useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+
+import React, { useEffect } from 'react';
+
 
 export function AdsBar()
 {
@@ -10,21 +11,30 @@ export function AdsBar()
   useEffect(() => {
     // Call startingUp function once all images are loaded
     startingUp();
+    const interval = setInterval(() => {
+      currentSlide(1); // Change to the next slide
+    }, 5000);
+  
+    // Clear interval so that it can start the countdown again
+    return () => clearInterval(interval);
+    
   }, []); 
 
+
+  //loading the initial ads
   function startingUp()
   {
     document.getElementById("slide1").style.display = 'block';
     document.getElementById("slide2").style.display = 'none';
     document.getElementById("slide3").style.display = 'none';
+    setInterval(currentSlide(1), 5000);
   }
   
 
+  // this function changes the slides, either using the arrows or looping through the intervals
   function currentSlide(n)
   {
-      // the current slide gets invisible
-      let prevSlide = document.getElementById(`${slideName}`);
-      console.log("Previous slide:" + slideName);
+      // the current slide becomes visible
       slideIndex = slideIndex+n;
       let i;
       
@@ -42,27 +52,26 @@ export function AdsBar()
       slideName = "slide"+slideIndex;
       let noneSlideName = null;
       let currentSlide = document.getElementById(`${slideName}`);
-      console.log("CurrentSlide = "+ slideName);
       currentSlide.style.display = 'block';
 
-      console.log("Starting for loop");
+      // Hide the other slides
       for (i = 1; i <= totalSlides; i++) {
-        if(i != slideIndex )
+        if(i !== slideIndex )
         {
             noneSlideName = "slide"+i;
-            console.log("Looking at " +noneSlideName);
             document.getElementById(`${noneSlideName}`).style.display = 'none';
-            console.log("Other Slides Removed");
-
         }
       }
+      
   }
+  
+  
   
   return (
     <>
     <section className ="adsBar">
             
-            <button id="adLeftArrow"  onClick={() => currentSlide(-1)}> adLeftArrow</button>
+             <i className='fa fa-chevron-left icon left' onClick={() =>currentSlide(1)} id='adLeftArrow'/>
             <div className ="slides">
 
                 <img id="slide1" src={require("../../assets/Ad1.png")} alt="Ad 1" className="slide"></img>
@@ -73,7 +82,7 @@ export function AdsBar()
                 
                 
             </div>
-            <button id="adRightArrow" onClick={() => currentSlide(1)}> adRightArrow</button>
+            <i className= 'fa fa-chevron-right icon right fa' onClick={() =>currentSlide(1)} id='adRightArrow'/>
          </section>
     
     </>

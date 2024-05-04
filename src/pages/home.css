@@ -89,8 +89,17 @@
 
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 
-.categorySection .categoryHeading
+#brandsHeading
 {
+  font-family: "MV Boli V1";
+  padding: 10px;
+  font-size: 32px;
+  margin: 0;
+}
+
+.categoryHeading
+{
+  font-family: "MV Boli V1";
   padding: 10px;
   font-size: 32px;
   margin: 0;
@@ -116,7 +125,9 @@
 {
   height: 184px;  
   width: 184px;
-  padding: 20px
+  padding: 20px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .featuredProducts .icon
@@ -156,4 +167,5 @@ footer
   display: flex;
   justify-content: center;
   color: #fff;
+  
 }

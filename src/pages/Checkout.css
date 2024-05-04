@@ -7,13 +7,12 @@
   padding: 20px;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px; /* Add margin bottom for better spacing */
-}
+
 
 .centered-heading {
   text-align: center;
+  text-align: center;
+  margin-bottom: 20px; /* Add margin bottom for better spacing */
 }
 
 .cart-box {
