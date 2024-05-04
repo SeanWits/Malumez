@@ -68,42 +68,64 @@ export function FeaturedProducts()
 
   //fetching brands from the database
   useEffect(() => {
-    
-    const fetchBrands = async () => {
-      try {
-        const brandQuerySnapshot = await getDocs(collection(db, "brands"));
-         let allBrands = [];
-         
-
-        // Map each shopDoc to a promise that fetches its products
-        const BrandPromises = brandQuerySnapshot.docs.map(async (brandDoc) => {
-          const productsQuerySnapshot = await getDocs(query(collection(db, 'brands', brandDoc.id, 'brands')));// check this line, it looks kind of sketchy
-          brandQuerySnapshot.forEach((brandDoc) => {
-            const brandData = brandDoc.data();
-            allBrands.push({
-              id: brandDoc.id,
-              name: brandData.name,
-              src: brandData.src
-            });
-          });
-        });
-
-        // Wait for all productPromises to resolve
-        await Promise.all(BrandPromises);
-
-        // Update state after all products are fetched
-        setBrands(allBrands);
-        console.log(allBrands);
-        
-      } catch (error) {
-        console.error('Error fetching brands:', error);
-      }
-    };
-
     fetchBrands();
-    
   }, []);
 
+  const fetchBrands = async () => {
+    try {
+      const brandQuerySnapshot = await getDocs(collection(db, "brands"));
+      let allBrands = [];
+       
+      // Map each BrandDoc to a promise that fetches its products
+      // const BrandPromises = brandQuerySnapshot.docs.map(async (brandDoc) => {
+      //   brandQuerySnapshot.forOne((brandDoc) => {
+      //     const brandData = brandDoc.data();
+      //     allBrands.push({
+      //       id: brandDoc.id,
+      //       name: brandData.name,
+      //       src: brandData.src
+      //     });
+      //   });
+      // });
+
+      // Using this function instead of the previous one cause the previous
+      // checking to see if the snapshot is already populated or not 
+      if (!brandQuerySnapshot.empty) {
+        // Access all the information in the document snapshot
+
+        // look through each element and pass it to the allBrands
+        for(let i =0;i<brandQuerySnapshot.size;i++)
+          {
+            const firstBrandDoc = brandQuerySnapshot.docs[i];
+            const brandData = firstBrandDoc.data();
+    
+        // Push the data to the allBrands array
+            allBrands.push({
+                id: firstBrandDoc.id,
+                name: brandData.name,
+                src: brandData.src
+            });
+          }
+        
+        
+        // Access the data of the first document snapshot
+        
+    }
+
+      
+
+      // Wait for all productPromises to resolve
+      //await Promise.all(BrandPromises);
+
+      // Update state after all products are fetched
+      setBrands(allBrands);
+      console.log("Lets see all the brands");
+      console.log(allBrands);
+      
+    } catch (error) {
+      console.error('Error fetching brands:', error);
+    }
+  };
 
 
   // filtering products by the brand when the brand is clicked
@@ -113,9 +135,6 @@ export function FeaturedProducts()
 
   // }
 
-
-
-  
 
   return (
     <>

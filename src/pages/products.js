@@ -65,10 +65,7 @@ const Products = () => {
 
       fetchProducts();
     }
-    else{
-      //filter();
-    }
-      
+    
     }, []);
 
     
