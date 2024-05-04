@@ -19,7 +19,7 @@ function App() {
         <Route path="/signUp" element={<SignUp/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/showProducts" element={<ShowProducts/>}/>
-        <Route path="/products" element={<ProductsPage/>}/>
+        <Route path="/products" element={<Products/>}/>
         <Route path="/checkOut" element={<Checkout/>}/>
         <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
       </Routes>

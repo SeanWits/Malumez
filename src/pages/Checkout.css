@@ -1,10 +1,20 @@
 /* Checkout.css */
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 .checkout-container {
   display: flex;
   justify-content: space-between;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+#checkoutBanner
+{
+  font-family: "MV Boli V1";
+  text-align: center;
+  margin-right: 50%;
+  color: white;
+  font-size: 20px;
 }
 
 
