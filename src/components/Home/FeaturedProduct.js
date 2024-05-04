@@ -11,7 +11,7 @@ export function FeaturedProducts()
   let slideIndex = 1;
   let totalSlides = 3;
   let slideName = "fPslide"+slideIndex;
-  const [brands, setBrands] = [];
+  const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -114,6 +114,8 @@ export function FeaturedProducts()
 
       console.log("Lets see all the brands");
       console.log(allBrands);
+      setBrands(allBrands);
+      console.log(brands[1].src);
       // Find a way to put the value of AllBrands in the Brands Variable so that we can reference it in our function 
       
     } catch (error) {
@@ -121,26 +123,12 @@ export function FeaturedProducts()
     }
   };
 
-  // why is this not read correctly even though it is the same as what is in the function fetchBrands()? It returns as undefines as 
-  // if it has no value as of yet
-  // const fetchData = async () => {
-  //   await fetchBrands();
-  //   console.log("What about here?");
-  //   setGetBrands(brands);
-    
-  // };
+  
   
   // fetchData();
-  // console.log(getBrands);
+ 
 
-  // filtering products by the brand when the brand is clicked
-  // function filterByProduct (){
-  //   console.log("Take me to the product page please");
-  //   navigate("./products");
-
-  // }
-
-  //console.log(brands[0]); 
+ 
   return (
     <>
     
