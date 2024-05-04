@@ -1,4 +1,4 @@
-import logo from "../assets/Malume'zLogoFullNoBackground.png";
+// import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
 import React, { useEffect, useState } from 'react';
 import { Router, useNavigate } from 'react-router-dom';

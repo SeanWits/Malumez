@@ -4,12 +4,8 @@ export function Categories()
 {
   const navigate = useNavigate();
 
-  let productImage=require("../assets/Malume'zLogoFull.png");
-  let categoryName = "Products";
-  
-
-
-
+  let productImage=require("../../assets/Malume'zLogoFull.png");
+  let categoryName = "Category"
   return (
     <>
       <section className="categorySection">
