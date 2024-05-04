@@ -9,6 +9,7 @@ import ShowProducts from './components/showProducts';
 import Products from './pages/products';
 import Checkout from './pages/Checkout';
 import StoreImageTextFirebase from './pages/uploadImg';
+import Seller from './pages/Seller';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/products" element={<Products/>}/>
         <Route path="/checkOut" element={<Checkout/>}/>
         <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
+        <Route path="/seller" element={<Seller/>}/>
       </Routes>
     </Router>
   );
