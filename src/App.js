@@ -8,7 +8,7 @@ import Admin from './pages/admin';
 import ShowProducts from './components/showProducts';
 import Products from './pages/products';
 import Checkout from './pages/Checkout';
-import ProductsPage from './pages/products';
+import StoreImageTextFirebase from './pages/uploadImg';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/showProducts" element={<ShowProducts/>}/>
         <Route path="/products" element={<ProductsPage/>}/>
         <Route path="/checkOut" element={<Checkout/>}/>
+        <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
       </Routes>
     </Router>
   );
