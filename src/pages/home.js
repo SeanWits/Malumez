@@ -1,6 +1,9 @@
 import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
+import React, { useEffect, useState } from 'react';
 import { Router, useNavigate } from 'react-router-dom';
+import { db } from '../firebase';
+import { getDocs, collection, query } from "firebase/firestore";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/Search";
 import { MoreOptions } from "../components/More_Options";
@@ -11,20 +14,140 @@ import { AdsBar } from "../components/AdsBar";
 export function FeaturedProducts()
 {
   let brandImage=require("../assets/Malume'zLogoFull.png");
+  let slideIndex = 1;
+  let totalSlides = 3;
+  let slideName = "fPslide"+slideIndex;
+  const [brands, setBrands] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Call startingUp function once all images are loaded
+    startingUp();
+  }, []); 
+
+
+  function startingUp()
+  {
+    document.getElementById("fPslide1").style.display = 'block';
+    document.getElementById("fPslide2").style.display = 'none';
+    document.getElementById("fPslide3").style.display = 'none';
+  }
+  
+
+  function currentSlide(n)
+  {
+      // the current slide gets invisible
+      slideIndex = slideIndex+n;
+      let i;
+      
+      if(slideIndex>3)
+      {
+        slideIndex =1;
+      }
+
+      if(slideIndex<1)
+      {
+        slideIndex =totalSlides;
+      }
+      
+      // getting the name of the current slide
+      slideName = "fPslide"+slideIndex;
+      let noneSlideName = null;
+      let currentSlide = document.getElementById(`${slideName}`);
+      currentSlide.style.display = 'block';
+
+      for (i = 1; i <= totalSlides; i++) {
+        if(i !== slideIndex )
+        {
+            noneSlideName = "fPslide"+i;
+            document.getElementById(`${noneSlideName}`).style.display = 'none';
+        }
+      }
+      
+  }
 
   //fetching brands from the database
+  useEffect(() => {
+    
+    const fetchBrands = async () => {
+      try {
+        const brandQuerySnapshot = await getDocs(collection(db, "brands"));
+         let allBrands = [];
+         
+
+        // Map each shopDoc to a promise that fetches its products
+        const BrandPromises = brandQuerySnapshot.docs.map(async (brandDoc) => {
+          const productsQuerySnapshot = await getDocs(query(collection(db, 'brands', brandDoc.id, 'brands')));// check this line, it looks kind of sketchy
+          brandQuerySnapshot.forEach((brandDoc) => {
+            const brandData = brandDoc.data();
+            allBrands.push({
+              id: brandDoc.id,
+              name: brandData.name,
+              src: brandData.src
+            });
+          });
+        });
+
+        // Wait for all productPromises to resolve
+        await Promise.all(BrandPromises);
+
+        // Update state after all products are fetched
+        setBrands(allBrands);
+        console.log(allBrands);
+        
+      } catch (error) {
+        console.error('Error fetching brands:', error);
+      }
+    };
+
+    fetchBrands();
+    
+  }, []);
+
+
+
+  // filtering products by the brand when the brand is clicked
+  // function filterByProduct (){
+  //   console.log("Take me to the product page please");
+  //   navigate("./products");
+
+  // }
+
+
+
+  
 
   return (
     <>
     
-    <h2 id="brandsHeading">Brands</h2>
-      <section  className="featuredProducts">
-        <i className="fa fa-chevron-left icon left"></i>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-        <i className="fa fa-chevron-right icon right"></i>
-      </section>
+      <h2 id="brandsHeading">Brands</h2>
+        <section  className="featuredProducts">
+          <i className="fa fa-chevron-left icon left" onClick={()=> {currentSlide(-1)}}></i>
+
+          <section id="fPslide1">
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+          </section>
+
+          <section id="fPslide2">
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            
+          </section>
+
+          <section id="fPslide3">
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+          </section>
+
+          <i className="fa fa-chevron-right icon right" onClick={()=> {currentSlide(1)}}></i>
+        </section>
     </>
   )
 }

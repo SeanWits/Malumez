@@ -125,7 +125,9 @@
 {
   height: 184px;  
   width: 184px;
-  padding: 20px
+  padding: 20px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .featuredProducts .icon

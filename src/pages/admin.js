@@ -8,7 +8,6 @@ import { getDocs, collection } from "firebase/firestore";
 import './admin.css';
 
 
-
 let test=[];
 let test1=[];
 

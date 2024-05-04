@@ -15,12 +15,13 @@ export function AdsBar()
       currentSlide(1); // Change to the next slide
     }, 5000);
   
-    // Clear interval on component unmount to prevent memory leaks
+    // Clear interval so that it can start the countdown again
     return () => clearInterval(interval);
     
   }, []); 
 
 
+  //loading the initial ads
   function startingUp()
   {
     document.getElementById("slide1").style.display = 'block';
@@ -30,9 +31,10 @@ export function AdsBar()
   }
   
 
+  // this function changes the slides, either using the arrows or looping through the intervals
   function currentSlide(n)
   {
-      // the current slide gets invisible
+      // the current slide becomes visible
       slideIndex = slideIndex+n;
       let i;
       
@@ -52,6 +54,7 @@ export function AdsBar()
       let currentSlide = document.getElementById(`${slideName}`);
       currentSlide.style.display = 'block';
 
+      // Hide the other slides
       for (i = 1; i <= totalSlides; i++) {
         if(i !== slideIndex )
         {
