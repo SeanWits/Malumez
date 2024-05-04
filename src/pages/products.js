@@ -8,8 +8,7 @@ import './products.css';
 import './home';
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
-
-
+import { MoreOptions } from '../components/Home/More_Options';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -69,21 +68,6 @@ const Products = () => {
     }, []);
 
     
-    // function filter()
-    // {
-    //   // searches though the products and returns the ones which match the search in brand, name or category
-    //   console.log(fetchAll);
-    //   console.log("Now the filtered products");
-    //   let searchProducts = fetchAll.filter(fetchAll => fetchAll.category.toLowerCase() === searchItem.toLowerCase());
-    //   searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.brand.toLowerCase() === searchItem.toLowerCase());
-    //   searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.name.toLowerCase() === searchItem.toLowerCase());
-    //   console.log(searchProducts);
-
-    // }
-    
-
-    
-
  const addToCart = (product) => {
     const updatedCart = [...cart, product];
     setCart(updatedCart);
@@ -118,7 +102,7 @@ const handleCheckout = () => {
               />
             ))}
           </div>
-          <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+          <button className="checkout-btn" onClick={handleCheckout} >Checkout</button>
         </div>
         </>
       );
@@ -131,6 +115,7 @@ function ProductsPage()
     <Header />
     <SearchBar />
     <Products/>
+    <MoreOptions/>
     <Footer />  
   </>
   )
