@@ -17,12 +17,13 @@ export function FeaturedProducts()
   let slideIndex = 1;
   let totalSlides = 3;
   let slideName = "fPslide"+slideIndex;
-  const [brands, setBrands] = useState([]);
+  const [brands, setBrands] = [];
   const navigate = useNavigate();
 
   useEffect(() => {
     // Call startingUp function once all images are loaded
     startingUp();
+    fetchBrands();
   }, []); 
 
 
@@ -67,9 +68,7 @@ export function FeaturedProducts()
   }
 
   //fetching brands from the database
-  useEffect(() => {
-    fetchBrands();
-  }, []);
+  
 
   const fetchBrands = async () => {
     try {
@@ -106,8 +105,6 @@ export function FeaturedProducts()
                 src: brandData.src
             });
           }
-        
-        
         // Access the data of the first document snapshot
         
     }
@@ -118,15 +115,29 @@ export function FeaturedProducts()
       //await Promise.all(BrandPromises);
 
       // Update state after all products are fetched
-      setBrands(allBrands);
+      
+      //setBrands(allBrands);
+
       console.log("Lets see all the brands");
       console.log(allBrands);
+      // Find a way to put the value of AllBrands in the Brands Variable so that we can reference it in our function 
       
     } catch (error) {
       console.error('Error fetching brands:', error);
     }
   };
 
+  // why is this not read correctly even though it is the same as what is in the function fetchBrands()? It returns as undefines as 
+  // if it has no value as of yet
+  // const fetchData = async () => {
+  //   await fetchBrands();
+  //   console.log("What about here?");
+  //   setGetBrands(brands);
+    
+  // };
+  
+  // fetchData();
+  // console.log(getBrands);
 
   // filtering products by the brand when the brand is clicked
   // function filterByProduct (){
@@ -135,15 +146,16 @@ export function FeaturedProducts()
 
   // }
 
-
+  //console.log(brands[0]); 
   return (
     <>
     
       <h2 id="brandsHeading">Brands</h2>
         <section  className="featuredProducts">
           <i className="fa fa-chevron-left icon left" onClick={()=> {currentSlide(-1)}}></i>
-
+          
           <section id="fPslide1">
+          
             <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
             <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
             <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
