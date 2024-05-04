@@ -1,5 +1,5 @@
 import { Router, useNavigate } from 'react-router-dom';
-import { db, getDoc, doc } from '../firebase.js';
+import { db, getDoc, doc } from '../../firebase.js';
 import React, { useState } from 'react';
 
 

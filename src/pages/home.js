@@ -1,6 +1,5 @@
 // import logo from "../assets/Malume'zLogoFullNoBackground.png";
 import './home.css';
-import React, { useEffect, useState } from 'react';
 import { Header } from "../components/Home/Header";
 import { SearchBar } from "../components/Home/Search";
 import { MoreOptions } from "../components/Home/More_Options";
