@@ -1,5 +1,5 @@
 // import "./Seller.css";
-import { Header } from "../components/Home/Header";
+import { Header } from "../components/Seller/Header";
 
 function Seller() {
   return (
@@ -9,4 +9,4 @@ function Seller() {
   );
 }
 
-export default Seller();
+export default Seller;
