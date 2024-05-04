@@ -3,11 +3,11 @@ import Product from '../components/product';
 import { db } from '../firebase';
 import { getDocs, collection, query } from "firebase/firestore";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { SearchBar } from '../components/Search';
+import { SearchBar } from '../components/Home/Search';
 import './products.css';
 import './home';
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { Header } from "../components/Home/Header";
+import { Footer } from "../components/Home/Footer";
 
 
 
