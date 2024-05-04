@@ -5,12 +5,15 @@ import ReactDOM from 'react-dom/client';
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection } from "firebase/firestore";
-import './admin.css';
+import { render } from '@testing-library/react';
+import Modal from '../components/modal';
+
 
 
 
 let test=[];
 let test1=[];
+
 
 function Admin(){
 
@@ -46,19 +49,256 @@ function Admin(){
     fetchData();
   }, []); 
 
+  
+  const [openModal, setOpenModal] = useState(false);
+
+  function dashboard(){
+    //---------------------------------------------------------------------------------------------------------------
+    
+
+    //---------------------------------------------------------------------------------------------------------------
+    
+    const table = document.getElementById('adminTable');
+    const rowCount = table.rows.length;
+    //table.deleteRow(0);
+    
+    if(rowCount!=0){
+        for(let k=0;k<rowCount;k++){
+            table.deleteRow(0);
+        };
+    };
+
+    const count = test.length + test1.length;
+    const newRow = table.insertRow(0);
+    const cell = newRow.insertCell(0);
+    cell.innerHTML = "<b>BUYER OR SELLER</b>";
+    const cell1 = newRow.insertCell(1);
+    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
+    const cell2 = newRow.insertCell(2);
+    cell2.innerHTML = "<b>EMAIL</b>";
+    const cell3 = newRow.insertCell(3);
+    cell3.innerHTML = "<b>LOCATION</b>";
+    const cell4 = newRow.insertCell(4);
+    cell4.innerHTML = " ";
     
     
 
-    return(<html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Document</title>
-        <link rel="stylesheet" href="admin.css"/>
-    </head>
-    <body>
-        <header className="adminHeader"><a href="/"><img className='adminImage' alt="" src={require("../assets/Malume'zLogoFull.png")}/></a></header>
+    //Adding users to admin page
+    for(let i=0;i<test.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<5;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test[i].owner_name;
+            };
+            
+            if(j==2){
+                cell.textContent = test[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test[i].location;
+            };
+
+            if(j==4){
+                
+                const btn = document.createElement('button');
+                btn.innerHTML = 'More';
+                btn.addEventListener('click', () => {setOpenModal(true);});
+                row.appendChild(btn);
+            
+            };
+            
+        };
+
         
+    };
+
+    for(let i=0;i<test1.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<5;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test1[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test1[i].username;
+            };
+            
+            if(j==2){
+                cell.textContent = test1[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test1[i].surname;
+            };
+
+            if(j==4){
+                const btn = document.createElement('button');
+                btn.innerHTML = 'More';
+                btn.addEventListener('click', () => {setOpenModal(true);});
+                row.appendChild(btn);
+
+            };
+            
+        };
+
+        
+    };
+
+};
+
+function buyers(){
+    const table = document.getElementById('adminTable');
+    const rowCount = table.rows.length;
+    //table.deleteRow(0);
+    
+    if(rowCount!=0){
+        for(let k=0;k<rowCount;k++){
+            table.deleteRow(0);
+        };
+    };
+
+
+    console.log(test);
+    const newRow = table.insertRow(0);
+    const cell = newRow.insertCell(0);
+    cell.innerHTML = "<b>BUYER OR SELLER</b>";
+    const cell1 = newRow.insertCell(1);
+    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
+    const cell2 = newRow.insertCell(2);
+    cell2.innerHTML = "<b>EMAIL</b>";
+    const cell3 = newRow.insertCell(3);
+    cell3.innerHTML = "<b>SURNAME</b>";
+    const cell4 = newRow.insertCell(4);
+    cell4.innerHTML = "    ";
+    
+
+    //Adding users to admin page
+    for(let i=0;i<test1.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<5;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test1[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test1[i].username;
+            };
+            
+            if(j==2){
+                cell.textContent = test1[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test1[i].surname;
+            };
+
+            if(j==4){
+                const btn = document.createElement('button');
+                btn.innerHTML = 'More';
+                btn.addEventListener('click', () => {setOpenModal(true);});
+                row.appendChild(btn);
+
+            };
+            
+        };
+
+        
+    };
+};
+
+function owners(){
+    //---------------------------------------------------------------------------------------------------------------
+    
+
+    //---------------------------------------------------------------------------------------------------------------
+    
+    const table = document.getElementById('adminTable');
+    const rowCount = table.rows.length;
+    //table.deleteRow(0);
+    
+    if(rowCount!=0){
+        for(let k=0;k<rowCount;k++){
+            table.deleteRow(0);
+        };
+    };
+
+
+    console.log(test);
+    const newRow = table.insertRow(0);
+    const cell = newRow.insertCell(0);
+    cell.innerHTML = "<b>BUYER OR SELLER</b>";
+    const cell1 = newRow.insertCell(1);
+    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
+    const cell2 = newRow.insertCell(2);
+    cell2.innerHTML = "<b>EMAIL</b>";
+    const cell3 = newRow.insertCell(3);
+    cell3.innerHTML = "<b>LOCATION</b>";
+    const cell4 = newRow.insertCell(4);
+    cell4.innerHTML = " ";
+    
+
+    //Adding users to admin page
+    for(let i=0;i<test.length;i++){
+        //Adds new rows
+        const row = table.insertRow(-1);
+        //cell4.innerHTML = " ";
+        for(let j=0;j<5;j++){
+            //Adds new cells
+            const cell = row.insertCell(j);
+            
+            if(j==0){
+                cell.textContent = test[i].name;
+            };
+
+            if(j==1){
+                cell.textContent = test[i].owner_name;
+            };
+            
+            if(j==2){
+                cell.textContent = test[i].email;
+            };
+
+            if(j==3){
+                cell.textContent = test[i].location;
+            };
+
+            if(j==4){
+                const btn = document.createElement('button');
+                btn.innerHTML = 'More';
+                btn.addEventListener('click', () => {setOpenModal(true);});
+                row.appendChild(btn);
+            };
+            
+        };
+
+        
+    };
+};
+
+    return(
+    <body>
+        <header><a href="/"><img alt="" src={require("../assets/Malume'zLogoFull.png")}/></a></header>
+        {openModal && <Modal closeModal={setOpenModal}/>}
         <section class="main-content">
             <nav>
                 <button class="button" id="dashboardBtn" onClick={dashboard}>Dashboard</button>
@@ -82,7 +322,7 @@ function Admin(){
             
         </section>
     </body>
-    </html>
+    
     );
 }
 
@@ -114,157 +354,7 @@ const users = [{
     "location": "Thembisa"
 }];
 
-function dashboard(){
-    //---------------------------------------------------------------------------------------------------------------
-    
 
-    //---------------------------------------------------------------------------------------------------------------
-
-    const table = document.getElementById('adminTable');
-    const rowCount = table.rows.length;
-    //table.deleteRow(0);
-    
-    if(rowCount!=0){
-        for(let k=0;k<rowCount;k++){
-            table.deleteRow(0);
-        };
-    };
-
-    const count = test.length + test1.length;
-    const newRow = table.insertRow(0);
-    const cell = newRow.insertCell(0);
-    cell.innerHTML = "<b>BUYER OR SELLER</b>";
-    const cell1 = newRow.insertCell(1);
-    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
-    const cell2 = newRow.insertCell(2);
-    cell2.innerHTML = "<b>EMAIL</b>";
-    const cell3 = newRow.insertCell(3);
-    cell3.innerHTML = "<b>LOCATION</b>";
-    
-
-    //Adding users to admin page
-    for(let i=0;i<test.length;i++){
-        //Adds new rows
-        const row = table.insertRow(-1);
-        //cell4.innerHTML = " ";
-        for(let j=0;j<4;j++){
-            //Adds new cells
-            const cell = row.insertCell(j);
-            
-            if(j==0){
-                cell.textContent = test[i].name;
-            };
-
-            if(j==1){
-                cell.textContent = test[i].owner_name;
-            };
-            
-            if(j==2){
-                cell.textContent = test[i].email;
-            };
-
-            if(j==3){
-                cell.textContent = test[i].location;
-            };
-
-            
-        };
-
-        
-    };
-
-    for(let i=0;i<test1.length;i++){
-        //Adds new rows
-        const row = table.insertRow(-1);
-        //cell4.innerHTML = " ";
-        for(let j=0;j<4;j++){
-            //Adds new cells
-            const cell = row.insertCell(j);
-            
-            if(j==0){
-                cell.textContent = test1[i].name;
-            };
-
-            if(j==1){
-                cell.textContent = test1[i].username;
-            };
-            
-            if(j==2){
-                cell.textContent = test1[i].email;
-            };
-
-            if(j==3){
-                cell.textContent = test1[i].surname;
-            };
-
-            
-        };
-
-        
-    };
-
-};
-
-function owners(){
-    //---------------------------------------------------------------------------------------------------------------
-    
-
-    //---------------------------------------------------------------------------------------------------------------
-    
-    const table = document.getElementById('adminTable');
-    const rowCount = table.rows.length;
-    //table.deleteRow(0);
-    
-    if(rowCount!=0){
-        for(let k=0;k<rowCount;k++){
-            table.deleteRow(0);
-        };
-    };
-
-
-    console.log(test);
-    const newRow = table.insertRow(0);
-    const cell = newRow.insertCell(0);
-    cell.innerHTML = "<b>BUYER OR SELLER</b>";
-    const cell1 = newRow.insertCell(1);
-    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
-    const cell2 = newRow.insertCell(2);
-    cell2.innerHTML = "<b>EMAIL</b>";
-    const cell3 = newRow.insertCell(3);
-    cell3.innerHTML = "<b>LOCATION</b>";
-    
-
-    //Adding users to admin page
-    for(let i=0;i<test.length;i++){
-        //Adds new rows
-        const row = table.insertRow(-1);
-        //cell4.innerHTML = " ";
-        for(let j=0;j<4;j++){
-            //Adds new cells
-            const cell = row.insertCell(j);
-            
-            if(j==0){
-                cell.textContent = test[i].name;
-            };
-
-            if(j==1){
-                cell.textContent = test[i].owner_name;
-            };
-            
-            if(j==2){
-                cell.textContent = test[i].email;
-            };
-
-            if(j==3){
-                cell.textContent = test[i].location;
-            };
-
-            
-        };
-
-        
-    };
-};
 //     useEffect(() => {
 //         const fetchShopsData = async () => {
 //             try {
@@ -346,63 +436,10 @@ function owners(){
 //     };
 // };
 
-function buyers(){
-    const table = document.getElementById('adminTable');
-    const rowCount = table.rows.length;
-    //table.deleteRow(0);
-    
-    if(rowCount!=0){
-        for(let k=0;k<rowCount;k++){
-            table.deleteRow(0);
-        };
-    };
 
-
-    console.log(test);
-    const newRow = table.insertRow(0);
-    const cell = newRow.insertCell(0);
-    cell.innerHTML = "<b>BUYER OR SELLER</b>";
-    const cell1 = newRow.insertCell(1);
-    cell1.innerHTML = "<b>USERNAME/PERSON IN CHARGE</b>";
-    const cell2 = newRow.insertCell(2);
-    cell2.innerHTML = "<b>EMAIL</b>";
-    const cell3 = newRow.insertCell(3);
-    cell3.innerHTML = "<b>SURNAME</b>";
-    
-
-    //Adding users to admin page
-    for(let i=0;i<test1.length;i++){
-        //Adds new rows
-        const row = table.insertRow(-1);
-        //cell4.innerHTML = " ";
-        for(let j=0;j<4;j++){
-            //Adds new cells
-            const cell = row.insertCell(j);
-            
-            if(j==0){
-                cell.textContent = test1[i].name;
-            };
-
-            if(j==1){
-                cell.textContent = test1[i].username;
-            };
-            
-            if(j==2){
-                cell.textContent = test1[i].email;
-            };
-
-            if(j==3){
-                cell.textContent = test1[i].surname;
-            };
-
-            
-        };
-
-        
-    };
-};
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 root.render(<Admin />);
 export default Admin;
+
