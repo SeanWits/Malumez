@@ -3,8 +3,12 @@ import Product from '../components/product';
 import { db } from '../firebase';
 import { getDocs, collection, query } from "firebase/firestore";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { SearchBar } from '../components/Search';
 import './products.css';
 import './home';
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
 
 
 const Products = () => {
@@ -13,13 +17,11 @@ const Products = () => {
     const [fetchAll, setFetchAll] = useState([]);
     const navigate = useNavigate();
 
-    
-
+    // display the products page
+    ProductsPage();
     // gets the value passed from one file to another
     const location = useLocation();
     let searchItem = location.state || [];
-
-
 
     useEffect(() => {
       if (searchItem == null)
@@ -54,6 +56,8 @@ const Products = () => {
           setProducts(allProducts);
           setFetchAll(allProducts);
           console.log(allProducts);
+          // console.log("Lets see what is inside fetchall");
+          // console.log(fetchAll);
         } catch (error) {
           console.error('Error fetching products:', error);
         }
@@ -62,22 +66,24 @@ const Products = () => {
       fetchProducts();
     }
     else{
-      filter();
+      //filter();
     }
       
     }, []);
 
-    function filter()
-    {
-      // searches though the products and returns the ones which match the search in brand, name or category
-      console.log(fetchAll);
-      console.log("Now the filtered products");
-      let searchProducts = fetchAll.filter(fetchAll => fetchAll.category.toLowerCase() === searchItem.toLowerCase());
-      searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.brand.toLowerCase() === searchItem.toLowerCase());
-      searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.name.toLowerCase() === searchItem.toLowerCase());
-      console.log(searchProducts);
+    
+    // function filter()
+    // {
+    //   // searches though the products and returns the ones which match the search in brand, name or category
+    //   console.log(fetchAll);
+    //   console.log("Now the filtered products");
+    //   let searchProducts = fetchAll.filter(fetchAll => fetchAll.category.toLowerCase() === searchItem.toLowerCase());
+    //   searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.brand.toLowerCase() === searchItem.toLowerCase());
+    //   searchProducts = searchProducts + fetchAll.filter(fetchAll => fetchAll.name.toLowerCase() === searchItem.toLowerCase());
+    //   console.log(searchProducts);
 
-    }
+    // }
+    
 
     
 
@@ -100,6 +106,8 @@ const handleCheckout = () => {
 
 
     return (
+      <>
+      
         <div className="products-container-wrapper" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
           <div className="products-container">
             {products.map((product) => (
@@ -115,7 +123,20 @@ const handleCheckout = () => {
           </div>
           <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
         </div>
+        </>
       );
 };
 
-export default Products;
+function ProductsPage() 
+{
+  return (
+  <>
+    <Header />
+    <SearchBar />
+    <Products/>
+    <Footer />  
+  </>
+  )
+}
+
+export default ProductsPage;
