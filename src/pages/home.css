@@ -1,86 +1,73 @@
-.homeHeader
-{
+.homeHeader {
   display: flex;
   justify-content: space-between;
 }
 
-.homeHeader .icon
-{
+.homeHeader .icon {
   font-size: 40px;
   padding: 10px;
-  color: #23D9C4 ;
+  color: #23d9c4;
 }
 
-.searchBar
-{
+.searchBar {
   display: flex;
   /* background-color: #D9357B ; */
   justify-content: space-between;
-  background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+  background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
 }
 
-.searchBar .icon
-{
+.searchBar .icon {
   font-size: 40px;
   padding: 10px;
-  color: #fff ;
+  color: #fff;
 }
 
-.searchBar .search
-{
+.searchBar .search {
   display: flex;
   /* flex-wrap: wrap; */
   align-items: center;
   align-content: center;
 }
 
-.searchBar .search .inputSearch
-{
+.searchBar .search .inputSearch {
   height: 40px;
   width: 500px;
 }
 
-.adsBar
-{
+.adsBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 200px;
 }
 
-.adsBar .icon
-{
+.adsBar .icon {
   font-size: 18px;
 }
 
-.adsBar .adsImage
-{
+.adsBar .adsImage {
   height: 200px;
 }
 
-.categorySection
-{
+.categorySection {
   display: flex;
   flex-direction: column;
 }
 
-.categorySection .productSection
-{
+.categorySection .productSection {
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.categorySection .productSection .productImage
-{
+.categorySection .productSection .productImage {
   height: 144px;
   width: 144px;
   padding: 20px;
 }
 
-.featuredProducts
-{
+.featuredProducts {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,24 +76,21 @@
 
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 
-#brandsHeading
-{
+#brandsHeading {
   font-family: "MV Boli V1";
   padding: 10px;
   font-size: 32px;
   margin: 0;
 }
 
-.categoryHeading
-{
+.categoryHeading {
   font-family: "MV Boli V1";
   padding: 10px;
   font-size: 32px;
   margin: 0;
 }
 
-.categorySection .categoryText
-{
+.categorySection .categoryText {
   font-family: "MV Boli V1";
   color: #000;
   display: flex;
@@ -114,52 +98,44 @@
   align-items: end;
 }
 
-.categorySection .categoryText .viewMoreLink
-{
+.categorySection .categoryText .viewMoreLink {
   /* align-content: end; */
   padding: 5px;
-  color: #000 ;
+  color: #000;
 }
 
-.featuredProducts .brandImage
-{
-  height: 184px;  
+.featuredProducts .brandImage {
+  height: 184px;
   width: 184px;
   padding: 20px;
   margin-left: 70px;
   margin-right: 70px;
 }
 
-.featuredProducts .icon
-{
+.featuredProducts .icon {
   font-size: 18px;
 }
 
-.icon.left
-{
+.icon.left {
   padding-left: 5px;
 }
 
-.icon.right
-{
+.icon.right {
   padding-right: 5px;
 }
 
-ul
-{
+ul {
   list-style-type: none;
 }
 
-.moreOptions
-{
+.moreOptions {
   display: flex;
   justify-content: space-around;
   font-family: "MV Boli V1";
 }
 
-footer
-{
-  background-image: linear-gradient(to bottom left, #D9357B, #23D9C4);
+footer {
+  background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
   margin: 0;
   margin-block-end: 0;
   margin-block-start: 0;
@@ -167,9 +143,9 @@ footer
   display: flex;
   justify-content: center;
   color: #fff;
+  bottom: 0;
   position: fixed;
   width: 100%;
-  bottom: 0;
-  
-  
 }
+
+

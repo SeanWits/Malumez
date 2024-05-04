@@ -24,7 +24,7 @@ export function Header() {
           />
           <section>
             <i
-              onClick={() => navigate("/checkOut")}
+              onClick={() => navigate("/uploadImg")}
               className="fa fa-upload icon"
             />
             <i onClick={() => navigate("/login")} className="fa fa-bell icon" />
