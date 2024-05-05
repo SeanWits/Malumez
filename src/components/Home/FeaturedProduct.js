@@ -10,14 +10,19 @@ export function FeaturedProducts()
   let brandImage=require("../../assets/Malume'zLogoFull.png");
   let slideIndex = 1;
   let totalSlides = 3;
+  //const [brandArray, setBrandArray] =useState([]);
   let slideName = "fPslide"+slideIndex;
   const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
+  let i = 0;
+  let brandArray = [];
+  let elementRetrieved = false;
 
   useEffect(() => {
     // Call startingUp function once all images are loaded
     startingUp();
     fetchBrands();
+    
   }, []); 
 
 
@@ -68,20 +73,6 @@ export function FeaturedProducts()
     try {
       const brandQuerySnapshot = await getDocs(collection(db, "brands"));
       let allBrands = [];
-       
-      // Map each BrandDoc to a promise that fetches its products
-      // const BrandPromises = brandQuerySnapshot.docs.map(async (brandDoc) => {
-      //   brandQuerySnapshot.forOne((brandDoc) => {
-      //     const brandData = brandDoc.data();
-      //     allBrands.push({
-      //       id: brandDoc.id,
-      //       name: brandData.name,
-      //       src: brandData.src
-      //     });
-      //   });
-      // });
-
-      // Using this function instead of the previous one cause the previous
       // checking to see if the snapshot is already populated or not 
       if (!brandQuerySnapshot.empty) {
         // Access all the information in the document snapshot
@@ -102,20 +93,11 @@ export function FeaturedProducts()
         // Access the data of the first document snapshot
         
     }
-
-      
-
-      // Wait for all productPromises to resolve
-      //await Promise.all(BrandPromises);
-
-      // Update state after all products are fetched
-      
-      //setBrands(allBrands);
-
-      //console.log("Lets see all the brands");
-      //console.log(allBrands);
+      //Getting an array with all the brands in it
       setBrands(allBrands);
-      //console.log(brands[1].src);
+      //console.log(allBrands);
+      //console.log(brands);
+      
       // Find a way to put the value of AllBrands in the Brands Variable so that we can reference it in our function 
       
     } catch (error) {
@@ -123,8 +105,23 @@ export function FeaturedProducts()
     }
   };
 
+  // get a more accessible array containing all the brands
+  brands.forEach(brand =>{
+
+    brandArray[i]= brand;
+    console.log("Another one in brandArray");
+    console.log(brand)
+    i++;
+  });
+
+  // check if the brands have actually been retrieved
+  if(brandArray.length>1)
+    {
+      elementRetrieved = true;
+    }
+ 
   
-  
+   
   // fetchData();
  
 
@@ -134,29 +131,35 @@ export function FeaturedProducts()
     
       <h2 id="brandsHeading">Brands</h2>
         <section  className="featuredProducts">
+
+
           <i className="fa fa-chevron-left icon left" onClick={()=> {currentSlide(-1)}}></i>
           
-          <section id="fPslide1">
+      {/* Conditionally render the image based on the state */}
+      
+    
           
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+          <section id="fPslide1" >
+            {/* Only render the images once the brands have fully loaded  */}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[0].name} src={brandArray[0].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[1].name} src={brandArray[1].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[2].name} src={brandArray[2].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[3].name} src={brandArray[3].src} alt="Image of a featured product" />}
           </section>
 
           <section id="fPslide2">
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            {elementRetrieved && <img className="brandImage" id = {brandArray[4].name} src={brandArray[0].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[5].name} src={brandArray[1].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[6].name} src={brandArray[2].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[7].name} src={brandArray[3].src} alt="Image of a featured product" />}
             
           </section>
 
           <section id="fPslide3">
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
-            <img className="brandImage" src={brandImage} alt="Image of a featured product"></img>
+            {elementRetrieved && <img className="brandImage" id = {brandArray[8].name} src={brandArray[0].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[9].name} src={brandArray[1].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[10].name} src={brandArray[2].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[11].name} src={brandArray[3].src} alt="Image of a featured product" />}
           </section>
 
           <i className="fa fa-chevron-right icon right" onClick={()=> {currentSlide(1)}}></i>

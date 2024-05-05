@@ -49,7 +49,7 @@ const Products = () => {
               });
 
             });
-            console.log(productsQuerySnapshot);
+          
           });
 
           // Wait for all productPromises to resolve
@@ -163,7 +163,7 @@ function applyFilters()
         </section>
         
       
-        <div className="products-container-wrapper" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+        <div className="products-container-wrapper" style={{ height: '80vh', width:'200vh', overflowY: 'auto' }}>
           <div className="products-container">
             {products.map((product) => (
               <Product
