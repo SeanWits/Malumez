@@ -23,6 +23,7 @@ const Products = () => {
     // gets the value passed from one file to another
     const location = useLocation();
     let searchItem = location.state || [];
+    console.log("The search item is "+ searchItem);
 
     useEffect(() => {
       if (searchItem == null)
@@ -128,11 +129,15 @@ function applyFilters()
 
           <h3 className = "productHeaders">Price</h3>
           <section id= "sortByPrice">
+            <section>
             <input type="radio" value = "lowToHigh" checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} id="lowToHigh" />
             <label>Low to High</label>
+            </section>
 
+            <section>
             <input type="radio" value = "highToLow" checked={selectedOption === "highToLow"} onChange={handleOptionChange} id="highToLow" />
             <label>High to Low</label>
+            </section>
           </section>
           
 
@@ -151,6 +156,7 @@ function applyFilters()
           
 
           <button id="apply" onClick={applyFilters}>Apply</button>
+          <button className="checkout-btn" onClick={handleCheckout}> <i class="fa fa-arrow-right"></i> <i class="fa fa-shopping-basket"></i>Checkout</button>
         </section>
         </section>
         
@@ -168,8 +174,7 @@ function applyFilters()
               />
             ))}
           </div>
-          {/* Put an icon in this button so that it is clearly visible to customers */}
-          <button className="checkout-btn" onClick={handleCheckout}> <i class="fa fa-arrow-right"></i> <i class="fa fa-shopping-basket"></i>Checkout</button>
+          
         </div>
 
         </div>
