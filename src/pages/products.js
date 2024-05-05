@@ -13,20 +13,24 @@ import { MoreOptions } from '../components/Home/More_Options';
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const [fetchAll, setFetchAll] = useState([]);
     const [selectedOption,setSelectedOption]= useState(null);
+    let filtered = [];
+    let i=0;
     const navigate = useNavigate();
-    const [categorizedItems, setCategorizedItems] = useState([]);
+
+    
+    
+
 
     // display the products page
     ProductsPage();
-    // gets the value passed from one file to another
+    // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
 
     useEffect(() => {
       
-        // display all the products in no particular organisation if the person has not searched anything
+        // retrieving the products in no particular order
       const fetchProducts = async () => {
         try {
           const shopQuerySnapshot = await getDocs(collection(db, "shops"));
@@ -57,20 +61,21 @@ const Products = () => {
 
           // Update state after all products are fetched
           setProducts(allProducts);
-          setFetchAll(allProducts);
-          console.log("All the products are here");
-          console.log(allProducts);
-          // console.log("Lets see what is inside fetchall");
-          // console.log(fetchAll);
+          
+          
         } catch (error) {
           console.error('Error fetching products:', error);
         }
       };
 
       fetchProducts();
-    
-    
+      //setProducts();
+      //products.forEach()
+      
+
     }, []);
+
+  
 
     
  const addToCart = (product) => {
@@ -94,22 +99,39 @@ const handleOptionChange = (event) => {
   setSelectedOption(event.target.value);
 };
 
+// filtering the products by what the user selects
 function applyFilters()
 {
    let category = document.getElementById("categoriesDropdown").value;
    let brand = document.getElementById("brandsDropdown").value;
+   console.log(searchItem);
    console.log(category);
    console.log(brand);
    console.log(selectedOption);
 
-   //category
-   //Create a new array with the categorized items 
+   // First, check if the product falls under the searched items
+  if(category !== "all" && searchItem!== null && brand !== "all" && selectedOption !== null) // i.e if there is nothing to filter
+    {
+       products.forEach(product=>{
+        if(product.category === category)
+          {
+            console.log(product);
+              filtered[i]=product;
+              i++;
+          }
 
-   //selectedOption;
-   // checks whether selectedOption is priced from high to low or low to high,
-   // goes through the products and sorts them by this value 
-   // displays the sorted products 
+       });
+      
+
+    }
+    console.log(filtered);
+  
 }
+
+
+
+// check if the brands have actually been retrieved
+
 
 
     return (

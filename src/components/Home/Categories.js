@@ -1,11 +1,11 @@
-import { Router, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Categories()
 {
   const navigate = useNavigate();
 
   let productImage=require("../../assets/Malume'zLogoFull.png");
-  let categoryName = "Category"
+  let categoryName = "Brands";
   return (
     <>
       <section className="categorySection">
@@ -13,14 +13,13 @@ export function Categories()
           <h2 className="categoryHeading">
             {categoryName}
           </h2>
-          <a onClick={() => navigate('/products')} className="viewMoreLink" href="">
-            View more
-          </a>
+          <button onClick={() => navigate('/products')} className="viewMoreLink"> View More</button>
+          
         </section>
         <section className="productSection">
-          <img className="productImage" src={productImage} alt="Image of product" />
-          <img className="productImage" src={productImage} alt="Image of product" />
-          <img className="productImage" src={productImage} alt="Image of product" />
+          <img className="productImage" src={productImage} alt="product" />
+          <img className="productImage" src={productImage} alt="product" />
+          <img className="productImage" src={productImage} alt="product" />
         </section>
       </section>
     </>

@@ -109,8 +109,6 @@ export function FeaturedProducts()
   brands.forEach(brand =>{
 
     brandArray[i]= brand;
-    console.log("Another one in brandArray");
-    console.log(brand)
     i++;
   });
 
@@ -123,9 +121,7 @@ export function FeaturedProducts()
   // When a brand is clicked, Navigates to the product page and filters by that brand
   function brandClicked(brandName){
     navigate('/products', {state:brandName});
-    //{state:}
-    console.log(brandName)
-
+    console.log(brandName);
   }
  
   
