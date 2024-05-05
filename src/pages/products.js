@@ -117,6 +117,7 @@ function applyFilters()
             <h2 className = "productHeaders">Filters</h2>
           <h3 className = "productHeaders">Categories</h3>
             <select class="dropdown" id="categoriesDropdown">
+            <option value="all">All</option>
             <option value="beverages">Beverages</option>
             <option value="toiletries">Toiletries</option>
             <option value="household">Household</option>
@@ -138,6 +139,7 @@ function applyFilters()
           <h3 className = "productHeaders">Brands</h3>
             <select class="dropdown" id="brandsDropdown">
               {/* Options need to be dynamically generated depenending on the brands */}
+            <option value="all">All</option>
             <option value="Sunlight">Sunlight</option>
             <option value="Koo">Koo</option>
             <option value="Johnson's">Johnson's</option>
