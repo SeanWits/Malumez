@@ -110,6 +110,10 @@ function applyFilters()
    console.log(selectedOption);
 
    // First, check if the product falls under the searched items
+   //Then check if the Brand is the same
+   // finally check if the category is the same
+   // refine the tree to get more and more specific as you go down - comparing brands, products and categories. 
+   // Filtering may have to happen before the products are displayed
   if(category !== "all" && searchItem!== null && brand !== "all" && selectedOption !== null) // i.e if there is nothing to filter
     {
        products.forEach(product=>{
