@@ -1,4 +1,49 @@
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
+
 .products-container{
     display: flex;
     flex-wrap: wrap;
 }
+
+#productPageLayout
+{
+    display: flex;
+}
+
+#insideFilters
+{
+    margin: 5%;
+    display: block;
+    
+}
+.dropdown
+{
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5%;
+}
+#filters
+{
+    
+    background-image: linear-gradient(to bottom left, #D9357B, #23D9C4); /* Replace colors with your desired gradient */
+    opacity: 0.7;
+    border-radius: 5%;
+    color: whitesmoke;
+    margin-top: 3%;
+    margin-left: 2%;
+    width: 16%;
+    height: 450px;
+    display: inline-block;
+}
+
+.productHeaders
+{
+    font-family: "MV Boli V1";
+}
+
+#sortByPrice
+{
+    display:block;
+}
+

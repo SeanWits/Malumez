@@ -14,7 +14,9 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [fetchAll, setFetchAll] = useState([]);
+    const [selectedOption,setSelectedOption]= useState(null);
     const navigate = useNavigate();
+    const [categorizedItems, setCategorizedItems] = useState([]);
 
     // display the products page
     ProductsPage();
@@ -85,9 +87,71 @@ const handleCheckout = () => {
     console.log("Cart items:", cart);
 };
 
+const handleOptionChange = (event) => {
+  setSelectedOption(event.target.value);
+};
+
+function applyFilters()
+{
+   let category = document.getElementById("categoriesDropdown").value;
+   let brand = document.getElementById("brandsDropdown").value;
+   console.log(category);
+   console.log(brand);
+   console.log(selectedOption);
+
+   //category
+   //Create a new array with the categorized items 
+
+   //selectedOption;
+   // checks whether selectedOption is priced from high to low or low to high,
+   // goes through the products and sorts them by this value 
+   // displays the sorted products 
+}
+
 
     return (
       <>
+      <div id='productPageLayout'>
+        <section id='filters'>
+          <section id='insideFilters'>
+            <h2 className = "productHeaders">Filters</h2>
+          <h3 className = "productHeaders">Categories</h3>
+            <select class="dropdown" id="categoriesDropdown">
+            <option value="beverages">Beverages</option>
+            <option value="toiletries">Toiletries</option>
+            <option value="household">Household</option>
+            <option value="dairy">Dairy</option>
+            <option value="bakery">Bakery</option>
+            <option value="cupboard food">Cupboard Food</option>
+          </select>
+
+          <h3 className = "productHeaders">Price</h3>
+          <section id= "sortByPrice">
+            <input type="radio" value = "lowToHigh" checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} id="lowToHigh" />
+            <label>Low to High</label>
+
+            <input type="radio" value = "highToLow" checked={selectedOption === "highToLow"} onChange={handleOptionChange} id="highToLow" />
+            <label>High to Low</label>
+          </section>
+          
+
+          <h3 className = "productHeaders">Brands</h3>
+            <select class="dropdown" id="brandsDropdown">
+              {/* Options need to be dynamically generated depenending on the brands */}
+            <option value="Sunlight">Sunlight</option>
+            <option value="Koo">Koo</option>
+            <option value="Johnson's">Johnson's</option>
+            <option value="Simba">Simba</option>
+            <option value="Kelloggs">Kelloggs</option>
+          </select>
+
+
+          
+
+          <button id="apply" onClick={applyFilters}>Apply</button>
+        </section>
+        </section>
+        
       
         <div className="products-container-wrapper" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
           <div className="products-container">
@@ -102,9 +166,12 @@ const handleCheckout = () => {
               />
             ))}
           </div>
-          <button className="checkout-btn" onClick={handleCheckout} >Checkout</button>
+          {/* Put an icon in this button so that it is clearly visible to customers */}
+          <button className="checkout-btn" onClick={handleCheckout}> <i class="fa fa-arrow-right"></i> <i class="fa fa-shopping-basket"></i>Checkout</button>
         </div>
-        </>
+
+        </div>
+      </>
       );
 };
 
