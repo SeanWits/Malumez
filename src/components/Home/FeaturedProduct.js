@@ -148,18 +148,18 @@ export function FeaturedProducts()
           </section>
 
           <section id="fPslide2">
-            {elementRetrieved && <img className="brandImage" id = {brandArray[4].name} src={brandArray[0].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[5].name} src={brandArray[1].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[6].name} src={brandArray[2].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[7].name} src={brandArray[3].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[4].name} src={brandArray[4].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[5].name} src={brandArray[5].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[6].name} src={brandArray[6].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[7].name} src={brandArray[7].src} alt="Image of a featured product" />}
             
           </section>
 
           <section id="fPslide3">
-            {elementRetrieved && <img className="brandImage" id = {brandArray[8].name} src={brandArray[0].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[9].name} src={brandArray[1].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[10].name} src={brandArray[2].src} alt="Image of a featured product" />}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[11].name} src={brandArray[3].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[8].name} src={brandArray[8].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[9].name} src={brandArray[9].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[10].name} src={brandArray[10].src} alt="Image of a featured product" />}
+            {elementRetrieved && <img className="brandImage" id = {brandArray[11].name} src={brandArray[11].src} alt="Image of a featured product" />}
           </section>
 
           <i className="fa fa-chevron-right icon right" onClick={()=> {currentSlide(1)}}></i>
