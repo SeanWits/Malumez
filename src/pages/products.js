@@ -23,11 +23,10 @@ const Products = () => {
     // gets the value passed from one file to another
     const location = useLocation();
     let searchItem = location.state || [];
-    console.log("The search item is "+ searchItem);
 
     useEffect(() => {
-      if (searchItem == null)
-        {// display all the products in no particular organisation if the person has not searched anything
+      
+        // display all the products in no particular organisation if the person has not searched anything
       const fetchProducts = async () => {
         try {
           const shopQuerySnapshot = await getDocs(collection(db, "shops"));
@@ -48,7 +47,9 @@ const Products = () => {
                 brand: productData.brand,
                 stock:productData.stock
               });
+
             });
+            console.log(productsQuerySnapshot);
           });
 
           // Wait for all productPromises to resolve
@@ -57,6 +58,7 @@ const Products = () => {
           // Update state after all products are fetched
           setProducts(allProducts);
           setFetchAll(allProducts);
+          console.log("All the products are here");
           console.log(allProducts);
           // console.log("Lets see what is inside fetchall");
           // console.log(fetchAll);
@@ -66,7 +68,7 @@ const Products = () => {
       };
 
       fetchProducts();
-    }
+    
     
     }, []);
 

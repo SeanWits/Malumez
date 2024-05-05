@@ -112,10 +112,10 @@ export function FeaturedProducts()
       
       //setBrands(allBrands);
 
-      console.log("Lets see all the brands");
-      console.log(allBrands);
+      //console.log("Lets see all the brands");
+      //console.log(allBrands);
       setBrands(allBrands);
-      console.log(brands[1].src);
+      //console.log(brands[1].src);
       // Find a way to put the value of AllBrands in the Brands Variable so that we can reference it in our function 
       
     } catch (error) {
