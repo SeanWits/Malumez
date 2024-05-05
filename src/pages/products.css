@@ -2,13 +2,14 @@
 
 .products-container{
     display: flex;
+    flex-wrap: wrap;
     
 }
 
 #productPageLayout
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 #apply
