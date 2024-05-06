@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { imgDB, db, auth } from "../firebase";
 import { v4 } from "uuid";
+import './uploadImg.css';
+import Webcam from 'react-webcam';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
+
+const videoConstraints = {
+    width: 400,
+    height: 400,
+    facingMode: 'user',
+}
 
 function StoreImageTextFirebase() {
     const [shopId, setShopId] = useState(null);
@@ -14,6 +22,38 @@ function StoreImageTextFirebase() {
     const [brand, setBrand] = useState('');
     const [file, setFile] = useState(null); // File state to hold the selected file
     const [uploading, setUploading] = useState(false); // State to track image uploading status
+    const [showCamera, setShowCamera] = useState(false);
+    const [HideCameraOnly, setHideCameraOnly] = useState(false);
+    const [buttonText, setButtonText] = useState("Use Camera"); // State to track button text
+
+
+    const [picture, setPicture] = useState('')
+    const webcamRef = React.useRef(null)
+    const capture = React.useCallback(() => {
+        const pictureSrc = webcamRef.current.getScreenshot();
+        setPicture(pictureSrc);
+    })
+
+    const savePicture = async () => {
+        const blob = await fetch(picture).then(res => res.blob());
+        setFile(blob);
+        //console.log(picture);
+        setHideCameraOnly(true);
+    };
+
+
+    const SwitchMode = () => {
+        if (showCamera) {
+            setShowCamera(false);
+            setButtonText("Take Picture");
+            setFile('');
+        } else {
+            setShowCamera(true);
+            setButtonText("Upload Picture");
+            setFile('');
+            setHideCameraOnly(false);
+        }
+    };
 
 
     const fetchShopId = async () => {
@@ -94,7 +134,9 @@ function StoreImageTextFirebase() {
                     return;
                 }
 
+
                 const imageRef = ref(imgDB, `products/${shopId}/${v4()}`);
+
 
                 // Upload image
                 setUploading(true); // Set uploading state to true
@@ -131,13 +173,57 @@ function StoreImageTextFirebase() {
 
     useEffect(() => {
         fetchShopId();
+        setShowCamera(false);
     }, []);
 
 
     return (
-        <div>
-            <input/><br />
-            <input type="file" accept=".png, .jpg, .jpeg" onChange={(e) => setFile(e.target.files[0])} /><br /><br />
+        <div className="scrollable-container">
+            <button onClick={SwitchMode} className="btn btn-success">
+                {buttonText}
+            </button>
+            {showCamera && !HideCameraOnly &&(
+                <div>
+                    {picture === '' ? (
+                        <Webcam
+                            audio={false}
+                            height={400}
+                            ref={webcamRef}
+                            width={400}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}
+                        />
+                    ) : (
+                        <img src={picture} />
+                    )}
+                </div>
+            )}
+            <div>
+                {showCamera && picture !== '' ? (
+                    <>
+                        <button onClick={() =>{setPicture(''); setHideCameraOnly(false); setFile('');} } className="btn btn-primary mr-2">
+                            Retake
+                        </button>
+                        <button onClick={savePicture} className="btn btn-success">
+                            Save Picture
+                        </button>
+                    </>
+                ) : showCamera && (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault()
+                            capture()
+                        }}
+                        className="btn btn-danger"
+                    >
+                        Capture
+                    </button>
+                )}
+            </div>
+            <input /><br />
+            {!showCamera && (
+                <input type="file" accept=".png, .jpg, .jpeg" onChange={(e) => setFile(e.target.files[0])} />
+            )}
             {file && <img src={URL.createObjectURL(file)} height='200px' width='200px' alt="Uploaded" />} {/* Show the selected image */}
 
             <form>
@@ -183,6 +269,7 @@ function StoreImageTextFirebase() {
             </form>
         </div>
     );
+
 }
 
 export default StoreImageTextFirebase;
