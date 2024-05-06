@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Checkout.css';
+import { Header } from "../components/Home/Header";
+import { Footer } from "../components/Home/Footer";
+
+
+
 
 const Checkout = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -62,6 +67,13 @@ const Checkout = () => {
   
   return (
     <>
+    <section className="searchBar">
+          <i className='fa fa-bars icon'/>
+        
+        <section id='checkoutBanner'>
+          <h2>Checkout</h2>
+        </section>
+      </section>
       <div className="checkout-container">
         <div className="cart-box">
           <h2 className="centered-heading">Items in Cart</h2>
@@ -92,4 +104,15 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+function CheckoutPage() 
+{
+  return (
+  <>
+    <Header />
+    <Checkout/>
+    <Footer />  
+  </>
+  )
+}
+
+export default CheckoutPage;
