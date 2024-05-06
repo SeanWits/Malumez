@@ -9,8 +9,8 @@ const Product = ({ imageUrl, price, name, onEdit, onDelete }) => {
               <h2>{name}</h2>
               <p>R{price}</p>
               <section className="button-container">
-                  <button className="edit-btn" onClick={onEdit}>+</button>
-                  <button className="delete-btn" onClick={onDelete}>-</button>
+                  <button className="edit-btn" onClick={onEdit}>Edit</button>
+                  <i className="fa fa-trash delete-btn" onClick={onDelete}></i>
               </section>
           </section>
       </article>
