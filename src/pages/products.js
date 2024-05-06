@@ -15,8 +15,8 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [selectedOption,setSelectedOption]= useState(null);
-    let filtered = [];
-    let productsFiltered = false;
+    const [filtered, setFiltered] = useState([]);
+    const[productsFiltered, setProductsFiltered] = useState(false);
     let i=0;
     const navigate = useNavigate();
 
@@ -71,8 +71,8 @@ const Products = () => {
       };
 
       fetchProducts();
-      //setProducts();
-      //products.forEach()
+      applyFilters();
+     
       
 
     }, []);
@@ -133,7 +133,7 @@ function applyFilters()
    console.log(selectedOption);
 
    // everytime the filter gets called, it must clear all the previous filter applications
-   filtered=[];
+   let storeProducts = []
 
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
@@ -143,7 +143,7 @@ function applyFilters()
           {
             
             console.log(product);
-              filtered[i]=product;
+              storeProducts[i]=product;
               i++;
           }});
       
@@ -157,7 +157,7 @@ function applyFilters()
           {
             
             console.log(product);
-              filtered[i]=product;
+              storeProducts[i]=product;
               i++;
           }
 
@@ -173,7 +173,7 @@ function applyFilters()
           {
             
             console.log(product);
-              filtered[i]=product;
+              storeProducts[i]=product;
               i++;
           }
 
@@ -185,7 +185,7 @@ function applyFilters()
       
       products.forEach(product=>{
             console.log(product);
-              filtered[i]=product;
+              storeProducts[i]=product;
               i++;
        });
     }
@@ -194,18 +194,20 @@ function applyFilters()
     if(selectedOption === "highToLow")
     {
       // sorting from high to low price
-      filtered.sort((a, b) => b.price - a.price);
+      storeProducts.sort((a, b) => b.price - a.price);
       
     }
     else if(selectedOption === "lowToHigh")
     {
       // Sorting from low to high price
-      filtered.sort((a, b) => a.price - b.price);
+      storeProducts.sort((a, b) => a.price - b.price);
 
     }
-
-    console.log(filtered);
-    productsFiltered = true;
+    
+    if (storeProducts.length > 0) {
+      setFiltered(storeProducts);
+      setProductsFiltered(true);
+    }
     i = 0;
   
 }
