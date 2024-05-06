@@ -3,11 +3,11 @@
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
 import { getDocs, collection, query } from "firebase/firestore";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function FeaturedProducts()
 {
-  let brandImage=require("../../assets/Malume'zLogoFull.png");
+  // let brandImage=require("../../assets/Malume'zLogoFull.png");
   let slideIndex = 1;
   let totalSlides = 3;
   //const [brandArray, setBrandArray] =useState([]);

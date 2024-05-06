@@ -1,5 +1,5 @@
 // import './App.css';
-import React from 'react';
+// import React from 'react';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
@@ -10,6 +10,7 @@ import Products from './pages/products';
 import Checkout from './pages/Checkout';
 import StoreImageTextFirebase from './pages/uploadImg';
 import Seller from './pages/Seller';
+import Sean from './pages/sean';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/checkOut" element={<Checkout/>}/>
         <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
         <Route path="/seller" element={<Seller/>}/>
+        <Route path="/sean" element={<Sean/>}/>
       </Routes>
     </Router>
   );

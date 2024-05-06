@@ -2,10 +2,10 @@ import "./admin.css";
 
 //import React from 'react';
 import ReactDOM from "react-dom/client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection } from "firebase/firestore";
-import { render } from "@testing-library/react";
+// import { render } from "@testing-library/react";
 import Modal from "../components/modal";
 
 let test = [];
