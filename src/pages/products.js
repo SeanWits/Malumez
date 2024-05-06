@@ -9,12 +9,14 @@ import './home';
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from '../components/Home/More_Options';
+//import { brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [selectedOption,setSelectedOption]= useState(null);
-    let filtered = [];
+    const [filtered, setFiltered] = useState([]);
+    const[productsFiltered, setProductsFiltered] = useState(false);
     let i=0;
     const navigate = useNavigate();
 
@@ -69,8 +71,8 @@ const Products = () => {
       };
 
       fetchProducts();
-      //setProducts();
-      //products.forEach()
+      applyFilters();
+     
       
 
     }, []);
@@ -99,6 +101,27 @@ const handleOptionChange = (event) => {
   setSelectedOption(event.target.value);
 };
 
+// searching for products based on user inputs
+// if(searchItem !== null)
+//   {
+//     products.forEach(product=>{
+//       if(product.category === searchItem || product.brand === searchItem || product.name === searchItem)
+//         {
+          
+//           console.log(product);
+//             filtered[i]=product;
+//             i++;
+//         }
+//       });
+//       if(filtered.length === 0)
+//         {
+//           console.log("Product could not be found");
+
+//         }
+
+//         i=0;
+     
+//   }
 // filtering the products by what the user selects
 function applyFilters()
 {
@@ -109,28 +132,88 @@ function applyFilters()
    console.log(brand);
    console.log(selectedOption);
 
-   // First, check if the product falls under the searched items
-   //Then check if the Brand is the same
-   // finally check if the category is the same
-   // refine the tree to get more and more specific as you go down - comparing brands, products and categories. 
-   // Filtering may have to happen before the products are displayed
-  if(category !== "all" && searchItem!== null && brand !== "all" && selectedOption !== null) // i.e if there is nothing to filter
+   // everytime the filter gets called, it must clear all the previous filter applications
+   let storeProducts = []
+
+  if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
-       products.forEach(product=>{
+      
+      products.forEach(product=>{
+        if(product.category === category && product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }});
+      
+
+    }
+    else if(category !== "all" && brand=== 'all')// there is a category but no brand
+    {
+      
+      products.forEach(product=>{
         if(product.category === category)
           {
+            
             console.log(product);
-              filtered[i]=product;
+              storeProducts[i]=product;
               i++;
           }
 
        });
-      
+
 
     }
-    console.log(filtered);
+    else if(category === "all" && brand !== "all")// brand with no category
+    {
+      
+      products.forEach(product=>{
+        if(product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }
+
+       });
+
+    }
+    else if(category === "all" && brand=== "all")// no category and no brand
+    {
+      
+      products.forEach(product=>{
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+       });
+    }
+
+    // organise products based on price - Low to high or high to low
+    if(selectedOption === "highToLow")
+    {
+      // sorting from high to low price
+      storeProducts.sort((a, b) => b.price - a.price);
+      
+    }
+    else if(selectedOption === "lowToHigh")
+    {
+      // Sorting from low to high price
+      storeProducts.sort((a, b) => a.price - b.price);
+
+    }
+    
+    if (storeProducts.length > 0) {
+      setFiltered(storeProducts);
+      setProductsFiltered(true);
+    }
+    i = 0;
   
 }
+
+
+
 
 
 
@@ -152,7 +235,7 @@ function applyFilters()
             <option value="household">Household</option>
             <option value="dairy">Dairy</option>
             <option value="bakery">Bakery</option>
-            <option value="cupboard food">Cupboard Food</option>
+            <option value="cupboard foods">Cupboard Foods</option>
           </select>
 
           <h3 className = "productHeaders">Price</h3>
@@ -191,7 +274,8 @@ function applyFilters()
       
         <div className="products-container-wrapper" style={{ height: '80vh', width:'200vh', overflowY: 'auto' }}>
           <div className="products-container">
-            {products.map((product) => (
+            {/* the Products will only be populated once they are filtered */}
+            {productsFiltered && filtered.map((product) => (
               <Product
                 key={product.id}
                 imageUrl={product.imageUrl}
