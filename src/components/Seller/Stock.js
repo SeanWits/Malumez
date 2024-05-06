@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Product from "../../components/product";
+import Product from "../../components/Seller/product";
 import { db } from "../../firebase";
 import { getDocs, collection, query } from "firebase/firestore";
 import { useNavigate, useLocation } from "react-router-dom";
-import { SearchBar } from "../../components/Home/Search";
-import "./products.css";
+// import { SearchBar } from "../../components/Home/Search";
+import "../../pages/products.css";
 import "../../pages/home";
-import { Header } from "../../components/Home/Header";
-import { Footer } from "../../components/Home/Footer";
-import { MoreOptions } from "../../components/Home/More_Options";
+// import { Header } from "../../components/Home/Header";
+// import { Footer } from "../../components/Home/Footer";
+// import { MoreOptions } from "../../components/Home/More_Options";
 
-const Products = () => {
+export function Stock(){
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -19,7 +19,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   // display the products page
-  ProductsPage();
+//   ProductsPage();
   // gets the value passed from the searchBar
   const location = useLocation();
   let searchItem = location.state || [];
@@ -123,7 +123,7 @@ const Products = () => {
   return (
     <>
       <div id="productPageLayout">
-        <section id="filters">
+        {/* <section id="filters">
           <section id="insideFilters">
             <h2 className="productHeaders">Filters</h2>
             <h3 className="productHeaders">Categories</h3>
@@ -164,7 +164,7 @@ const Products = () => {
 
             <h3 className="productHeaders">Brands</h3>
             <select class="dropdown" id="brandsDropdown">
-              {/* Options need to be dynamically generated depenending on the brands */}
+               Options need to be dynamically generated depenending on the brands 
               <option value="all">All</option>
               <option value="Sunlight">Sunlight</option>
               <option value="Koo">Koo</option>
@@ -182,7 +182,7 @@ const Products = () => {
               <i class="fa fa-shopping-basket"></i>Checkout
             </button>
           </section>
-        </section>
+        </section> */}
 
         <div
           className="products-container-wrapper"
@@ -206,16 +206,4 @@ const Products = () => {
   );
 };
 
-function ProductsPage() {
-  return (
-    <>
-      <Header />
-      <SearchBar />
-      <Products />
-      <MoreOptions />
-      <Footer />
-    </>
-  );
-}
 
-export default ProductsPage;
