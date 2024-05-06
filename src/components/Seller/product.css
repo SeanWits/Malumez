@@ -1,0 +1,33 @@
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    max-width: 200px; /* Adjust the maximum width as needed */
+    margin: auto; /* Centers the product horizontally */
+    padding: 2%;
+  }
+  
+  .product img {
+    width: 100%;
+    height: auto;
+    margin-top: 0%;
+  }
+  
+  .product-info {
+    padding: 10px;
+  }
+  
+  .product-info h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    margin-left: 0;
+    text-align: left; /* Align name to the left */
+  }
+  
+  .product-info p {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left; /* Align price to the left */
+  }
+  
