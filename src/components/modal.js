@@ -19,7 +19,7 @@ function Modal({ closeModal, email, name, role }) {
                 <div className="footer">
                     <button>Block</button>
                     <button>Delete</button>
-                    <button>Change Rolls</button>
+                    <button>Change Roles</button>
                 </div>
             </div>
         </div>
