@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 export function AdsBar()
@@ -17,7 +17,7 @@ export function AdsBar()
   
     // Clear interval so that it can start the countdown again
     return () => clearInterval(interval);
-    
+    // eslint-disable-next-line
   }, []); 
 
 

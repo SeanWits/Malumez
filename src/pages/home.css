@@ -107,6 +107,8 @@ body {
   /* align-content: end; */
   padding: 5px;
   color: #000;
+  border: none;
+  background-color: white;
 }
 
 .featuredProducts .brandImage {

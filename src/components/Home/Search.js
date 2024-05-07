@@ -1,5 +1,4 @@
-import { Router, useNavigate } from 'react-router-dom';
-import { db, getDoc, doc } from '../../firebase.js';
+import {useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
 
@@ -20,8 +19,6 @@ export function SearchBar()
 
     console.log(search);
     navigate('/products', {state:search});
-    
-
 
   }
 
