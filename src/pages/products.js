@@ -13,6 +13,7 @@ import { MoreOptions } from '../components/Home/More_Options';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
+    const [productsLoaded, setProductsLoaded] = useState(false);
     const [cart, setCart] = useState([]);
     const [selectedOption,setSelectedOption]= useState(null);
     const [filtered, setFiltered] = useState([]);
@@ -29,6 +30,8 @@ const Products = () => {
     // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
+
+    
 
     useEffect(() => {
       
@@ -63,22 +66,18 @@ const Products = () => {
 
           // Update state after all products are fetched
           setProducts(allProducts);
-          
+          console.log("The products are:");
+          console.log(products);    
           
         } catch (error) {
           console.error('Error fetching products:', error);
         }
       };
 
-      fetchProducts();
-      applyFilters();
-     
-      
+      fetchProducts();  
+      searchProducts(); 
 
     }, []);
-
-  
-
     
  const addToCart = (product) => {
     const updatedCart = [...cart, product];
@@ -101,27 +100,56 @@ const handleOptionChange = (event) => {
   setSelectedOption(event.target.value);
 };
 
-// searching for products based on user inputs
-// if(searchItem !== null)
-//   {
-//     products.forEach(product=>{
-//       if(product.category === searchItem || product.brand === searchItem || product.name === searchItem)
+// the search function that works like filter and returns the products based on what the person searches 
+// function searchProducts()
+// {
+//   let j = 0;
+//   let storeProducts = [];
+//   if(searchItem !== null)
+//     {
+//       if(filtered.length !== 0)
 //         {
-          
-//           console.log(product);
-//             filtered[i]=product;
-//             i++;
-//         }
-//       });
-//       if(filtered.length === 0)
-//         {
-//           console.log("Product could not be found");
+//             let searchArray = [];
+//             products.forEach(product=>{
+//               if(product.category === searchItem || product.brand === searchItem|| product.name === searchItem)
+//                 {
+                  
+//                   console.log(product);
+//                     searchArray[j]=product;
+//                     i++;
+//                 }});
+//               setFiltered(searchArray);
 
+            
 //         }
-
-//         i=0;
-     
+//         console.log("The following items were found");
+//         console.log(filtered);
 //   }
+//   else{
+//     console.log("Enter something to be searched");
+//   }
+//   j=0;
+
+// }
+
+const searchProducts = () => {
+  if (searchItem && searchItem.length > 0) {
+      const searchResults = products.filter(product => (
+          product.category === searchItem ||
+          product.brand === searchItem ||
+          product.name === searchItem
+      ));
+      setFiltered(searchResults);
+      setProductsFiltered(true);
+  } else {
+      setFiltered([]);
+      setProductsFiltered(false);
+  }
+};
+
+
+
+
 // filtering the products by what the user selects
 function applyFilters()
 {
@@ -147,7 +175,6 @@ function applyFilters()
               i++;
           }});
       
-
     }
     else if(category !== "all" && brand=== 'all')// there is a category but no brand
     {
@@ -162,7 +189,6 @@ function applyFilters()
           }
 
        });
-
 
     }
     else if(category === "all" && brand !== "all")// brand with no category
@@ -204,6 +230,7 @@ function applyFilters()
 
     }
     
+    // confirming that the products have been filtered
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
       setProductsFiltered(true);
@@ -212,12 +239,6 @@ function applyFilters()
   
 }
 
-
-
-
-
-
-// check if the brands have actually been retrieved
 
 
 
