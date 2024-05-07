@@ -17,7 +17,7 @@ export function AdsBar()
   
     // Clear interval so that it can start the countdown again
     return () => clearInterval(interval);
-    
+    // eslint-disable-next-line
   }, []); 
 
 
