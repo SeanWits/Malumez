@@ -12,7 +12,7 @@ import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from '../components/Home/More_Options';
 import { auth } from '../firebase';
-//import { brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+// import { brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Products = () => {
     const [products, setProducts] = useState([]);

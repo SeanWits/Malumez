@@ -10,7 +10,7 @@ import "../../pages/home";
 // import { Footer } from "../../components/Home/Footer";
 // import { MoreOptions } from "../../components/Home/More_Options";
 
-export function Stock(){
+export function Stock() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -19,7 +19,7 @@ export function Stock(){
   const navigate = useNavigate();
 
   // display the products page
-//   ProductsPage();
+  //   ProductsPage();
   // gets the value passed from the searchBar
   const location = useLocation();
   let searchItem = location.state || [];
@@ -184,10 +184,7 @@ export function Stock(){
           </section>
         </section> */}
 
-        <div
-          className="products-container-wrapper"
-          style={{ height: "80vh", width: "200vh", overflowY: "auto" }}
-        >
+        <div className="products-container-wrapper">
           <div className="products-container">
             {products.map((product) => (
               <Product
@@ -204,6 +201,4 @@ export function Stock(){
       </div>
     </>
   );
-};
-
-
+}
