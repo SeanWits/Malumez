@@ -11,6 +11,7 @@ import Checkout from './pages/Checkout';
 import StoreImageTextFirebase from './pages/uploadImg';
 import Seller from './pages/Seller';
 import Sean from './pages/sean';
+import Notifications from './components/Seller/Notifications';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
         <Route path="/seller" element={<Seller/>}/>
         <Route path="/sean" element={<Sean/>}/>
+        <Route path="/notifications" element={<Notifications/>}/>
       </Routes>
     </Router>
   );
