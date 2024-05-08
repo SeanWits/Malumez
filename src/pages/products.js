@@ -28,13 +28,12 @@ const Products = () => {
     
 
 
-    // display the products page
+    // display the products page - Consider only calling this function at the end of everything or 
+    //inside the useEffect after the fetchProducts function
     ProductsPage();
     // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
-
-    
 
     useEffect(() => {
         // Load products on component mount
@@ -66,7 +65,8 @@ const Products = () => {
           // Update state after all products are fetched
           setProducts(allProducts);
           console.log("The products are:");
-          console.log(products);    
+          console.log(products);
+            
           
         } catch (error) {
           console.error('Error fetching products:', error);
@@ -243,7 +243,7 @@ function applyFilters()
                         </select>
 
                         <h3 className="productHeaders">Brand</h3>
-                        <select className="dropdown" id="categoriesDropdown">
+                        <select className="dropdown" id="brandsDropdown">
                             <option value="all">All</option>
                             <option value="Johnson's">Johnson's</option>
                             <option value="Simba">Simba</option>
@@ -252,10 +252,20 @@ function applyFilters()
                             <option value="Sunlight">Sunlight</option>                   
                         </select>
                         
+                        <h3 className="productHeaders">Price</h3>
+                        <section className='radioButtons'>
+                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
+                        <label >Low to High</label>
+
+                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
+                        <label >High to Low</label>
+                        </section>
+                        <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
 
 
-                        <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+                        
                     </section>
+                    <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                 </section>
 
                 <div className="products-container-wrapper">
