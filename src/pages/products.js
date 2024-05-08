@@ -18,7 +18,11 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [productsLoaded, setProductsLoaded] = useState(false);
     const [cart, setCart] = useState([]);
+    const [selectedOption, setSelectedOption] = useState();
+    const [filtered, setFiltered] = useState([]);
+    const [productFiltered, setProductsFiltered] = useState(false);
     const navigate = useNavigate();
+    let i = 0;
 
     
     
@@ -70,13 +74,10 @@ const Products = () => {
       };
 
       fetchProducts();  
-      searchProducts(); 
 
     }, []);
 
-  
 
-    
  const addToCart = (product) => {
     const updatedCart = [...cart, product];
     setCart(updatedCart);
@@ -123,56 +124,6 @@ const handleCheckout = () => {
 const handleOptionChange = (event) => {
   setSelectedOption(event.target.value);
 };
-
-// the search function that works like filter and returns the products based on what the person searches 
-// function searchProducts()
-// {
-//   let j = 0;
-//   let storeProducts = [];
-//   if(searchItem !== null)
-//     {
-//       if(filtered.length !== 0)
-//         {
-//             let searchArray = [];
-//             products.forEach(product=>{
-//               if(product.category === searchItem || product.brand === searchItem|| product.name === searchItem)
-//                 {
-                  
-//                   console.log(product);
-//                     searchArray[j]=product;
-//                     i++;
-//                 }});
-//               setFiltered(searchArray);
-
-            
-//         }
-//         console.log("The following items were found");
-//         console.log(filtered);
-//   }
-//   else{
-//     console.log("Enter something to be searched");
-//   }
-//   j=0;
-
-// }
-
-const searchProducts = () => {
-  if (searchItem && searchItem.length > 0) {
-      const searchResults = products.filter(product => (
-          product.category === searchItem ||
-          product.brand === searchItem ||
-          product.name === searchItem
-      ));
-      setFiltered(searchResults);
-      setProductsFiltered(true);
-  } else {
-      setFiltered([]);
-      setProductsFiltered(false);
-  }
-};
-
-
-
 
 // filtering the products by what the user selects
 function applyFilters()
@@ -291,7 +242,7 @@ function applyFilters()
 
                 <div className="products-container-wrapper">
                     <div className="products-container">
-                        {products.map((product) => (
+                        {filtered.map((product) => (
                             <Product
                                 key={product.id}
                                 imageUrl={product.imageUrl}
