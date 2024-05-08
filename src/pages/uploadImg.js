@@ -1,66 +1,77 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { imgDB, db, auth } from "../firebase";
 import { v4 } from "uuid";
-import './uploadImg.css';
-import Webcam from 'react-webcam';
+import "./uploadImg.css";
+import Webcam from "react-webcam";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    getDocs,
+    query,
+    where,
+    updateDoc,
+} from "firebase/firestore";
 
 const videoConstraints = {
     width: 400,
     height: 400,
-    facingMode: 'user',
-}
+    facingMode: "user",
+};
 
 function StoreImageTextFirebase() {
+    const navigate = useNavigate();
     const [shopId, setShopId] = useState(null);
-    const [img, setImg] = useState(''); //image url
+    const [img, setImg] = useState(""); //image url
     const [stock, setStock] = useState(0);
-    const [name, setName] = useState('');
+    const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
-    const [category, setCategory] = useState('');
-    const [brand, setBrand] = useState('');
+    const [category, setCategory] = useState("");
+    const [brand, setBrand] = useState("");
     const [file, setFile] = useState(null); // File state to hold the selected file
     const [uploading, setUploading] = useState(false); // State to track image uploading status
     const [showCamera, setShowCamera] = useState(false);
     const [HideCameraOnly, setHideCameraOnly] = useState(false);
     const [buttonText, setButtonText] = useState("Use Camera"); // State to track button text
 
-
-    const [picture, setPicture] = useState('')
-    const webcamRef = React.useRef(null)
+    const [picture, setPicture] = useState("");
+    const webcamRef = React.useRef(null);
     const capture = React.useCallback(() => {
         const pictureSrc = webcamRef.current.getScreenshot();
         setPicture(pictureSrc);
-    })
+    });
 
     const savePicture = async () => {
-        const blob = await fetch(picture).then(res => res.blob());
+        const blob = await fetch(picture).then((res) => res.blob());
         setFile(blob);
         //console.log(picture);
         setHideCameraOnly(true);
     };
 
-
     const SwitchMode = () => {
         if (showCamera) {
             setShowCamera(false);
             setButtonText("Take Picture");
-            setFile('');
+            setFile("");
         } else {
             setShowCamera(true);
             setButtonText("Upload Picture");
-            setFile('');
+            setFile("");
             setHideCameraOnly(false);
         }
     };
-
 
     const fetchShopId = async () => {
         try {
             const user = auth.currentUser;
             if (user) {
-                const shopsQuerySnapshot = await getDocs(query(collection(db, "shops"), where("owner_id", "==", user.uid)));
+                const shopsQuerySnapshot = await getDocs(
+                    query(
+                        collection(db, "shops"),
+                        where("owner_id", "==", user.uid)
+                    )
+                );
 
                 if (!shopsQuerySnapshot.empty) {
                     const shopDoc = shopsQuerySnapshot.docs[0];
@@ -74,7 +85,7 @@ function StoreImageTextFirebase() {
                 console.log("User is not logged in.");
             }
         } catch (error) {
-            console.error('Error fetching shop ID:', error);
+            console.error("Error fetching shop ID:", error);
         }
     };
 
@@ -88,7 +99,7 @@ function StoreImageTextFirebase() {
                 category: category,
                 brand: brand,
                 src: img, // Use the uploaded image URL
-                product_id: '' // Placeholder for product ID
+                product_id: "", // Placeholder for product ID
             };
 
             const productRef = collection(db, `shops/${shopId}/products`);
@@ -99,21 +110,20 @@ function StoreImageTextFirebase() {
             alert("Product added successfully");
 
             // Reset fields after successful addition
-            setName('');
+            setName("");
             setPrice(0);
             setStock(0);
-            setCategory('');
-            setBrand('');
+            setCategory("");
+            setBrand("");
             setFile(null);
-            setImg('');
-
+            setImg("");
         } catch (error) {
-            console.error('Error adding product:', error);
+            console.error("Error adding product:", error);
             // Rollback image upload if product creation fails
             if (img) {
                 const imageRef = ref(imgDB, `products/${shopId}/${v4()}`);
                 await imageRef.delete(); // Delete the uploaded image
-                setImg(''); // Reset image state
+                setImg(""); // Reset image state
             }
         }
     };
@@ -128,15 +138,13 @@ function StoreImageTextFirebase() {
 
             if (file) {
                 // Check if file is an image (png, jpeg, jpg)
-                const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+                const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
                 if (!allowedTypes.includes(file.type)) {
                     alert("Please select a valid image file (png, jpeg, jpg).");
                     return;
                 }
 
-
                 const imageRef = ref(imgDB, `products/${shopId}/${v4()}`);
-
 
                 // Upload image
                 setUploading(true); // Set uploading state to true
@@ -144,23 +152,26 @@ function StoreImageTextFirebase() {
                     .then(() => {
                         // Get the download URL of the uploaded image
                         getDownloadURL(imageRef)
-                            .then(imageUrl => {
+                            .then((imageUrl) => {
                                 // Set the image URL in the state
                                 setImg(imageUrl);
                             })
-                            .catch(error => {
-                                console.error('Error getting download URL:', error);
+                            .catch((error) => {
+                                console.error(
+                                    "Error getting download URL:",
+                                    error
+                                );
                             });
                     })
-                    .catch(error => {
-                        console.error('Error uploading image:', error);
+                    .catch((error) => {
+                        console.error("Error uploading image:", error);
                     })
                     .finally(() => {
                         setUploading(false); // Set uploading state to false
                     });
             }
         } catch (error) {
-            console.error('Error uploading image:', error);
+            console.error("Error uploading image:", error);
         }
     };
 
@@ -175,16 +186,16 @@ function StoreImageTextFirebase() {
         fetchShopId();
         setShowCamera(false);
     }, []);
-
+    
 
     return (
         <div className="scrollable-container">
             <button onClick={SwitchMode} className="btn btn-success">
                 {buttonText}
             </button>
-            {showCamera && !HideCameraOnly &&(
+            {showCamera && !HideCameraOnly && (
                 <div>
-                    {picture === '' ? (
+                    {picture === "" ? (
                         <Webcam
                             audio={false}
                             height={400}
@@ -199,49 +210,88 @@ function StoreImageTextFirebase() {
                 </div>
             )}
             <div>
-                {showCamera && picture !== '' ? (
+                {showCamera && picture !== "" ? (
                     <>
-                        <button onClick={() =>{setPicture(''); setHideCameraOnly(false); setFile('');} } className="btn btn-primary mr-2">
+                        <button
+                            onClick={() => {
+                                setPicture("");
+                                setHideCameraOnly(false);
+                                setFile("");
+                            }}
+                            className="btn btn-primary mr-2"
+                        >
                             Retake
                         </button>
-                        <button onClick={savePicture} className="btn btn-success">
+                        <button
+                            onClick={savePicture}
+                            className="btn btn-success"
+                        >
                             Save Picture
                         </button>
                     </>
-                ) : showCamera && (
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault()
-                            capture()
-                        }}
-                        className="btn btn-danger"
-                    >
-                        Capture
-                    </button>
+                ) : (
+                    showCamera && (
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                capture();
+                            }}
+                            className="btn btn-danger"
+                        >
+                            Capture
+                        </button>
+                    )
                 )}
             </div>
-            <input /><br />
+            <input />
+            <br />
             {!showCamera && (
-                <input type="file" accept=".png, .jpg, .jpeg" onChange={(e) => setFile(e.target.files[0])} />
+                <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={(e) => setFile(e.target.files[0])}
+                />
             )}
-            {file && <img src={URL.createObjectURL(file)} height='200px' width='200px' alt="Uploaded" />} {/* Show the selected image */}
-
+            {file && (
+                <img
+                    src={URL.createObjectURL(file)}
+                    height="200px"
+                    width="200px"
+                    alt="Uploaded"
+                />
+            )}{" "}
+            {/* Show the selected image */}
             <form>
                 <div>
                     <label>Name:</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                 </div>
                 <div>
                     <label>Price (R):</label>
-                    <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+                    <input
+                        type="number"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
                 </div>
                 <div>
                     <label>Stock:</label>
-                    <input type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
+                    <input
+                        type="number"
+                        value={stock}
+                        onChange={(e) => setStock(e.target.value)}
+                    />
                 </div>
                 <div>
                     <label>Category:</label>
-                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    >
                         <option value="">Select Category</option>
                         <option value="Beverages">Beverages</option>
                         <option value="Toiletries">Toiletries</option>
@@ -256,7 +306,10 @@ function StoreImageTextFirebase() {
                 </div>
                 <div>
                     <label>Brand:</label>
-                    <select value={brand} onChange={(e) => setBrand(e.target.value)}>
+                    <select
+                        value={brand}
+                        onChange={(e) => setBrand(e.target.value)}
+                    >
                         <option value="">Select Brand</option>
                         <option value="Clover">Clover</option>
                         <option value="Excella">Excella</option>
@@ -265,11 +318,15 @@ function StoreImageTextFirebase() {
                         <option value="Coca-Cola">Coca-Cola</option>
                     </select>
                 </div>
-                <button type="button" onClick={uploadProductImg}>Submit</button>
+                <button type="button" onClick={uploadProductImg}>
+                    Submit
+                </button>
+                <button type="button" onClick={() => navigate("/seller")}>
+                    return to home
+                </button>
             </form>
         </div>
     );
-
 }
 
 export default StoreImageTextFirebase;
