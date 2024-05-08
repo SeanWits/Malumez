@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { auth, db} from '../firebase'; // Assuming firebase is imported correctly
-import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
+import { auth, db } from '../firebase'; // Assuming firebase is imported correctly
+import { collection, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import Product from '../components/productSeller'; // Importing the Product component
+import './SellerProducts.css';
+
 
 function SellerProducts() {
     const [shopId, setShopId] = useState(null);
@@ -18,6 +20,9 @@ function SellerProducts() {
                     const shopId = shopDoc.id;
                     setShopId(shopId);
                     console.log("Shop ID:", shopId);
+                    
+                    // Fetch products after setting shopId
+                    fetchProducts(shopId);
                 } else {
                     console.log("No shop found for the current user.");
                 }
@@ -29,16 +34,12 @@ function SellerProducts() {
         }
     };
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (shopId) => {
         try {
-            if (shopId) {
-                const productsQuerySnapshot = await getDocs(collection(db, `shops/${shopId}/products`));
-                const productsData = productsQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setProducts(productsData);
-                console.log("Products:", productsData);
-            } else {
-                console.log("No shop ID available.");
-            }
+            const productsQuerySnapshot = await getDocs(collection(db, `shops/${shopId}/products`));
+            const productsData = productsQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setProducts(productsData);
+            console.log("Products:", productsData);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -55,14 +56,22 @@ function SellerProducts() {
         }
     };
 
+    const handleDeleteProduct = async (productId) => {
+        try {
+            await deleteDoc(doc(db, `shops/${shopId}/products`, productId));
+            setProducts(prevProducts => prevProducts.filter(product => product.id !== productId));
+            console.log("Product deleted successfully!");
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+
     useEffect(() => {
         fetchShopId();
-        fetchProducts();
-    }, []); // Fetch shop ID and products on component mount
+    }, []); // Fetch shop ID on component mount
 
     return (
-        <div>
-            <button onClick={fetchProducts}>Fetch Products</button>
+        <div className="container">
             <div>
                 {products.map(product => (
                     <div key={product.id}>
@@ -87,6 +96,9 @@ function SellerProducts() {
                         />
                         <button onClick={() => handleStockUpdate(product.id, product.stock)}>
                             Update Stock
+                        </button>
+                        <button onClick={() => handleDeleteProduct(product.id)}>
+                            Delete Product
                         </button>
                     </div>
                 ))}
