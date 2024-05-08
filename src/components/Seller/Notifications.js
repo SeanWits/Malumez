@@ -1,4 +1,4 @@
-import { Header } from "../Home/Header";
+import { Header } from "../Seller/Header";
 import { Footer } from "../Home/Footer";
 import "./Notifications.css";
 
