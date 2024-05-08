@@ -11,6 +11,10 @@
   overflow-y: auto;
 }
 
+.sellerPage.products-container-wrapper {
+  width: 100%;
+}
+
 #productPageLayout {
   display: flex;
   flex-direction: row;
@@ -55,6 +59,12 @@
   width: 16%;
   height: 500px;
   display: inline-block;
+}
+
+.shopDetails {
+  padding: 20px;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 .productHeaders {
