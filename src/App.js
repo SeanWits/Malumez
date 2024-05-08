@@ -1,6 +1,6 @@
 // import './App.css';
 // import React from 'react';
-import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
@@ -11,22 +11,24 @@ import Checkout from './pages/Checkout';
 import StoreImageTextFirebase from './pages/uploadImg';
 import Seller from './pages/Seller';
 import Sean from './pages/sean';
+import SellerProducts from './pages/SellerProducts';
 import Notifications from './components/Seller/Notifications';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signUp" element={<SignUp/>}/>
-        <Route path="/admin" element={<Admin/>}/>
-        <Route path="/showProducts" element={<ShowProducts/>}/>
-        <Route path="/products" element={<Products/>}/>
-        <Route path="/checkOut" element={<Checkout/>}/>
-        <Route path="/uploadImg" element={<StoreImageTextFirebase/>}/>
-        <Route path="/seller" element={<Seller/>}/>
-        <Route path="/sean" element={<Sean/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/showProducts" element={<ShowProducts />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/checkOut" element={<Checkout />} />
+        <Route path="/uploadImg" element={<StoreImageTextFirebase />} />
+        <Route path="/seller" element={<Seller />} />
+        <Route path="/sean" element={<Sean />} />
+        <Route path="/sellerP" element={<SellerProducts />} />
         <Route path="/notifications" element={<Notifications/>}/>
       </Routes>
     </Router>
