@@ -46,6 +46,14 @@
 #sortByPrice {
   display: block;
 }
+
+#filters.shopDetails {
+  padding: 20px;
+  padding-left: 20%;
+  padding-right: 20%;
+  height: 200px;
+}
+
 #filters {
   background: linear-gradient(
     to bottom,
@@ -61,11 +69,6 @@
   display: inline-block;
 }
 
-.shopDetails {
-  padding: 20px;
-  padding-left: 20%;
-  padding-right: 20%;
-}
 
 .productHeaders {
   font-family: "MV Boli V1";
