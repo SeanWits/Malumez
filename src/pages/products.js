@@ -233,9 +233,27 @@ function applyFilters()
                         <h3 className="productHeaders">Categories</h3>
                         <select className="dropdown" id="categoriesDropdown">
                             <option value="all">All</option>
-                            {/* Add other options dynamically */}
+                            <option value="beverages">Beverages</option>
+                            <option value="toiletries">Toiletries</option>
+                            <option value="snacks">Snacks</option>
+                            <option value="household">Household</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="cupboard food">Cupboard Food</option>                      
                         </select>
-                        {/* Other filter options */}
+
+                        <h3 className="productHeaders">Brand</h3>
+                        <select className="dropdown" id="categoriesDropdown">
+                            <option value="all">All</option>
+                            <option value="Johnson's">Johnson's</option>
+                            <option value="Simba">Simba</option>
+                            <option value="Kelloggs">Kelloggs</option>
+                            <option value="Koo">Koo</option>
+                            <option value="Sunlight">Sunlight</option>                   
+                        </select>
+                        
+
+
                         <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                     </section>
                 </section>
