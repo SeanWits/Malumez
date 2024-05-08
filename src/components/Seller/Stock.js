@@ -184,7 +184,7 @@ export function Stock() {
           </section>
         </section> */}
 
-        <div className="products-container-wrapper">
+        <div className="sellerPage products-container-wrapper">
           <div className="products-container">
             {products.map((product) => (
               <Product
