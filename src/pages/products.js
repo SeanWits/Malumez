@@ -17,7 +17,15 @@ import { auth } from '../firebase';
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+    const [selectedOption, setSelectedOption] = useState();
+    const [filtered, setFiltered] = useState([]);
+    const [productFiltered, setProductsFiltered] = useState(false);
     const navigate = useNavigate();
+    let i = 0;
+    
+    // gets the value passed from the searchBar
+    const location = useLocation();
+    let searchItem = location.state || [];
 
     useEffect(() => {
         // Load products on component mount
@@ -46,21 +54,23 @@ const Products = () => {
                 // Wait for all productPromises to resolve
                 await Promise.all(productPromises);
 
-                // Update state after all products are fetched
-                setProducts(allProducts);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
+          // Update state after all products are fetched
+          setProducts(allProducts);
+          console.log("The products are:");
+          console.log(products);
+          setFiltered(allProducts);
+          ProductsPage();
 
-        fetchProducts();
+          
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+      };
 
-        // Load cart from localStorage on component mount
-        const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        setCart(savedCart);
+      fetchProducts();  
+     
     }, []);
 
-  
 
  const addToCart = (product) => {
     const updatedCart = [...cart, product];
@@ -109,27 +119,6 @@ const handleOptionChange = (event) => {
   setSelectedOption(event.target.value);
 };
 
-// searching for products based on user inputs
-// if(searchItem !== null)
-//   {
-//     products.forEach(product=>{
-//       if(product.category === searchItem || product.brand === searchItem || product.name === searchItem)
-//         {
-          
-//           console.log(product);
-//             filtered[i]=product;
-//             i++;
-//         }
-//       });
-//       if(filtered.length === 0)
-//         {
-//           console.log("Product could not be found");
-
-//         }
-
-//         i=0;
-     
-//   }
 // filtering the products by what the user selects
 function applyFilters()
 {
@@ -141,7 +130,22 @@ function applyFilters()
    console.log(selectedOption);
 
    // everytime the filter gets called, it must clear all the previous filter applications
-   let storeProducts = []
+  let storeProducts = [];
+
+  // if(searchItem!==null)
+  //   {
+  //     products.forEach(product=>{
+  //       if( product.category.toUpperCase === searchItem.toUpperCase() || product.brand.includes(searchItem) )
+  //         {
+            
+  //           console.log(product);
+  //             storeProducts[i]=product;
+  //             i++;
+  //         }});
+  //   }
+  //   else{
+  //     console.log("This product does not exists");
+  //   }
 
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
@@ -155,7 +159,6 @@ function applyFilters()
               i++;
           }});
       
-
     }
     else if(category !== "all" && brand=== 'all')// there is a category but no brand
     {
@@ -170,7 +173,6 @@ function applyFilters()
           }
 
        });
-
 
     }
     else if(category === "all" && brand !== "all")// brand with no category
@@ -212,6 +214,7 @@ function applyFilters()
 
     }
     
+    // confirming that the products have been filtered
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
       setProductsFiltered(true);
@@ -239,16 +242,44 @@ function applyFilters()
                         <h3 className="productHeaders">Categories</h3>
                         <select className="dropdown" id="categoriesDropdown">
                             <option value="all">All</option>
-                            {/* Add other options dynamically */}
+                            <option value="beverages">Beverages</option>
+                            <option value="toiletries">Toiletries</option>
+                            <option value="snacks">Snacks</option>
+                            <option value="household">Household</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="cupboard food">Cupboard Food</option>                      
                         </select>
-                        {/* Other filter options */}
-                        <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+
+                        <h3 className="productHeaders">Brand</h3>
+                        <select className="dropdown" id="brandsDropdown">
+                            <option value="all">All</option>
+                            <option value="Johnson's">Johnson's</option>
+                            <option value="Simba">Simba</option>
+                            <option value="Kelloggs">Kelloggs</option>
+                            <option value="Koo">Koo</option>
+                            <option value="Sunlight">Sunlight</option>                   
+                        </select>
+                        
+                        <h3 className="productHeaders">Price</h3>
+                        <section className='radioButtons'>
+                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
+                        <label >Low to High</label>
+
+                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
+                        <label >High to Low</label>
+                        </section>
+                        <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
+
+
+                        
                     </section>
+                    <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                 </section>
 
                 <div className="products-container-wrapper">
                     <div className="products-container">
-                        {products.map((product) => (
+                        {filtered.map((product) => (
                             <Product
                                 key={product.id}
                                 imageUrl={product.imageUrl}
