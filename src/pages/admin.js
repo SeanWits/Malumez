@@ -16,6 +16,7 @@ let emails = '';
 //Dynamic names that will be exported to modal for return
 let nameM = '';
 let roleM = '';
+let initialRole = '';
 
 function Admin() {
   const [shopsData, setShopsData] = useState([]);
@@ -123,7 +124,7 @@ function Admin() {
             setOpenModal(true);
             emails = test[i].email;
             nameM = test[i].name;
-
+            initialRole = test[i].roles;
             let userDet = test1.find(item => item.email === test[i].email);
             if (userDet.roles.admin == 1){
               roleM = "Admin";
@@ -209,7 +210,7 @@ function Admin() {
             setOpenModal(true);
             emails = test1[k].email;
             nameM = test1[k].name;
-            
+            initialRole = test1[k].roles;
             if (test1[k].roles.admin == 1){
               roleM = "Admin";
             }
@@ -322,7 +323,7 @@ function Admin() {
             setOpenModal(true);
             emails = test1[i].email;
             nameM = test1[i].name;
-
+            initialRole = test1[i].roles;
             let userDet = test1.find(item => item.name === test1[i].name);
             //console.log(userDet);
             if (userDet.roles.admin == 1){
@@ -437,7 +438,7 @@ function Admin() {
             setOpenModal(true);
             emails = test[i].email;
             nameM = test[i].owner_name;
-
+            initialRole = test[i].roles;
             let userDet = test1.find(item => item.email === test[i].email);
             //console.log(userDet);
             if (userDet.roles.admin == 1){
@@ -499,7 +500,7 @@ function Admin() {
           <img alt="" src={require("../assets/Malume'zLogoFull.png")} />
         </a>
       </header>
-      {openModal && <Modal closeModal={setOpenModal} email={emails} name={nameM} role={roleM}/>}
+      {openModal && <Modal closeModal={setOpenModal} email={emails} name={nameM} role={roleM} initialRole={initialRole}/>}
       <section class="main-content">
         <nav>
           <button class="button" id="dashboardBtn" onClick={dashboard}>

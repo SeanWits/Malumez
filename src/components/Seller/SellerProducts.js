@@ -91,7 +91,7 @@ function SellerProducts() {
 
     return (
         <div className="container">
-            <div>
+            <div className="productsList">
                 {products.map((product) => (
                     <div key={product.id}>
                         <Product

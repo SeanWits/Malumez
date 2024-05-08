@@ -53,9 +53,9 @@ export function MoreOptions() {
                             <i className="fa fa-phone icon"></i>
                             <a href="">Contact a seller</a>
                         </li>
-                        <li onClick={() => navigate("/seller")}>
+                        <li>
                             <i className="fa fa-user-circle icon"></i>
-                            <a href="">My store</a>
+                            <a onClick={() => navigate("/seller")}>My store</a>
                         </li>
                     </ul>
                 </section>
