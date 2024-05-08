@@ -68,7 +68,7 @@ function Login() {
             // Check if the user has admin privileges
             if (userData && userData.roles && userData.roles.admin) {
                 // Navigate to the admin page
-                navigate("/");
+                navigate("/admin");
             } else {
                 // Navigate to the home page
                 navigate("/");
