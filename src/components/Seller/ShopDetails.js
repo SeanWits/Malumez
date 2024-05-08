@@ -3,7 +3,7 @@ import "../../pages/products.css";
 export function ShopDetails() {
   return (
     <>
-      <section id="filters">
+      <section id="filters" className="shopDetails">
         <h2 className="shopDetailsHeading">Shop Details</h2>
         <ul className="shopDetails">
           <li>Shop Name:</li>
