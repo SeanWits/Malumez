@@ -16,21 +16,13 @@ import { auth } from '../firebase';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
-    const [productsLoaded, setProductsLoaded] = useState(false);
     const [cart, setCart] = useState([]);
     const [selectedOption, setSelectedOption] = useState();
     const [filtered, setFiltered] = useState([]);
     const [productFiltered, setProductsFiltered] = useState(false);
     const navigate = useNavigate();
     let i = 0;
-
     
-    
-
-
-    // display the products page - Consider only calling this function at the end of everything or 
-    //inside the useEffect after the fetchProducts function
-    ProductsPage();
     // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
@@ -66,7 +58,9 @@ const Products = () => {
           setProducts(allProducts);
           console.log("The products are:");
           console.log(products);
-            
+          setFiltered(allProducts);
+          ProductsPage();
+
           
         } catch (error) {
           console.error('Error fetching products:', error);
@@ -74,7 +68,7 @@ const Products = () => {
       };
 
       fetchProducts();  
-
+     
     }, []);
 
 
@@ -136,7 +130,22 @@ function applyFilters()
    console.log(selectedOption);
 
    // everytime the filter gets called, it must clear all the previous filter applications
-   let storeProducts = []
+  let storeProducts = [];
+
+  // if(searchItem!==null)
+  //   {
+  //     products.forEach(product=>{
+  //       if( product.category.toUpperCase === searchItem.toUpperCase() || product.brand.includes(searchItem) )
+  //         {
+            
+  //           console.log(product);
+  //             storeProducts[i]=product;
+  //             i++;
+  //         }});
+  //   }
+  //   else{
+  //     console.log("This product does not exists");
+  //   }
 
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
