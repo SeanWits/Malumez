@@ -1,69 +1,66 @@
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 
-.products-container{
-    display: flex;
-    flex-wrap: wrap;
-    
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#productPageLayout
-{
-    display: flex;
-    flex-direction: row;
+.products-container-wrapper {
+  height: 80vh;
+  width: 84%;
+  overflow-y: auto;
 }
 
-#apply
-{
-    margin-left: 20%;
-    width: 50px;
-    height:40px
+#productPageLayout {
+  display: flex;
+  flex-direction: row;
 }
 
-.checkout-btn
-{
-    margin: 10%;
-    margin-left: 25%;
-    width: 100px;
-    height: 50px;
-   
+#apply {
+  margin-left: 20%;
+  width: 50px;
+  height: 40px;
 }
 
-#insideFilters
-{
-    margin: 15%;
-    display: block;
-    
-}
-.dropdown
-{
-    width: 100px;
-    height: 30px;
-    border: none;
-    border-radius: 5%;
-}
-#sortByPrice
-{
-    display: block;
-}
-#filters
-{
-    background: linear-gradient(to bottom, rgba(217, 53, 123, 0.7), rgba(35, 217, 196, 0.7));/*Background becomes a gradient with some opacity  */
-    border-radius: 5%;
-    color: whitesmoke;
-    margin-top: 3%;
-    margin-left: 2%;
-    width: 16%;
-    height: 500px;
-    display: inline-block;
+.checkout-btn {
+  margin: 10%;
+  margin-left: 25%;
+  width: 100px;
+  height: 50px;
 }
 
-.productHeaders
-{
-    font-family: "MV Boli V1";
+#insideFilters {
+  margin: 15%;
+  display: block;
+}
+.dropdown {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5%;
+}
+#sortByPrice {
+  display: block;
+}
+#filters {
+  background: linear-gradient(
+    to bottom,
+    rgba(217, 53, 123, 0.7),
+    rgba(35, 217, 196, 0.7)
+  ); /*Background becomes a gradient with some opacity  */
+  border-radius: 5%;
+  color: whitesmoke;
+  margin-top: 3%;
+  margin-left: 2%;
+  width: 16%;
+  height: 500px;
+  display: inline-block;
 }
 
-#sortByPrice
-{
-    display:block;
+.productHeaders {
+  font-family: "MV Boli V1";
 }
 
+#sortByPrice {
+  display: block;
+}

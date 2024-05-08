@@ -1,5 +1,5 @@
 import { auth,db, getDoc, doc } from '../firebase.js';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import FadeLoader from "react-spinners/FadeLoader";
