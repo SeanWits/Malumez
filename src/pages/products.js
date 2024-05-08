@@ -28,7 +28,7 @@ const Products = () => {
     let searchItem = location.state || [];
 
     useEffect(() => {
-        // Load products on component mount
+        //Load products on component mount
         const fetchProducts = async () => {
             try {
                 const shopQuerySnapshot = await getDocs(collection(db, "shops"));
@@ -56,10 +56,27 @@ const Products = () => {
 
           // Update state after all products are fetched
           setProducts(allProducts);
-          console.log("The products are:");
-          console.log(products);
-          setFiltered(allProducts);
-          ProductsPage();
+          if (searchItem.length > 0) {
+            const searchString = searchItem.toString().toLowerCase();
+            const filteredProducts = allProducts.filter((product) => {
+                return (
+                    product.name.toLowerCase().includes(searchString) ||
+                    product.brand.toLowerCase().includes(searchString) ||
+                    product.category.toLowerCase().includes(searchString)
+                );
+            });
+            setFiltered(filteredProducts);
+            setProductsFiltered(true);
+        } else {
+            // If searchItem is empty, set filtered products to all products
+            setFiltered(allProducts);
+            setProductsFiltered(true);
+        }
+
+          // console.log("The products are:");
+          // console.log(products);
+          // setFiltered(allProducts);
+          // ProductsPage();
 
           
         } catch (error) {
@@ -67,9 +84,44 @@ const Products = () => {
         }
       };
 
-      fetchProducts();  
+      fetchProducts(); 
+      applyFilters(); 
+
+      // checking if the search item is empty - this returns true when the item is empty  
+      let searchedProducts = [];
+      if ( searchItem.length === 0) {
+        console.log("SearchItems is empty");
+      }
+      else if(searchItem.length>0)
+        {
+          let searching = searchItem.toString();
+          products.forEach(product=>{
+            if(product.category.includes(searching)||product.brand.includes(searching) || product.name.includes(searching))
+              {
+                
+                console.log(product);
+                  searchedProducts[i]=product;
+                  i++;
+              }});
+              setFiltered(searchedProducts);
+              if (filtered.length>0)
+                {
+                  setProductsFiltered(true);
+                }
+                console.log("searched items are:");
+                console.log(filtered);
+
+
+        }
+      
+      
+      
+      
+        
      
     }, []);
+
+
 
 
  const addToCart = (product) => {
@@ -132,20 +184,6 @@ function applyFilters()
    // everytime the filter gets called, it must clear all the previous filter applications
   let storeProducts = [];
 
-  // if(searchItem!==null)
-  //   {
-  //     products.forEach(product=>{
-  //       if( product.category.toUpperCase === searchItem.toUpperCase() || product.brand.includes(searchItem) )
-  //         {
-            
-  //           console.log(product);
-  //             storeProducts[i]=product;
-  //             i++;
-  //         }});
-  //   }
-  //   else{
-  //     console.log("This product does not exists");
-  //   }
 
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
@@ -224,14 +262,7 @@ function applyFilters()
 }
 
 
-
-
-
-
 // check if the brands have actually been retrieved
-
-
-
 
     return (
         <>
@@ -279,7 +310,7 @@ function applyFilters()
 
                 <div className="products-container-wrapper">
                     <div className="products-container">
-                        {filtered.map((product) => (
+                        { setProductsFiltered && filtered.map((product) => (
                             <Product
                                 key={product.id}
                                 imageUrl={product.imageUrl}
