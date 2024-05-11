@@ -23,105 +23,100 @@ const Products = () => {
     const navigate = useNavigate();
     let i = 0;
     
-    // gets the value passed from the searchBar
+    // gets the value passed from the searchBar or brands
     const location = useLocation();
     let searchItem = location.state || [];
 
+    const searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', function() {
+      alert('Button clicked!');
+      applyFilters();
+    });
+
+
     useEffect(() => {
-        //Load products on component mount
-        const fetchProducts = async () => {
-            try {
-                const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-                let allProducts = [];
-
-                // Map each shopDoc to a promise that fetches its products
-                const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
-                    const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
-                    productsQuerySnapshot.forEach((productDoc) => {
-                        const productData = productDoc.data();
-                        allProducts.push({
-                            id: productDoc.id,
-                            imageUrl: productData.src,
-                            name: productData.name,
-                            price: productData.price,
-                            category: productData.category,
-                            brand: productData.brand,
-                            stock:productData.stock
-                        });
-                    });
-                });
-
-                // Wait for all productPromises to resolve
-                await Promise.all(productPromises);
-
-          // Update state after all products are fetched
-          setProducts(allProducts);
-          if (searchItem.length > 0) {
-            const searchString = searchItem.toString().toLowerCase();
-            const filteredProducts = allProducts.filter((product) => {
-                return (
-                    product.name.toLowerCase().includes(searchString) ||
-                    product.brand.toLowerCase().includes(searchString) ||
-                    product.category.toLowerCase().includes(searchString)
-                );
-            });
-            setFiltered(filteredProducts);
-            setProductsFiltered(true);
-        } else {
-            // If searchItem is empty, set filtered products to all products
-            setFiltered(allProducts);
-            setProductsFiltered(true);
-        }
-
-          // console.log("The products are:");
-          // console.log(products);
-          // setFiltered(allProducts);
-          // ProductsPage();
-
-          
-        } catch (error) {
-          console.error('Error fetching products:', error);
-        }
-      };
-
-      fetchProducts(); 
-      applyFilters(); 
-
-      // checking if the search item is empty - this returns true when the item is empty  
-      let searchedProducts = [];
-      if ( searchItem.length === 0) {
-        console.log("SearchItems is empty");
-      }
-      else if(searchItem.length>0)
-        {
-          let searching = searchItem.toString();
-          products.forEach(product=>{
-            if(product.category.includes(searching)||product.brand.includes(searching) || product.name.includes(searching))
-              {
-                
-                console.log(product);
-                  searchedProducts[i]=product;
-                  i++;
-              }});
-              setFiltered(searchedProducts);
-              if (filtered.length>0)
-                {
-                  setProductsFiltered(true);
-                }
-                console.log("searched items are:");
-                console.log(filtered);
-
-
-        }
-      
-      
-      
-      
-        
-     
+      fetchProducts();
+      console.log("The products are", products);
     }, []);
+    
 
+    
+    async function fetchProducts() {
+      try {
+        const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+        let allProducts = [];
+  
+  
+        const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
+          const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
+          if(!productsQuerySnapshot.empty)
+            {
+          productsQuerySnapshot.forEach((productDoc) => {
+              const productData = productDoc.data();
+              allProducts.push({
+                  id: productDoc.id,
+                  imageUrl: productData.src,
+                  name: productData.name,
+                  price: productData.price,
+                  category: productData.category,
+                  brand:productData.brand,
+                  productId: productData.product_id,
+                  stock: productData.stock
+                  
+              });
+          });} 
+      });
+          
+        await Promise.all(productPromises);
+  
+       // this function may be integral to the search bar - try and use it in the 
+       // search bar and brands to populate it first
+        // this function makes sure that homeProducts gets populated first before
+        // the images are generated 
+      async function checkProducts() {
+        if (products.length === 0) {
+          // If homeProducts is not populated, put some products into it
+          let someProducts = [];
+          //checking to see if something has been searched
+          if ( searchItem.length === 0) {
+            console.log("SearchItems is empty");
+            for(let i = 0;i<allProducts.length; i++)
+              {
+                someProducts[i] = allProducts[i];
+              }
+          }
+          else{
+            for(let i =0; i<allProducts.length; i++)
+            {
+                if(allProducts[i].brand === searchItem || allProducts[i].brand === searchItem|| allProducts[i].brand === searchItem)
+                  {
+                    someProducts[i] = allProducts[i];
+                  }
+            }
+            
+          }
+          
+          setProducts(someProducts);
+        }
+        // Wait until homeProducts is populated
+        await new Promise(resolve => {
+          const interval = setInterval(() => {
+            if (products.length > 0) {
+              clearInterval(interval);
+              resolve();
+            }
+          }, 100); // Check every 100 milliseconds
+        });
+      }
+  
+      // Call checkHomeProducts and wait for it to complete
+      await checkProducts();
 
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+      
+    }
 
 
  const addToCart = (product) => {
@@ -176,7 +171,7 @@ function applyFilters()
 {
    let category = document.getElementById("categoriesDropdown").value;
    let brand = document.getElementById("brandsDropdown").value;
-   console.log(searchItem);
+   
    console.log(category);
    console.log(brand);
    console.log(selectedOption);
@@ -254,10 +249,11 @@ function applyFilters()
     
     // confirming that the products have been filtered
     if (storeProducts.length > 0) {
-      setFiltered(storeProducts);
+      setProducts(storeProducts);
       setProductsFiltered(true);
     }
     i = 0;
+    console.log(products);
   
 }
 
@@ -310,7 +306,8 @@ function applyFilters()
 
                 <div className="products-container-wrapper">
                     <div className="products-container">
-                        { setProductsFiltered && filtered.map((product) => (
+                      {/* Change this back to filtered.map when you need to set the filters */}
+                        { products.map((product) => (
                             <Product
                                 key={product.id}
                                 imageUrl={product.imageUrl}

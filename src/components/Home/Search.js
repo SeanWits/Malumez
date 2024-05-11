@@ -29,7 +29,7 @@ export function SearchBar()
         
         <section className="search">
           <input className="inputSearch" onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." id="searchInput"/>
-          <i className='fa fa-search icon' onClick={searchItem}/>
+          <i className='fa fa-search icon' id = "searchButton" onClick={searchItem}/>
           
         </section>
       </section>
