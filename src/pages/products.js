@@ -179,7 +179,7 @@ function applyFilters()
    // everytime the filter gets called, it must clear all the previous filter applications
   let storeProducts = [];
 
-
+  console.log(products);
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
       
@@ -249,11 +249,11 @@ function applyFilters()
     
     // confirming that the products have been filtered
     if (storeProducts.length > 0) {
-      setProducts(storeProducts);
+      setFiltered(storeProducts);
       setProductsFiltered(true);
     }
     i = 0;
-    console.log(products);
+    console.log(filtered);
   
 }
 
@@ -304,6 +304,8 @@ function applyFilters()
                     <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                 </section>
 
+                {/* Technically we can make 2 div classes like this and give them conditionals. One for the filtered elements and
+                the other for the searched elements */}
                 <div className="products-container-wrapper">
                     <div className="products-container">
                       {/* Change this back to filtered.map when you need to set the filters */}
@@ -319,6 +321,29 @@ function applyFilters()
                         ))}
                     </div>
                 </div>
+
+                {/* This div will get called when the products have been filtered. Alternatively, you can only print filtered and products stays the 
+                same so you can recover the products. That might be the best option   */}
+                
+                {/* <div className="filtered-products-container-wrapper">
+                    <div className="products-container">
+                      {/* Change this back to filtered.map when you need to set the filters 
+                        { products.map((product) => (
+                            <Product
+                                key={product.id}
+                                imageUrl={product.imageUrl}
+                                name={product.name}
+                                price={product.price}
+                                onAddToCart={() => addToCart(product)}
+                                onRemoveFromCart={() => removeFromCart(product.id)}
+                            />
+                        ))}
+                    </div>
+                </div> */}
+
+
+
+
             </div>
         </>
     );
