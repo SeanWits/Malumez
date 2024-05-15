@@ -14,6 +14,7 @@ let test1 = [];
 function Admin() {
    // eslint-disable-next-line 
   const [shopsData, setShopsData] = useState([]);
+   // eslint-disable-next-line 
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
@@ -65,13 +66,13 @@ function Admin() {
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
-    if (rowCount !=+ 0) {
+    if (rowCount !== 0) {
       for (let k = 0; k < rowCount; k++) {
         table.deleteRow(0);
       }
     }
 
-    const count = test.length + test1.length;
+    //const count = test.length + test1.length;
     const newRow = table.insertRow(0);
     const cell = newRow.insertCell(0);
     cell.innerHTML = "<b>BUYER OR SELLER</b>";

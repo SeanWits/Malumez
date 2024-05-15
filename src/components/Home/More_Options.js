@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function MoreOptions() {
   return (
     <>
@@ -32,15 +34,15 @@ export function MoreOptions() {
           <ul className="storeList">
             <li>
               <i className="fa fa-search icon"></i>
-              <a href="#">Find a store</a>
+              <button>Find a store</button> {/* Change to a button if not functional */}
             </li>
             <li>
               <i className="fa fa-money icon"></i>
-              <a href="#">Become a seller</a>
+              <button>Become a seller</button> {/* Change to a button if not functional */}
             </li>
             <li>
               <i className="fa fa-phone icon"></i>
-              <a href="#">Contact a seller</a>
+              <button>Contact a seller</button> {/* Change to a button if not functional */}
             </li>
           </ul>
         </section>
@@ -49,11 +51,11 @@ export function MoreOptions() {
           <ul className="accountList">
             <li>
               <i className="fa fa-user icon"></i>
-              <a href="#">Manage my account</a>
+              <button>Manage my account</button> {/* Change to a button if not functional */}
             </li>
             <li>
               <i className="fa fa-truck icon"></i>
-              <a href="#">Track my order</a>
+              <button>Track my order</button> {/* Change to a button if not functional */}
             </li>
           </ul>
         </section>
@@ -62,15 +64,15 @@ export function MoreOptions() {
           <ul className="helpList">
             <li>
               <i className="fa fa-question-circle icon"></i>
-              <a href="#">FAQ</a>
+              <button>FAQ</button> {/* Change to a button if not functional */}
             </li>
             <li>
               <i className="fa fa-question-circle icon"></i>
-              <a href="#">Support</a>
+              <button>Support</button> {/* Change to a button if not functional */}
             </li>
             <li>
               <i className="fa fa-flag icon"></i>
-              <a href="#">Report a seller</a>
+              <button>Report a seller</button> {/* Change to a button if not functional */}
             </li>
           </ul>
         </section>
@@ -78,3 +80,5 @@ export function MoreOptions() {
     </>
   );
 }
+
+export default MoreOptions;

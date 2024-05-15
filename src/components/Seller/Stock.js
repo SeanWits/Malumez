@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Product from "../../components/Seller/product";
 import { db } from "../../firebase";
 import { getDocs, collection, query } from "firebase/firestore";
-import { useNavigate, useLocation } from "react-router-dom";
 // import { SearchBar } from "../../components/Home/Search";
 import "../../pages/products.css";
 import "../../pages/home";
@@ -13,16 +12,17 @@ import "../../pages/home";
 export function Stock(){
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-  let filtered = [];
-  let i = 0;
-  const navigate = useNavigate();
+   // eslint-disable-next-line 
+  // let filtered = [];
+  // let i = 0;
+  // const navigate = useNavigate();
 
   // display the products page
 //   ProductsPage();
   // gets the value passed from the searchBar
-  const location = useLocation();
-  let searchItem = location.state || [];
+  // const location = useLocation();
+   // eslint-disable-next-line 
+  // let searchItem = location.state || [];
 
   useEffect(() => {
     // retrieving the products in no particular order

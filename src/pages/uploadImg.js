@@ -197,6 +197,7 @@ function StoreImageTextFirebase() {
                             videoConstraints={videoConstraints}
                         />
                     ) : (
+                         // eslint-disable-next-line 
                         <img src={picture} />
                     )}
                 </div>
