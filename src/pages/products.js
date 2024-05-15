@@ -26,12 +26,13 @@ const Products = () => {
     // gets the value passed from the searchBar or brands
     const location = useLocation();
     let searchItem = location.state || [];
+    console.log("THe brand is", searchItem);
 
     const searchButton = document.getElementById('searchButton');
-    searchButton.addEventListener('click', function() {
-      alert('Button clicked!');
-      applyFilters();
-    });
+    // searchButton.addEventListener('click', function() {
+    //   alert('Button clicked!');
+    //   applyFilters();
+    // });
 
 
     useEffect(() => {
