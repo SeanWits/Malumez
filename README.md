@@ -1,4 +1,5 @@
-# Getting Started with Create React App
+# MALUMEZ
+[![codecov](https://codecov.io/github/SeanWits/Malumez/branch/master/graph/badge.svg?token=XCPOVFNZ6C)](https://codecov.io/github/SeanWits/Malumez)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
