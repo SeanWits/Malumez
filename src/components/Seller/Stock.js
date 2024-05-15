@@ -77,46 +77,46 @@ export function Stock(){
     console.log(cart);
   };
 
-  const handleCheckout = () => {
-    navigate("/checkOut", { state: cart });
-    console.log("Cart items:", cart);
-  };
+  // const handleCheckout = () => {
+  //   navigate("/checkOut", { state: cart });
+  //   console.log("Cart items:", cart);
+  // };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  // const handleOptionChange = (event) => {
+  //   setSelectedOption(event.target.value);
+  // };
 
   // filtering the products by what the user selects
-  function applyFilters() {
-    let category = document.getElementById("categoriesDropdown").value;
-    let brand = document.getElementById("brandsDropdown").value;
-    console.log(searchItem);
-    console.log(category);
-    console.log(brand);
-    console.log(selectedOption);
+  // function applyFilters() {
+  //   let category = document.getElementById("categoriesDropdown").value;
+  //   let brand = document.getElementById("brandsDropdown").value;
+  //   console.log(searchItem);
+  //   console.log(category);
+  //   console.log(brand);
+  //   console.log(selectedOption);
 
-    // First, check if the product falls under the searched items
-    //Then check if the Brand is the same
-    // finally check if the category is the same
-    // refine the tree to get more and more specific as you go down - comparing brands, products and categories.
-    // Filtering may have to happen before the products are displayed
-    if (
-      category !== "all" &&
-      searchItem !== null &&
-      brand !== "all" &&
-      selectedOption !== null
-    ) {
-      // i.e if there is nothing to filter
-      products.forEach((product) => {
-        if (product.category === category) {
-          console.log(product);
-          filtered[i] = product;
-          i++;
-        }
-      });
-    }
-    console.log(filtered);
-  }
+  //   // First, check if the product falls under the searched items
+  //   //Then check if the Brand is the same
+  //   // finally check if the category is the same
+  //   // refine the tree to get more and more specific as you go down - comparing brands, products and categories.
+  //   // Filtering may have to happen before the products are displayed
+  //   if (
+  //     category !== "all" &&
+  //     searchItem !== null &&
+  //     brand !== "all" &&
+  //     selectedOption !== null
+  //   ) {
+  //     // i.e if there is nothing to filter
+  //     products.forEach((product) => {
+  //       if (product.category === category) {
+  //         console.log(product);
+  //         filtered[i] = product;
+  //         i++;
+  //       }
+  //     });
+  //   }
+  //   console.log(filtered);
+  // }
 
   // check if the brands have actually been retrieved
 

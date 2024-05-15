@@ -12,6 +12,7 @@ let test = [];
 let test1 = [];
 
 function Admin() {
+   // eslint-disable-next-line 
   const [shopsData, setShopsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
 
@@ -64,7 +65,7 @@ function Admin() {
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
-    if (rowCount != 0) {
+    if (rowCount !=+ 0) {
       for (let k = 0; k < rowCount; k++) {
         table.deleteRow(0);
       }
@@ -92,23 +93,23 @@ function Admin() {
         //Adds new cells
         const cell = row.insertCell(j);
 
-        if (j == 0) {
+        if (j === 0) {
           cell.textContent = test[i].name;
         }
 
-        if (j == 1) {
+        if (j === 1) {
           cell.textContent = test[i].owner_name;
         }
 
-        if (j == 2) {
+        if (j === 2) {
           cell.textContent = test[i].email;
         }
 
-        if (j == 3) {
+        if (j === 3) {
           cell.textContent = test[i].location;
         }
 
-        if (j == 4) {
+        if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
           btn.addEventListener("click", () => {
@@ -127,23 +128,23 @@ function Admin() {
         //Adds new cells
         const cell = row.insertCell(j);
 
-        if (j == 0) {
+        if (j === 0) {
           cell.textContent = test1[i].name;
         }
 
-        if (j == 1) {
+        if (j === 1) {
           cell.textContent = test1[i].username;
         }
 
-        if (j == 2) {
+        if (j === 2) {
           cell.textContent = test1[i].email;
         }
 
-        if (j == 3) {
+        if (j === 3) {
           cell.textContent = test1[i].surname;
         }
 
-        if (j == 4) {
+        if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
           btn.addEventListener("click", () => {
@@ -160,7 +161,7 @@ function Admin() {
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
-    if (rowCount != 0) {
+    if (rowCount !== 0) {
       for (let k = 0; k < rowCount; k++) {
         table.deleteRow(0);
       }
@@ -188,23 +189,23 @@ function Admin() {
         //Adds new cells
         const cell = row.insertCell(j);
 
-        if (j == 0) {
+        if (j === 0) {
           cell.textContent = test1[i].name;
         }
 
-        if (j == 1) {
+        if (j === 1) {
           cell.textContent = test1[i].username;
         }
 
-        if (j == 2) {
+        if (j === 2) {
           cell.textContent = test1[i].email;
         }
 
-        if (j == 3) {
+        if (j === 3) {
           cell.textContent = test1[i].surname;
         }
 
-        if (j == 4) {
+        if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
           btn.addEventListener("click", () => {
@@ -225,7 +226,7 @@ function Admin() {
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
-    if (rowCount != 0) {
+    if (rowCount !== 0) {
       for (let k = 0; k < rowCount; k++) {
         table.deleteRow(0);
       }
@@ -253,23 +254,23 @@ function Admin() {
         //Adds new cells
         const cell = row.insertCell(j);
 
-        if (j == 0) {
+        if (j === 0) {
           cell.textContent = test[i].name;
         }
 
-        if (j == 1) {
+        if (j === 1) {
           cell.textContent = test[i].owner_name;
         }
 
-        if (j == 2) {
+        if (j === 2) {
           cell.textContent = test[i].email;
         }
 
-        if (j == 3) {
+        if (j === 3) {
           cell.textContent = test[i].location;
         }
 
-        if (j == 4) {
+        if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
           btn.addEventListener("click", () => {
@@ -318,35 +319,35 @@ function Admin() {
   );
 }
 
-const users = [
-  {
-    id: 0,
-    buyer: true,
-    username: "fairydust",
-    contactNumber: "0230120304",
-    email: "guineapigs@hotmail.com",
-    shopName: "none",
-    location: "Vosloorus",
-  },
-  {
-    id: 1,
-    buyer: false,
-    username: "thegreez",
-    contactNumber: "0112345304",
-    email: "money@moneytalks.mail",
-    shopName: "Danny's Supermarket",
-    location: "Vosloorus",
-  },
-  {
-    id: 2,
-    buyer: true,
-    username: "theOne",
-    contactNumber: "0111111111",
-    email: "crazy@gmail.com",
-    shopName: "none",
-    location: "Thembisa",
-  },
-];
+// const users = [
+//   {
+//     id: 0,
+//     buyer: true,
+//     username: "fairydust",
+//     contactNumber: "0230120304",
+//     email: "guineapigs@hotmail.com",
+//     shopName: "none",
+//     location: "Vosloorus",
+//   },
+//   {
+//     id: 1,
+//     buyer: false,
+//     username: "thegreez",
+//     contactNumber: "0112345304",
+//     email: "money@moneytalks.mail",
+//     shopName: "Danny's Supermarket",
+//     location: "Vosloorus",
+//   },
+//   {
+//     id: 2,
+//     buyer: true,
+//     username: "theOne",
+//     contactNumber: "0111111111",
+//     email: "crazy@gmail.com",
+//     shopName: "none",
+//     location: "Thembisa",
+//   },
+// ];
 
 //     useEffect(() => {
 //         const fetchShopsData = async () => {

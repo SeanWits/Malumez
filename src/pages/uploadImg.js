@@ -29,6 +29,7 @@ function StoreImageTextFirebase() {
 
     const [picture, setPicture] = useState('')
     const webcamRef = React.useRef(null)
+     // eslint-disable-next-line 
     const capture = React.useCallback(() => {
         const pictureSrc = webcamRef.current.getScreenshot();
         setPicture(pictureSrc);
@@ -168,7 +169,9 @@ function StoreImageTextFirebase() {
     useEffect(() => {
         if (img && !uploading) {
             uploadProduct();
+     // eslint-disable-next-line 
         }
+     // eslint-disable-next-line 
     }, [img, uploading]);
 
     useEffect(() => {

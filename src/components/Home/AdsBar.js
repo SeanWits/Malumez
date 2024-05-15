@@ -8,6 +8,8 @@ export function AdsBar()
   let totalSlides = 3;
   let slideName = "slide"+slideIndex;
 
+
+   // eslint-disable-next-line 
   useEffect(() => {
     // Call startingUp function once all images are loaded
     startingUp();
@@ -17,7 +19,7 @@ export function AdsBar()
   
     // Clear interval so that it can start the countdown again
     return () => clearInterval(interval);
-    
+   // eslint-disable-next-line 
   }, []); 
 
 

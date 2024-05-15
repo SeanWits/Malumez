@@ -1,9 +1,8 @@
 // ShowProducts.js
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ShowProducts = () => {
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  // const [selectedProducts, setSelectedProducts] = useState([]);
 
   // Function to add a product to the selected products list
   // const addToSelectedProducts = (product) => {
@@ -18,7 +17,7 @@ const ShowProducts = () => {
   return (
     <div>
       {/* Your product display component */}
-      <Link to={{ pathname: '/checkout', state: selectedProducts }}>Proceed to Checkout</Link>
+      <Link to={{ pathname: '/checkout'}}>Proceed to Checkout</Link>
     </div>
   );
 };

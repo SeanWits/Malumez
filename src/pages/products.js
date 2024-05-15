@@ -74,7 +74,7 @@ const Products = () => {
       applyFilters();
      
       
-
+ // eslint-disable-next-line 
     }, []);
 
   

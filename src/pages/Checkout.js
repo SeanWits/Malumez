@@ -9,13 +9,14 @@ import { Footer } from "../components/Home/Footer";
 
 
 const Checkout = () => {
+   // eslint-disable-next-line 
   const [currentUser, setCurrentUser] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const cartItems = location.state || [];
 
   useEffect(() => {
+    const cartItems = location.state || []; // Moved inside the useEffect callback
     console.log("Cart Items:", cartItems);
     setCartProducts(cartItems);
 
@@ -27,7 +28,8 @@ const Checkout = () => {
     return () => {
       unsubscribe();
     };
-  }, [cartItems]);
+  }, [location.state]); // Moved cartItems inside the useEffect dependency array
+
 
   const handleSignOut = () => {
     auth.signOut().then(() => {

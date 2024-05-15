@@ -2,7 +2,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase';
-import { getDocs, collection, query } from "firebase/firestore";
+import { getDocs, collection} from "firebase/firestore";
 import { useEffect, useState } from 'react';
 
 export function FeaturedProducts()
@@ -132,42 +132,47 @@ export function FeaturedProducts()
  
   return (
     <>
-    
       <h2 id="brandsHeading">Brands</h2>
-        <section  className="featuredProducts">
-
-
-          <i className="fa fa-chevron-left icon left" onClick={()=> {currentSlide(-1)}}></i>
-          
-      {/* Conditionally render the image based on the state */}
-      
-    
-          
-          <section id="fPslide1" >
-            {/* Only render the images once the brands have fully loaded  */}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[0].name} src={brandArray[0].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[0].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[1].name} src={brandArray[1].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[1].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[2].name} src={brandArray[2].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[2].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[3].name} src={brandArray[3].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[3].name)}/>}
-          </section>
-
-          <section id="fPslide2">
-          {elementRetrieved && <img className="brandImage" id = {brandArray[4].name} src={brandArray[4].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[4].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[5].name} src={brandArray[5].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[5].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[6].name} src={brandArray[6].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[6].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[7].name} src={brandArray[7].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[7].name)}/>}
-            
-          </section>
-
-          <section id="fPslide3">
-            {elementRetrieved && <img className="brandImage" id = {brandArray[8].name} src={brandArray[8].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[8].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[9].name} src={brandArray[9].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[9].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[10].name} src={brandArray[10].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[10].name)}/>}
-            {elementRetrieved && <img className="brandImage" id = {brandArray[11].name} src={brandArray[11].src} alt="Image of a featured product" onClick={() => brandClicked(brandArray[11].name)}/>}
-          </section>
-
-          <i className="fa fa-chevron-right icon right" onClick={()=> {currentSlide(1)}}></i>
+      <section  className="featuredProducts">
+        <i className="fa fa-chevron-left icon left" onClick={()=> {currentSlide(-1)}}></i>
+        <section id="fPslide1" >
+          {elementRetrieved && brandArray.slice(0, 4).map(brand => (
+            <img
+              key={brand.name}
+              className="brandImage"
+              id={brand.name}
+              src={brand.src}
+              alt={brand.name}
+              onClick={() => brandClicked(brand.name)}
+            />
+          ))}
         </section>
+        <section id="fPslide2">
+          {elementRetrieved && brandArray.slice(4, 8).map(brand => (
+            <img
+              key={brand.name}
+              className="brandImage"
+              id={brand.name}
+              src={brand.src}
+              alt={brand.name}
+              onClick={() => brandClicked(brand.name)}
+            />
+          ))}
+        </section>
+        <section id="fPslide3">
+          {elementRetrieved && brandArray.slice(8, 12).map(brand => (
+            <img
+              key={brand.name}
+              className="brandImage"
+              id={brand.name}
+              src={brand.src}
+              alt={brand.name}
+              onClick={() => brandClicked(brand.name)}
+            />
+          ))}
+        </section>
+        <i className="fa fa-chevron-right icon right" onClick={()=> {currentSlide(1)}}></i>
+      </section>
     </>
   )
 }

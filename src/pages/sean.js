@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { getDocs, collection, query } from "firebase/firestore";
 
 function Sean() {
+   // eslint-disable-next-line 
   const [val, setVal] = useState("");
   const [products, setProducts] = useState([]);
 
