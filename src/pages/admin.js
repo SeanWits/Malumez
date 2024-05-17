@@ -530,7 +530,7 @@ function Admin() {
   );
 }
 
-
+// Boat-anchor!
 //     useEffect(() => {
 //         const fetchShopsData = async () => {
 //             try {
