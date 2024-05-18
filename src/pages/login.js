@@ -26,26 +26,6 @@ function Login() {
             theme: "colored",
             transition: Flip,
         });
-
-    // const notify_error = () => toast.error('Missng or Invalid Credentials', {
-    //     position: "bottom-center",
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //     transition: Flip,
-    // });
-
-    // useEffect(() => {
-    //     setLoading(true)
-    //     setTimeout(() => {
-    //         setLoading(false)
-    //     }, 2000)
-    // })
-
     // Function to handle login
     const login = async (e) => {
         e.preventDefault();
@@ -114,126 +94,91 @@ function Login() {
         }
     }, [notifyF]);
 
-    const addBodyClass = (className) => document.body.classList.add(className);
-    addBodyClass("bodyHidden");
+    useEffect(() => {
+        document.body.classList.add("bodyHidden");
+    }, []);
+
     return (
         <>
-            <body>
-                <div className="background">
-                    <div id="solid-block-1"></div>
-                    <div id="solid-block-2"></div>
-                    <div id="solid-block-3"></div>
-                    <section className="login-forum">
-                        <h1>Welcome to</h1>
-                        <img
-                            className="logo"
-                            src={require("../assets/Malume'zLogoFullTransparent.png")}
-                            alt="Malume'z Logo"
-                            height="150"
-                            width="400"
-                        />
-                        {loading ? (
-                            <div className="sweet-loading">
-                                <FadeLoader
-                                    height={25}
-                                    margin={50}
-                                    radius={2}
-                                    width={5}
-                                    color={"#36d7b7"}
-                                    loading={loading}
-                                    speedMultiplier={1}
-                                    aria-label="Loading Spinner"
-                                    data-testid="loader"
-                                    className="loader" // Add a class for styling
-                                />
-                            </div>
-                        ) : (
-                            <form
-                                className="formLogin"
-                                onSubmit={login}
-                                id="userForm"
-                            >
-                                <label
-                                    className="labelLogin"
-                                    id="emailLabel"
-                                    htmlFor="email"
-                                >
-                                    Email Adress
-                                </label>
-                                <br />
-                                <input
-                                    className="inputText"
-                                    type="text"
-                                    id="emailInput"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Type your email adress"
-                                    required
-                                />
-                                <br />
-                                <label
-                                    className="labelLogin"
-                                    id="passwordLabel"
-                                    htmlFor="password"
-                                >
-                                    Password
-                                </label>
-                                <br />
-                                <input
-                                    className="inputPassword"
-                                    type="password"
-                                    id="passwordInput"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                    placeholder="Type your password"
-                                    required
-                                />
-                                <br />
-                                <br />
-                                <button type="submit" id="loginBtn">
-                                    Login
-                                </button>
-                            </form>
-                        )}
-                        <h2 className="head2">Don't have an account?</h2>
-                        <button id="signUp" onClick={() => navigate("/SignUp")}>
-                            {" "}
-                            Sign Up
-                        </button>
-                        {error && <p style={{ color: "red" }}>{error}</p>}
-                    </section>
-                    <ToastContainer
-                        position="top-center"
-                        autoClose={3000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="colored"
-                        transition={Flip}
+            <div className="background">
+                <div id="solid-block-1"></div>
+                <div id="solid-block-2"></div>
+                <div id="solid-block-3"></div>
+                <section className="login-forum">
+                    <h1>Welcome to</h1>
+                    <img
+                        className="logo"
+                        src={require("../assets/Malume'zLogoFullTransparent.png")}
+                        alt="Malume'z Logo"
+                        height="150"
+                        width="400"
                     />
-                    {/* Same as */}
-                    <ToastContainer />
-                    <ToastContainer
-                        position="bottom-center"
-                        autoClose={3000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="colored"
-                        transition={Flip}
-                    />
-                </div>
-            </body>
+                    {loading ? (
+                        <div className="sweet-loading">
+                            <FadeLoader
+                                height={25}
+                                margin={50}
+                                radius={2}
+                                width={5}
+                                color={"#36d7b7"}
+                                loading={loading}
+                                speedMultiplier={1}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                                className="loader"
+                            />
+                        </div>
+                    ) : (
+                        <form className="formLogin" onSubmit={login} id="userForm">
+                            <label className="labelLogin" id="emailLabel" htmlFor="emailInput">
+                                Email Address
+                            </label>
+                            <input
+                                className="inputText"
+                                type="text"
+                                id="emailInput"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Type your email address"
+                                required
+                            />
+                            <label className="labelLogin" id="passwordLabel" htmlFor="passwordInput">
+                                Password
+                            </label>
+                            <input
+                                className="inputPassword"
+                                type="password"
+                                id="passwordInput"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Type your password"
+                                required
+                            />
+                            <button type="submit" id="loginBtn">
+                                Login
+                            </button>
+                        </form>
+                    )}
+                    <h2 className="head2">Don't have an account?</h2>
+                    <button id="signUp" onClick={() => navigate("/SignUp")}>
+                        Sign Up
+                    </button>
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+                </section>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                    transition={Flip}
+                />
+            </div>
         </>
     );
 }

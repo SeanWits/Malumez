@@ -8,26 +8,21 @@ import "./modal.css";
 
 function Modal({ closeModal, email, name, role, initialRole }) {
     
-    
         async function deleteUser() {
             try {
               // Query the users collection to find the document with the specified email
               const usersQuery = query(collection(db, "users"), where('email', '==', email));
               const querySnapshot = await getDocs(usersQuery);
-            
               // Check if a document with the specified email exists
               if (querySnapshot.empty) {
                 console.error("User with the specified email not found.");
                 return;
               }
-          
               // Get the reference to the first document (assuming email is unique)
               const userDocRef = querySnapshot.docs[0].ref;
-              //console.log(userDocRef.id);
-              //userDocRef.remove();
+              
               // Delete the user document
               await deleteDoc(doc(db, "users", userDocRef.id));
-              //await deleteDoc(userDocRef);
           
               console.log("User deleted successfully.");
             } catch (error) {
@@ -35,11 +30,6 @@ function Modal({ closeModal, email, name, role, initialRole }) {
             }
           }
 
-          
-        
-
-    
-    
     const users = [];
     
     return (

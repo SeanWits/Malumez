@@ -1,9 +1,12 @@
-import { Header } from "../components/Seller/Header";
+// import "./Seller.css";
+import  Header  from "../components/Seller/Header";
+// import { Stock } from "../components/Seller/Stock";
 import SellerProducts from "../components/Seller/SellerProducts";
 import { Footer } from "../components/Home/Footer";
 import { ShopDetails } from "../components/Seller/ShopDetails";
 import "./Seller.css";
 
+// the seller page
 function Seller() {
     return (
         <>
