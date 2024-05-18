@@ -39,119 +39,48 @@ const Products = () => {
     }, []);
 
     useEffect(() => {
-      fetchProducts();
-      console.log("The products are", products);
-    }, []);
+        // Load products on component mount
+        const fetchProducts = async () => {
+            try {
+                const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+                let allProducts = [];
 
-    function logClick()
-    {
-      setFilterClicked(true);
+                // Map each shopDoc to a promise that fetches its products
+                const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
+                    const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
+                    productsQuerySnapshot.forEach((productDoc) => {
+                        const productData = productDoc.data();
+                        allProducts.push({
+                            id: productDoc.id,
+                            imageUrl: productData.src,
+                            name: productData.name,
+                            price: productData.price,
+                            category: productData.category,
+                            brand: productData.brand,
+                            stock:productData.stock
+                        });
+                    });
+                });
 
-    }
+                // Wait for all productPromises to resolve
+                await Promise.all(productPromises);
 
-    useEffect(() => {
-      // This function runs when searchItem changes aka the search button gets pressed
-      
-      const handleSearchItemChange = (newValue) => {
-          console.log("searchItem changed to:", newValue);
-          console.log("FilterClicked is: ",filterClicked);
-          if(newValue.length === 0 && filterClicked === false )
-            {
-              alert("Please enter something to search");
-              setFiltered(products);
-              console.log("The searched products are", filtered);
-            }
-            else{
-              let someProducts = [];
-              products.forEach(product=>{
-              if(product.brand === newValue|| product.category === newValue || product.name === newValue)
-                {
-                  console.log(product);
-                  someProducts[i]=product;
-                  i++;
-                }});
-              setFiltered(someProducts);
-              console.log("The searched products based on newValue are", filtered);
-
-            }
-            if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
-              {
-                alert("There are no products of this item: ",newValue);
-                setFiltered(products);
-              }
-      };
-
-      handleSearchItemChange(searchItem);
-  }, [searchItem]);
-    
-
-    
-    async function fetchProducts() {
-      try {
-        const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-        let allProducts = [];
-        const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
-          const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
-          if(!productsQuerySnapshot.empty)
-            {
-          productsQuerySnapshot.forEach((productDoc) => {
-              const productData = productDoc.data();
-              allProducts.push({
-                  id: productDoc.id,
-                  imageUrl: productData.src,
-                  name: productData.name,
-                  price: productData.price,
-                  category: productData.category,
-                  brand:productData.brand,
-                  productId: productData.product_id,
-                  stock: productData.stock
-                  
-              });
-          });} 
-      });
-          
-        await Promise.all(productPromises);
-        // this function makes sure that products gets populated first before the products are generated 
-      async function checkProducts() {
-        if (products.length === 0) {
-          // If products is not populated, put some products into it
-          let someProducts = [];
-          //checking to see if something has been searched
-          if ( searchItem.length === 0 || searchItem === "nothing") {
-            console.log("SearchItems is empty");
-            for(let i = 0;i<allProducts.length; i++)
-              {
-                someProducts[i] = allProducts[i];
-              }
-          }}
-          else{
-            for(let i =0; i<allProducts.length; i++)
-            {
-                if(allProducts[i].brand === searchItem || allProducts[i].category === newValue ||  allProducts[i].name === newValue)
-                  {
-                    someProducts[i] = allProducts[i];
-                  }
-            }
-            
-          }
-          setFiltered(someProducts);
+          // Update state after all products are fetched
           setProducts(allProducts);
-
-          // Wait until Products is populated
-        await new Promise(resolve => {
-          const interval = setInterval(() => {
-            if (products.length > 0 && filtered.length>0) {
-              clearInterval(interval);
-              resolve();
-            }
-          }, 100); // Check every 100 milliseconds
-        });
-      }
-    
-      } catch (error) {
+          console.log("The products are:");
+          console.log(products);    
+          
+        } catch (error) {
           console.error('Error fetching products:', error);
         }
-      }
+      };
+
+      fetchProducts();  
+      searchProducts(); 
+
+    }, []);
+
+  
 
     
       const addToCart = async (product, quantity = 1) => {
@@ -206,26 +135,28 @@ const Products = () => {
     const handleCheckout = () => {
       navigate("/checkout", { state: { cart: cart } });
     };
-    
-      const removeFromCart = (productId) => {
-        const updatedCart = cart.filter(item => item.id !== productId);
-        setCart(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-      };
-    
-    
-    
-      const handleOptionChange = (event) => {
-        setSelectedOption(event.target.value);
-      };
-    
+
+    const removeFromCart = (productId) => {
+      const updatedCart = cart.filter(item => item.id !== productId);
+      setCart(updatedCart);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
+
+    const handleOptionChange = (event) => {
+      setSelectedOption(event.target.value);
+    };
 
 // filtering the products by what the user selects
 function applyFilters()
 {
    let category = document.getElementById("categoriesDropdown").value;
    let brand = document.getElementById("brandsDropdown").value;
-   
+   console.log(searchItem);
+   console.log(category);
+   console.log(brand);
+   console.log(selectedOption);
+
    // everytime the filter gets called, it must clear all the previous filter applications
    let storeProducts = []
 
@@ -248,6 +179,7 @@ function applyFilters()
       products.forEach(product=>{
         if(product.category === category)
           {
+            
             console.log(product);
               storeProducts[i]=product;
               i++;
@@ -289,45 +221,42 @@ function applyFilters()
 
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
-      //setProductsFiltered(true);
+      setProductsFiltered(true);
     }
     i = 0;
-    setFilterClicked(false);
-  
-}
+  }
+  return (
+    <>
+        <div id='productPageLayout'>
+            <section id='filters'>
+                <section id='insideFilters'>
+                    <h2 className="productHeaders">Filters</h2>
+                    <h3 className="productHeaders">Categories</h3>
+                    <select className="dropdown" id="categoriesDropdown">
+                        <option value="all">All</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="toiletries">Toiletries</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="household">Household</option>
+                        <option value="dairy">Dairy</option>
+                        <option value="bakery">Bakery</option>
+                        <option value="cupboard food">Cupboard Food</option>
+                    </select>
 
-return (
-  <>
-      <div id='productPageLayout'>
-          <section id='filters'>
-              <section id='insideFilters'>
-                  <h2 className="productHeaders">Filters</h2>
-                  <h3 className="productHeaders">Categories</h3>
-                  <select className="dropdown" id="categoriesDropdown">
-                      <option value="all">All</option>
-                      <option value="beverages">Beverages</option>
-                      <option value="toiletries">Toiletries</option>
-                      <option value="snacks">Snacks</option>
-                      <option value="household">Household</option>
-                      <option value="dairy">Dairy</option>
-                      <option value="bakery">Bakery</option>
-                      <option value="cupboard food">Cupboard Food</option>                      
-                  </select>
+                    <h3 className="productHeaders">Brand</h3>
+                    <select className="dropdown" id="brandsDropdown">
+                        <option value="all">All</option>
+                        <option value="Johnson's">Johnson's</option>
+                        <option value="Simba">Simba</option>
+                        <option value="Kelloggs">Kelloggs</option>
+                        <option value="Koo">Koo</option>
+                        <option value="Sunlight">Sunlight</option>
+                    </select>
 
-                  <h3 className="productHeaders">Brand</h3>
-                  <select className="dropdown" id="brandsDropdown">
-                      <option value="all">All</option>
-                      <option value="Johnson's">Johnson's</option>
-                      <option value="Simba">Simba</option>
-                      <option value="Kelloggs">Kelloggs</option>
-                      <option value="Koo">Koo</option>
-                      <option value="Sunlight">Sunlight</option>                   
-                  </select>
-                  
-                  <h3 className="productHeaders">Price</h3>
-                  <section className='radioButtons'>
-                  <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
-                  <label >Low to High</label>
+                    <h3 className="productHeaders">Price</h3>
+                    <section className='radioButtons'>
+                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
+                        <label >Low to High</label>
 
                   <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
                   <label >High to Low</label>
