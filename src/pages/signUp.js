@@ -95,7 +95,7 @@ function SignUp() {
 
 
   return (
-    <div>
+    <div id = "signUpBackground">
       <section id='container'>
         <img src={require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250" />
         <h2 id='signUpSign'>Sign Up</h2>
