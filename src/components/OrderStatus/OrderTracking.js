@@ -1,6 +1,6 @@
 export default function OrderTracking() {
 
-    // first we need to navigate to this page
+    // We can navigate to this page from the order Status page
 
     return (
         <>

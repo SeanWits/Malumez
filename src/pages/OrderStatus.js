@@ -3,6 +3,7 @@ import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import { SearchBar } from "../components/Home/Search";
 import { useEffect, useState } from "react";
+import { db } from '../firebase'; // Import the Firestore database instance
 
 
 function OrderStatus() {
