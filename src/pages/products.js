@@ -9,8 +9,6 @@ import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
 
-
-
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState(() => {
@@ -27,10 +25,15 @@ const Products = () => {
 
     let i = 0;
 
-  
     // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
+    console.log("THe item is", searchItem);
+
+    useEffect(() => {
+      fetchProducts();
+      console.log("The products are", products);
+    }, []);
 
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -38,9 +41,45 @@ const Products = () => {
       });
     }, []);
 
+    function logClick()
+    {
+      setFilterClicked(true);
+    }
+
     useEffect(() => {
-        // Load products on component mount
-        const fetchProducts = async () => {
+      // This function runs when searchItem changes aka the search button gets pressed
+      
+      const handleSearchItemChange = (newValue) => {
+          console.log("searchItem changed to:", newValue);
+          console.log("FilterClicked is: ",filterClicked);
+          if(newValue.length === 0 && filterClicked === false )
+            {
+              alert("Please enter something to search");
+              setFiltered(products);
+              console.log("The searched products are", filtered);
+            }
+            else{
+              let someProducts = [];
+              products.forEach(product=>{
+                if(product.brand === newValue || product.category === newValue || product.name === newValue)
+                  {
+                    console.log(product);
+                    someProducts[i]=product;
+                    i++;
+                  }});
+                setFiltered(someProducts);
+                console.log("The searched products based on newValue are", filtered);
+              }
+              if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
+                {
+                  alert("There are no products of this item: ",newValue);
+                  setFiltered(products);
+                }
+        };
+        handleSearchItemChange(searchItem);
+    }, [searchItem]);
+
+    async function fetchProducts() {
             try {
                 const shopQuerySnapshot = await getDocs(collection(db, "shops"));
                 let allProducts = [];
@@ -64,23 +103,49 @@ const Products = () => {
 
                 // Wait for all productPromises to resolve
                 await Promise.all(productPromises);
+                async function checkProducts() {
+                  if (products.length === 0) {
+                    // If products is not populated, put some products into it
+                    let someProducts = [];
+                    //checking to see if something has been searched
+                    if ( searchItem.length === 0 || searchItem === "nothing") {
+                      console.log("SearchItems is empty");
+                      for(let i = 0;i<allProducts.length; i++)
+                        {
+                          someProducts[i] = allProducts[i];
+                        }
+                    }
+                    else{
+                      for(let i =0; i<allProducts.length; i++)
+                      {
+                        if(allProducts[i].brand === searchItem || allProducts[i].name === searchItem || allProducts[i].category === searchItem )
+                          {
+                            someProducts[i] = allProducts[i];
+                          }
+                      }
+                    
+                  }
+                  setFiltered(someProducts);
+                  setProducts(allProducts);
+                }
+              // Wait until Products is populated
+              await new Promise(resolve => {
+                const interval = setInterval(() => {
+                  if (products.length > 0 && filtered.length>0) {
+                    clearInterval(interval);
+                    resolve();
+                  }
+                }, 100); // Check every 100 milliseconds
+              });
+              }
 
-          // Update state after all products are fetched
-          setProducts(allProducts);
-          console.log("The products are:");
-          console.log(products);    
-          
-        } catch (error) {
-          console.error('Error fetching products:', error);
-        }
-      };
+              // Call checkProducts and wait for it to complete
+              await checkProducts();
+              } catch (error) {
+                console.error('Error fetching products:', error);
+              }
 
-      fetchProducts();  
-      searchProducts(); 
-
-    }, []);
-
-  
+          }
 
     
       const addToCart = async (product, quantity = 1) => {
@@ -152,26 +217,18 @@ function applyFilters()
 {
    let category = document.getElementById("categoriesDropdown").value;
    let brand = document.getElementById("brandsDropdown").value;
-   console.log(searchItem);
-   console.log(category);
-   console.log(brand);
-   console.log(selectedOption);
 
    // everytime the filter gets called, it must clear all the previous filter applications
    let storeProducts = []
 
   if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
     {
-      
       products.forEach(product=>{
         if(product.category === category && product.brand === brand)
           {
-            
-            console.log(product);
               storeProducts[i]=product;
               i++;
           }});
-      
     }
     else if(category !== "all" && brand=== 'all')// there is a category but no brand
     {
@@ -179,33 +236,25 @@ function applyFilters()
       products.forEach(product=>{
         if(product.category === category)
           {
-            
-            console.log(product);
               storeProducts[i]=product;
               i++;
           }
 
        });
-
     }
     else if(category === "all" && brand !== "all")// brand with no category
     {
-      
       products.forEach(product=>{
         if(product.brand === brand)
           {
-            
-            console.log(product);
               storeProducts[i]=product;
               i++;
           }
-
        });
 
     }
     else if(category === "all" && brand=== "all")// no category and no brand
     {
-      
       products.forEach(product=>{
             console.log(product);
               storeProducts[i]=product;
@@ -221,10 +270,11 @@ function applyFilters()
 
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
-      setProductsFiltered(true);
     }
     i = 0;
+    setFilterClicked(false);
   }
+
   return (
     <>
         <div id='productPageLayout'>
