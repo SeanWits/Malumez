@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// the format of a shopping cart 
 const ShoppingCart = ({ cartItems }) => {
   return (
     <div>

@@ -6,6 +6,7 @@ import { Footer } from "../components/Home/Footer";
 import { ShopDetails } from "../components/Seller/ShopDetails";
 import "./Seller.css";
 
+// the seller page
 function Seller() {
     return (
         <>
