@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { updateDoc, collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import UpdateRoles from "./Admin/UpdateRoles";
+import "./modal.css";
 
 
 function Modal({ closeModal, email, name, role, initialRole }) {
@@ -44,7 +45,7 @@ function Modal({ closeModal, email, name, role, initialRole }) {
     return (
         <div className="modalBackground">
             <div className="modalContainer">
-                <button onClick = {() => closeModal(false)}> X </button>
+                <button className="titleCloseBtn" onClick = {() => closeModal(false)}> X </button>
                 <div className="name"></div>
                     <h3>Name: {name}</h3>
                     
