@@ -29,16 +29,41 @@ const Products = () => {
     console.log("THe brand is", searchItem);
 
     const searchButton = document.getElementById('searchButton');
-    // searchButton.addEventListener('click', function() {
-    //   alert('Button clicked!');
-    //   applyFilters();
-    // });
 
 
     useEffect(() => {
       fetchProducts();
       console.log("The products are", products);
     }, []);
+
+    useEffect(() => {
+      // This function runs when searchItem changes aka the search button gets pressed
+      
+      const handleSearchItemChange = (newValue) => {
+          console.log("searchItem changed to:", newValue);
+          if(newValue.length === 0 )
+            {
+              alert("Please enter something to search");
+              setFiltered(products);
+              console.log("The searched products are", filtered);
+            }
+            else{
+              let someProducts = [];
+              products.forEach(product=>{
+              if(product.brand === newValue)
+                {
+                  console.log(product);
+                  someProducts[i]=product;
+                  i++;
+                }});
+              setFiltered(someProducts);
+              console.log("The searched products based on newValue are", filtered);
+
+            }
+      };
+
+      handleSearchItemChange(searchItem);
+  }, [searchItem]);
     
 
     
@@ -46,8 +71,6 @@ const Products = () => {
       try {
         const shopQuerySnapshot = await getDocs(collection(db, "shops"));
         let allProducts = [];
-  
-  
         const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
           const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
           if(!productsQuerySnapshot.empty)
@@ -69,14 +92,10 @@ const Products = () => {
       });
           
         await Promise.all(productPromises);
-  
-       // this function may be integral to the search bar - try and use it in the 
-       // search bar and brands to populate it first
-        // this function makes sure that homeProducts gets populated first before
-        // the images are generated 
+        // this function makes sure that products gets populated first before the products are generated 
       async function checkProducts() {
         if (products.length === 0) {
-          // If homeProducts is not populated, put some products into it
+          // If products is not populated, put some products into it
           let someProducts = [];
           //checking to see if something has been searched
           if ( searchItem.length === 0) {
@@ -89,20 +108,20 @@ const Products = () => {
           else{
             for(let i =0; i<allProducts.length; i++)
             {
-                if(allProducts[i].brand === searchItem || allProducts[i].brand === searchItem|| allProducts[i].brand === searchItem)
+                if(allProducts[i].brand === searchItem )
                   {
                     someProducts[i] = allProducts[i];
                   }
             }
             
           }
-          
-          setProducts(someProducts);
+          setFiltered(someProducts);
+          setProducts(allProducts);
         }
-        // Wait until homeProducts is populated
+        // Wait until Products is populated
         await new Promise(resolve => {
           const interval = setInterval(() => {
-            if (products.length > 0) {
+            if (products.length > 0 && filtered.length>0) {
               clearInterval(interval);
               resolve();
             }
@@ -110,7 +129,7 @@ const Products = () => {
         });
       }
   
-      // Call checkHomeProducts and wait for it to complete
+      // Call checkProducts and wait for it to complete
       await checkProducts();
 
       } catch (error) {
@@ -310,7 +329,7 @@ function applyFilters()
                 <div className="products-container-wrapper">
                     <div className="products-container">
                       {/* Change this back to filtered.map when you need to set the filters */}
-                        { products.map((product) => (
+                        { filtered.map((product) => (
                             <Product
                                 key={product.id}
                                 imageUrl={product.imageUrl}
