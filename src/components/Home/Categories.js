@@ -73,6 +73,12 @@ export function Categories()
     
   }
 
+  function viewMore()
+  {
+     navigate('/products', {state: "nothing"})
+
+  }
+
   return (
     <>
       <section className="categorySection">
@@ -80,7 +86,7 @@ export function Categories()
           <h2 className="categoryHeading">
             {categoryName}
           </h2>
-          <button onClick={() => navigate('/products')} className="viewMoreLink"> View More</button>
+          <button onClick={viewMore} className="viewMoreLink"> View More</button>
         </section>
 
         <section id="productSection">

@@ -19,16 +19,16 @@ const Products = () => {
     const [cart, setCart] = useState([]);
     const [selectedOption, setSelectedOption] = useState();
     const [filtered, setFiltered] = useState([]);
-    const [productFiltered, setProductsFiltered] = useState(false);
+    const [filterClicked, setFilterClicked] = useState(false);
+
+    // The button needs to run only when the first filtering
     const navigate = useNavigate();
     let i = 0;
     
     // gets the value passed from the searchBar or brands
     const location = useLocation();
     let searchItem = location.state || [];
-    console.log("THe brand is", searchItem);
-
-    const searchButton = document.getElementById('searchButton');
+    console.log("THe item is", searchItem);
 
 
     useEffect(() => {
@@ -36,12 +36,19 @@ const Products = () => {
       console.log("The products are", products);
     }, []);
 
+    function logClick()
+    {
+      setFilterClicked(true);
+
+    }
+
     useEffect(() => {
       // This function runs when searchItem changes aka the search button gets pressed
       
       const handleSearchItemChange = (newValue) => {
           console.log("searchItem changed to:", newValue);
-          if(newValue.length === 0 )
+          console.log("FilterClicked is: ",filterClicked);
+          if(newValue.length === 0 && filterClicked === false )
             {
               alert("Please enter something to search");
               setFiltered(products);
@@ -49,6 +56,11 @@ const Products = () => {
             }
             else{
               let someProducts = [];
+              // if(newValue.length !== 0 && filterClicked === false)
+              //   {
+
+
+              //   }
               products.forEach(product=>{
               if(product.brand === newValue)
                 {
@@ -60,6 +72,11 @@ const Products = () => {
               console.log("The searched products based on newValue are", filtered);
 
             }
+            if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
+              {
+                alert("There are no products of this item: ",newValue);
+                setFiltered(products);
+              }
       };
 
       handleSearchItemChange(searchItem);
@@ -98,7 +115,7 @@ const Products = () => {
           // If products is not populated, put some products into it
           let someProducts = [];
           //checking to see if something has been searched
-          if ( searchItem.length === 0) {
+          if ( searchItem.length === 0 || searchItem === "nothing") {
             console.log("SearchItems is empty");
             for(let i = 0;i<allProducts.length; i++)
               {
@@ -270,15 +287,13 @@ function applyFilters()
     // confirming that the products have been filtered
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
-      setProductsFiltered(true);
+      //setProductsFiltered(true);
     }
     i = 0;
     console.log(filtered);
+    setFilterClicked(false);
   
 }
-
-
-// check if the brands have actually been retrieved
 
     return (
         <>
@@ -316,19 +331,14 @@ function applyFilters()
                         <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
                         <label >High to Low</label>
                         </section>
-                        <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
-
-
+                        <button className="applyButton" onClick={() => { applyFilters(); logClick(); }}>Apply Filters</button>
                         
                     </section>
                     <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                 </section>
 
-                {/* Technically we can make 2 div classes like this and give them conditionals. One for the filtered elements and
-                the other for the searched elements */}
                 <div className="products-container-wrapper">
                     <div className="products-container">
-                      {/* Change this back to filtered.map when you need to set the filters */}
                         { filtered.map((product) => (
                             <Product
                                 key={product.id}
@@ -341,29 +351,6 @@ function applyFilters()
                         ))}
                     </div>
                 </div>
-
-                {/* This div will get called when the products have been filtered. Alternatively, you can only print filtered and products stays the 
-                same so you can recover the products. That might be the best option   */}
-                
-                {/* <div className="filtered-products-container-wrapper">
-                    <div className="products-container">
-                      {/* Change this back to filtered.map when you need to set the filters 
-                        { products.map((product) => (
-                            <Product
-                                key={product.id}
-                                imageUrl={product.imageUrl}
-                                name={product.name}
-                                price={product.price}
-                                onAddToCart={() => addToCart(product)}
-                                onRemoveFromCart={() => removeFromCart(product.id)}
-                            />
-                        ))}
-                    </div>
-                </div> */}
-
-
-
-
             </div>
         </>
     );
