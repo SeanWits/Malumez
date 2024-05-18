@@ -56,13 +56,8 @@ const Products = () => {
             }
             else{
               let someProducts = [];
-              // if(newValue.length !== 0 && filterClicked === false)
-              //   {
-
-
-              //   }
               products.forEach(product=>{
-              if(product.brand === newValue)
+              if(product.brand === newValue || product.category === newValue || product.name === newValue)
                 {
                   console.log(product);
                   someProducts[i]=product;
@@ -125,7 +120,7 @@ const Products = () => {
           else{
             for(let i =0; i<allProducts.length; i++)
             {
-                if(allProducts[i].brand === searchItem )
+                if(allProducts[i].brand === searchItem || allProducts[i].name === searchItem || allProducts[i].category === searchItem )
                   {
                     someProducts[i] = allProducts[i];
                   }
