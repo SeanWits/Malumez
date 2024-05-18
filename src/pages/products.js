@@ -12,21 +12,31 @@ import './products.css';
 
 
 const Products = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
-  const [selectedOption, setSelectedOption] = useState();
-  const [filtered, setFiltered] = useState([]);
-  const [productFiltered, setProductsFiltered] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState(() => {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    });
+    const [selectedOption, setSelectedOption] = useState();
+    const [filtered, setFiltered] = useState([]);
+    const [filterClicked, setFilterClicked] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
+    const navigate = useNavigate();
 
-  let i = 0;
+    let i = 0;
+
+  
+    // gets the value passed from the searchBar
+    const location = useLocation();
+    let searchItem = location.state || [];
+
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+      });
+    }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -120,21 +130,20 @@ const Products = () => {
 
 
 
-const handleCheckout = () => {
-  navigate("/checkout", { state: { cart: cart } });
-};
+    const handleCheckout = () => {
+      navigate("/checkout", { state: { cart: cart } });
+    };
 
-  const removeFromCart = (productId) => {
-    const updatedCart = cart.filter(item => item.id !== productId);
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
+    const removeFromCart = (productId) => {
+      const updatedCart = cart.filter(item => item.id !== productId);
+      setCart(updatedCart);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
 
 
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+    const handleOptionChange = (event) => {
+      setSelectedOption(event.target.value);
+    };
 
   function applyFilters() {
     let category = document.getElementById("categoriesDropdown").value;
@@ -218,35 +227,36 @@ const handleCheckout = () => {
                         <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
                         <label >Low to High</label>
 
-                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
-                        <label >High to Low</label>
-                    </section>
-                    <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
-                </section>
-                <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
-            </section>
-            {successMessage && <div className="success-message">{successMessage}</div>}
-            <div className="products-container-wrapper">
-            <div className="products-container">
-    {filtered.map((product) => (
-        <Product
-            key={product.id}
-            imageUrl={product.imageUrl}
-            name={product.name}
-            price={product.price}
-            onAddToCart={() => addToCart(product)}
-            onRemoveFromCart={() => removeFromCart(product.id)}
-        />
-    ))}
-</div>
-{showMessage && (
-    <div className={`success-message ${showMessage ? 'show' : ''}`}>
-        {successMessage}
-    </div>
-)}
+                  <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
+                  <label >High to Low</label>
+                  </section>
+                  <button className="applyButton" onClick={() => { applyFilters(); logClick(); }}>Apply Filters</button>
+                  
+              </section>
+              <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
+          </section>
+
+          <div className="products-container-wrapper">
+              <div className="products-container">
+                  { filtered.map((product) => (
+                      <Product
+                          key={product.id}
+                          imageUrl={product.imageUrl}
+                          name={product.name}
+                          price={product.price}
+                          onAddToCart={() => addToCart(product)}
+                          onRemoveFromCart={() => removeFromCart(product.id)}
+                      />
+                  ))}
+              </div>
+            {showMessage && (
+            <div className={`success-message ${showMessage ? 'show' : ''}`}>
+                {successMessage}
             </div>
-        </div>
-    </>
+          )}
+          </div>
+      </div>
+  </>
 );
 };
 
