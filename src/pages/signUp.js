@@ -1,5 +1,5 @@
 import { auth, db } from '../firebase';
-import {useState} from 'react';
+import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ function SignUp() {
   const [buyer, setBuyer] = useState(true);
   const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 
@@ -72,9 +73,10 @@ function SignUp() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         await addUser(user);
+        setSuccessMessage('User registered!');
         console.log("User registered:", user);
         navigate('/home');
-      } catch (error) { 
+      } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("Email already linked to an account");
         } else {
@@ -95,43 +97,44 @@ function SignUp() {
   return (
     <div>
       <section id='container'>
-        <img src= {require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250"/>
+        <img src={require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250" />
         <h2 id='signUpSign'>Sign Up</h2>
         <form id="signup-form" onSubmit={register}>
-            <label htmlFor="Name">Name</label>
-            <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)}  />
-          
-            <label htmlFor="Surname">Surname</label>
-            <input type="text" id="Surname" name="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
-          
-            <label htmlFor="Username">Username</label>
-            <input type="text" id="Username" name="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-          
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  required />
-          
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          
-          
-            <label htmlFor="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-          
-            <section id='sectionUserType'>
-            <label id = "userType" htmlFor="UserType">User type:</label>
+          <label htmlFor="Name">Name</label>
+          <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)} />
+
+          <label htmlFor="Surname">Surname</label>
+          <input type="text" id="Surname" name="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
+
+          <label htmlFor="Username">Username</label>
+          <input type="text" id="Username" name="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+
+          <label htmlFor="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+
+          <section id='sectionUserType'>
+            <label htmlFor="type" id="userType">User type:</label>
             <select name="Account type" id="type" onChange={handleRoleChange}>
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
             </select>
-            </section>
+          </section>
 
           <button type="submit" id='signUpButton'>Sign Up</button>
+          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </section>
     </div>
   );
-  
+
 }
 
 export default SignUp;

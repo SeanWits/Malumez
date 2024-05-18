@@ -49,7 +49,7 @@ function StoreImageTextFirebase() {
         setHideCameraOnly(true);
     };
 
-    const SwitchMode = () => {
+    const switchMode = () => {
         if (showCamera) {
             setShowCamera(false);
             setButtonText("Take Picture");
@@ -186,11 +186,11 @@ function StoreImageTextFirebase() {
         fetchShopId();
         setShowCamera(false);
     }, []);
-    
+
 
     return (
         <div className="scrollable-container">
-            <button onClick={SwitchMode} className="btn btn-success">
+            <button onClick={switchMode} className="btn btn-success">
                 {buttonText}
             </button>
             {showCamera && !HideCameraOnly && (
@@ -205,7 +205,7 @@ function StoreImageTextFirebase() {
                             videoConstraints={videoConstraints}
                         />
                     ) : (
-                        <img src={picture} />
+                        <img src={picture}  alt="Webcam capture" />
                     )}
                 </div>
             )}
@@ -263,32 +263,40 @@ function StoreImageTextFirebase() {
             {/* Show the selected image */}
             <form>
                 <div>
-                    <label>Name:</label>
+                    <label htmlFor="productName">Name:</label>
                     <input
+                        id="productName"
+                        name="name"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label>Price (R):</label>
+                    <label htmlFor="price">Price (R):</label>
                     <input
+                        id="price"
+                        name="price"
                         type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label>Stock:</label>
+                    <label htmlFor="stock">Stock:</label>
                     <input
+                        id="stock"
+                        name="stock"
                         type="number"
                         value={stock}
                         onChange={(e) => setStock(e.target.value)}
                     />
                 </div>
                 <div>
-                    <label>Category:</label>
+                    <label htmlFor="category">Category:</label>
                     <select
+                        id="category"
+                        name="category"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                     >
@@ -305,8 +313,10 @@ function StoreImageTextFirebase() {
                     </select>
                 </div>
                 <div>
-                    <label>Brand:</label>
+                    <label htmlFor="brand">Brand:</label>
                     <select
+                        id="brand"
+                        name="brand"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
                     >
