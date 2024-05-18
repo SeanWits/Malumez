@@ -28,96 +28,99 @@ const Products = () => {
 
   let i = 0;
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  
-    const fetchProducts = async () => {
-      try {
-        const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-        let allProducts = [];
-  
-        const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
-          const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
-          productsQuerySnapshot.forEach((productDoc) => {
-            const productData = productDoc.data();
-            allProducts.push({
-              id: productDoc.id,
-              imageUrl: productData.src,
-              name: productData.name,
-              price: productData.price,
-              category: productData.category,
-              brand: productData.brand,
-              stock: productData.stock
-            });
-          });
-        });
-  
-        await Promise.all(productPromises);
-        
-        console.log('Fetched products:', allProducts); // Log fetched products
-        setProducts(allProducts);
-        setFiltered(allProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-  
-    fetchProducts();
-  }, []);
-  
-  const addToCart = async (product, quantity = 1) => {
-    try {
-        const currentUser = auth.currentUser;
+    useEffect(() => {
+        // Load products on component mount
+        const fetchProducts = async () => {
+            try {
+                const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+                let allProducts = [];
 
-        if (currentUser) {
-            const userId = currentUser.uid;
-            const userRef = doc(db, "users", userId);
+                // Map each shopDoc to a promise that fetches its products
+                const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
+                    const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
+                    productsQuerySnapshot.forEach((productDoc) => {
+                        const productData = productDoc.data();
+                        allProducts.push({
+                            id: productDoc.id,
+                            imageUrl: productData.src,
+                            name: productData.name,
+                            price: productData.price,
+                            category: productData.category,
+                            brand: productData.brand,
+                            stock:productData.stock
+                        });
+                    });
+                });
 
-            const existingItemIndex = cart.findIndex(item => item.id === product.id);
+                // Wait for all productPromises to resolve
+                await Promise.all(productPromises);
 
-            let updatedCart;
-            if (existingItemIndex !== -1) {
-                updatedCart = [...cart];
-                updatedCart[existingItemIndex].quantity += quantity;
-            } else {
-                updatedCart = [...cart, { ...product, quantity }];
-            }
-
-            setCart(updatedCart);
-
-            await updateDoc(userRef, {
-                cart: updatedCart.map(item => ({ id: item.id, quantity: item.quantity }))
-            });
-        } else {
-            let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-            const existingItemIndex = guestCart.findIndex(item => item.id === product.id);
-
-            if (existingItemIndex !== -1) {
-                guestCart[existingItemIndex].quantity += quantity;
-            } else {
-                guestCart.push({ ...product, quantity });
-            }
-
-            localStorage.setItem("guestCart", JSON.stringify(guestCart));
-            setCart(guestCart);
+          // Update state after all products are fetched
+          setProducts(allProducts);
+          console.log("The products are:");
+          console.log(products);    
+          
+        } catch (error) {
+          console.error('Error fetching products:', error);
         }
+      };
 
-        // Show success message
-        setSuccessMessage(`${product.name} added to cart`);
-        setShowMessage(true);
-        setTimeout(() => {
-            setShowMessage(false);
-        }, 3000);
-    } catch (error) {
-        console.error("Error adding product to cart: ", error);
-    }
-};
+      fetchProducts();  
+      searchProducts(); 
 
+    }, []);
 
+  
 
-
+    
+  
+    const addToCart = async (product, quantity = 1) => {
+      try {
+          const currentUser = auth.currentUser;
+  
+          if (currentUser) {
+              const userId = currentUser.uid;
+              const userRef = doc(db, "users", userId);
+  
+              const existingItemIndex = cart.findIndex(item => item.id === product.id);
+  
+              let updatedCart;
+              if (existingItemIndex !== -1) {
+                  updatedCart = [...cart];
+                  updatedCart[existingItemIndex].quantity += quantity;
+              } else {
+                  updatedCart = [...cart, { ...product, quantity }];
+              }
+  
+              setCart(updatedCart);
+  
+              await updateDoc(userRef, {
+                  cart: updatedCart.map(item => ({ id: item.id, quantity: item.quantity }))
+              });
+          } else {
+              let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+              const existingItemIndex = guestCart.findIndex(item => item.id === product.id);
+  
+              if (existingItemIndex !== -1) {
+                  guestCart[existingItemIndex].quantity += quantity;
+              } else {
+                  guestCart.push({ ...product, quantity });
+              }
+  
+              localStorage.setItem("guestCart", JSON.stringify(guestCart));
+              setCart(guestCart);
+          }
+  
+          // Show success message
+          setSuccessMessage(`${product.name} added to cart`);
+          setShowMessage(true);
+          setTimeout(() => {
+              setShowMessage(false);
+          }, 3000);
+      } catch (error) {
+          console.error("Error adding product to cart: ", error);
+      }
+  };
 
 
 const handleCheckout = () => {
@@ -136,41 +139,120 @@ const handleCheckout = () => {
     setSelectedOption(event.target.value);
   };
 
-  function applyFilters() {
-    let category = document.getElementById("categoriesDropdown").value;
-    let brand = document.getElementById("brandsDropdown").value;
-    console.log(category);
-    console.log(brand);
-    console.log(selectedOption);
+// the search function that works like filter and returns the products based on what the person searches 
+// function searchProducts()
+// {
+//   let j = 0;
+//   let storeProducts = [];
+//   if(searchItem !== null)
+//     {
+//       if(filtered.length !== 0)
+//         {
+//             let searchArray = [];
+//             products.forEach(product=>{
+//               if(product.category === searchItem || product.brand === searchItem|| product.name === searchItem)
+//                 {
+                  
+//                   console.log(product);
+//                     searchArray[j]=product;
+//                     i++;
+//                 }});
+//               setFiltered(searchArray);
 
-    let storeProducts = [];
+            
+//         }
+//         console.log("The following items were found");
+//         console.log(filtered);
+//   }
+//   else{
+//     console.log("Enter something to be searched");
+//   }
+//   j=0;
 
-    if (category !== "all" && brand !== 'all') {
-      products.forEach(product => {
-        if (product.category === category && product.brand === brand) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category !== "all" && brand === 'all') {
-      products.forEach(product => {
-        if (product.category === category) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category === "all" && brand !== "all") {
-      products.forEach(product => {
-        if (product.brand === brand) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category === "all" && brand === "all") {
-      products.forEach(product => {
-        storeProducts[i] = product;
-        i++;
-      });
+// }
+
+const searchProducts = () => {
+  if (searchItem && searchItem.length > 0) {
+      const searchResults = products.filter(product => (
+          product.category === searchItem ||
+          product.brand === searchItem ||
+          product.name === searchItem
+      ));
+      setFiltered(searchResults);
+      setProductsFiltered(true);
+  } else {
+      setFiltered([]);
+      setProductsFiltered(false);
+  }
+};
+
+
+
+
+// filtering the products by what the user selects
+function applyFilters()
+{
+   let category = document.getElementById("categoriesDropdown").value;
+   let brand = document.getElementById("brandsDropdown").value;
+   console.log(searchItem);
+   console.log(category);
+   console.log(brand);
+   console.log(selectedOption);
+
+   // everytime the filter gets called, it must clear all the previous filter applications
+   let storeProducts = []
+
+  if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
+    {
+      
+      products.forEach(product=>{
+        if(product.category === category && product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }});
+      
+    }
+    else if(category !== "all" && brand=== 'all')// there is a category but no brand
+    {
+      
+      products.forEach(product=>{
+        if(product.category === category)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }
+
+       });
+
+    }
+    else if(category === "all" && brand !== "all")// brand with no category
+    {
+      
+      products.forEach(product=>{
+        if(product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }
+
+       });
+
+    }
+    else if(category === "all" && brand=== "all")// no category and no brand
+    {
+      
+      products.forEach(product=>{
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+       });
     }
 
     if (selectedOption === "highToLow") {
