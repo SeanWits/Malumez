@@ -1,0 +1,43 @@
+.OrderTrackingSection {
+    width: 800px;
+    height: 600px;
+    padding: 50px;
+}
+
+.OrderTrackingArticle {
+    display: flex;
+    justify-content: center;
+}
+
+.OrderStatusHeading {
+    color: white;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.OrderStatusHeadingSection {
+    background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    outline: gray;
+    outline-style: solid;
+    outline-width: 1px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.OrderProgressionStatusSection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+}
