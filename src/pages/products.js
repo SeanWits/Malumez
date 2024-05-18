@@ -48,7 +48,6 @@ const Products = () => {
 
     useEffect(() => {
       // This function runs when searchItem changes aka the search button gets pressed
-      
       const handleSearchItemChange = (newValue) => {
           console.log("searchItem changed to:", newValue);
           console.log("FilterClicked is: ",filterClicked);
