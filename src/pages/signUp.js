@@ -36,9 +36,15 @@ function SignUp() {
       if (password !== confirmPassword) {
         isValid = false;
         alert('Passwords do not match');
+        setPassword('');
+        setConfirmPassword('');
+        alert("Only passwords cleared");
       } else if (password.length < 8) {
         isValid = false;
         alert('Password should be at least 8 characters long');
+        setPassword('');
+        setConfirmPassword('');
+        alert("Only passwords cleared");
       }
     }
     return isValid;
@@ -61,7 +67,14 @@ function SignUp() {
       });
       console.log("User added with ID: ", userAuth.uid);
     } catch (error) {
-      console.error("Error adding user: ", error);
+      console.error("Error adding user: ", error,"\n Please check your details and try again");
+      setName('');
+      setSurname('');
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      
     }
   };
 
@@ -75,22 +88,24 @@ function SignUp() {
         await addUser(user);
         setSuccessMessage('User registered!');
         console.log("User registered:", user);
-        navigate('/home');
+        navigate('/signUp');
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("Email already linked to an account");
+          setEmail('');
         } else {
-          console.error("Error registering user: ", error);
+          console.error("Error registering user: ", error, "\n Please try again ");
           alert(error.message);
+          setName('');
+          setSurname('');
+          setUsername('');
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
         }
       }
     }
-    setName('');
-    setSurname('');
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    
   };
 
 
