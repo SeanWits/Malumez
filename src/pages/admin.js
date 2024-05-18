@@ -501,21 +501,21 @@ function Admin() {
         </a>
       </header>
       {openModal && <Modal closeModal={setOpenModal} email={emails} name={nameM} role={roleM} initialRole={initialRole}/>}
-      <section class="main-content">
+      <section className="main-content">
         <nav>
-          <button class="button" id="dashboardBtn" onClick={dashboard}>
+          <button className="button" id="dashboardBtn" onClick={dashboard}>
             Dashboard
           </button>
           {/* Toggle the visibility of Owners component when button is clicked */}
-          <button class="button" id="OwnersBtn" onClick={owners}>
+          <button className="button" id="OwnersBtn" onClick={owners}>
             Store Owners
           </button>
-          <button class="button" id="Buyers" onClick={buyers}>
+          <button className="button" id="Buyers" onClick={buyers}>
             Buyers
           </button>
         </nav>
 
-        <section class="main-idea">
+        <section className="main-idea">
           <table id="adminTable">
             <tr>
               <th>BUYER OR SELLER</th>
