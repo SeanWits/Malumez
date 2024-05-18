@@ -1,19 +1,13 @@
 import {useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
-
-
-// Your component code here
-
-
 export function SearchBar()
 {
 
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
 
-    
-  // fetching products from the database
+  // navigating to the products page and passing the value in the search 
   function searchItem()
   {
     console.log(search);

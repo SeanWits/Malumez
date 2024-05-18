@@ -1,4 +1,7 @@
 export default function OrderTracking() {
+
+    // first we need to navigate to this page
+
     return (
         <>
             <section className="OrderTrackingSection">
