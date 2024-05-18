@@ -29,6 +29,25 @@
 .product {
   border: 1px solid red; /* Temporary border for debugging */
 }
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 1000;
+}
+
+.success-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 
 .checkout-btn {
