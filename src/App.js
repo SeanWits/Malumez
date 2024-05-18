@@ -13,6 +13,7 @@ import Seller from "./pages/Seller";
 import Sean from "./pages/sean";
 import SellerProducts from "./components/Seller/SellerProducts";
 import Notifications from "./components/Seller/Notifications";
+import OrderStatus from "./pages/OrderStatus";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/sean" element={<Sean />} />
                 <Route path="/sellerP" element={<SellerProducts />} />
                 <Route path="/notifications" element={<Notifications />} />
+                <Route path="/orderStatus" element={<OrderStatus />} />
             </Routes>
         </Router>
     );

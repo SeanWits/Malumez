@@ -43,7 +43,7 @@ export function MoreOptions() {
                     <ul className="storeList">
                         <li>
                             <i className="fa fa-seacrh icon"></i>
-                            <a href="">Find a store</a>
+                            <a>Find a store</a>
                         </li>
                         <li>
                             <i className="fa fa-money icon"></i>
@@ -68,7 +68,9 @@ export function MoreOptions() {
                         </li>
                         <li>
                             <i className="fa fa-truck icon"></i>
-                            <a href="">Track my order</a>
+                            <a onClick={() => navigate("/orderStatus")}>
+                                Track my order
+                            </a>
                         </li>
                     </ul>
                 </section>
