@@ -11,6 +11,14 @@ function OrderStatus() {
     const [carts, setCarts] = useState([]);
 
     console.log("We have reached the order Status page");
+
+
+
+    //DO NOT DELETE!! The code on this page is incomplete and commented out so as not to break the other pages
+
+
+
+
     // useEffect(() => {
     //     fetchCarts();
     // }, []);
