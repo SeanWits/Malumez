@@ -13,18 +13,30 @@ import './products.css';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(() => {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    });
     const [selectedOption, setSelectedOption] = useState();
     const [filtered, setFiltered] = useState([]);
     const [filterClicked, setFilterClicked] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
     const navigate = useNavigate();
+
+    let i = 0;
 
   
     // gets the value passed from the searchBar
     const location = useLocation();
     let searchItem = location.state || [];
 
-    
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+      });
+    }, []);
 
     useEffect(() => {
       fetchProducts();
@@ -142,65 +154,71 @@ const Products = () => {
       }
 
     
-      const addToCart = (product) => {
-        const updatedCart = [...cart, product];
-        setCart(updatedCart);
-        console.log(cart);
-      
-        // Get the current user
-        const currentUser = auth.currentUser;
-      
-        // Check if a user is logged in
-        if (currentUser) {
-            // Get the UID of the current user
-            const userId = currentUser.uid;
-      
-            // Retrieve the user document from Firestore
-            const userRef = doc(db, "users", userId);
-      
-            // Update the user document by adding the product ID to the cart array
-            updateDoc(userRef, {
-                cart: arrayUnion(product.id)
-            })
-            .then(() => {
-                console.log("Product added to cart successfully!");
+      const addToCart = async (product, quantity = 1) => {
+        try {
+            const currentUser = auth.currentUser;
     
-                // Update the cart state after the database operation is completed
-                const updatedCart = [...cart, product];
+            if (currentUser) {
+                const userId = currentUser.uid;
+                const userRef = doc(db, "users", userId);
+    
+                const existingItemIndex = cart.findIndex(item => item.id === product.id);
+    
+                let updatedCart;
+                if (existingItemIndex !== -1) {
+                    updatedCart = [...cart];
+                    updatedCart[existingItemIndex].quantity += quantity;
+                } else {
+                    updatedCart = [...cart, { ...product, quantity }];
+                }
+    
                 setCart(updatedCart);
+    
+                await updateDoc(userRef, {
+                    cart: updatedCart.map(item => ({ id: item.id, quantity: item.quantity }))
+                });
             } else {
-                // If no user is logged in, add the product to the guest cart in local storage
                 let guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
-                guestCart.push(product);
+                const existingItemIndex = guestCart.findIndex(item => item.id === product.id);
+    
+                if (existingItemIndex !== -1) {
+                    guestCart[existingItemIndex].quantity += quantity;
+                } else {
+                    guestCart.push({ ...product, quantity });
+                }
+    
                 localStorage.setItem("guestCart", JSON.stringify(guestCart));
-    
-                console.log("Product added to guest cart successfully!");
-    
-                // Update the cart state after the local storage operation is completed
-                const updatedCart = [...cart, product];
-                setCart(updatedCart);
+                setCart(guestCart);
             }
+    
+            // Show success message
+            setSuccessMessage(`${product.name} added to cart`);
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+            }, 3000);
         } catch (error) {
             console.error("Error adding product to cart: ", error);
         }
     };
 
 
-const handleCheckout = () => {
-  navigate("/checkout", { state: { cart: cart } });
-};
-
-  const removeFromCart = (productId) => {
-    const updatedCart = cart.filter(item => item.id !== productId);
-    setCart(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  };
-
-
-
-const handleOptionChange = (event) => {
-  setSelectedOption(event.target.value);
-};
+    const handleCheckout = () => {
+      navigate("/checkout", { state: { cart: cart } });
+    };
+    
+      const removeFromCart = (productId) => {
+        const updatedCart = cart.filter(item => item.id !== productId);
+        setCart(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+      };
+    
+    
+    
+      const handleOptionChange = (event) => {
+        setSelectedOption(event.target.value);
+      };
+    
 
 // filtering the products by what the user selects
 function applyFilters()
@@ -333,6 +351,11 @@ return (
                       />
                   ))}
               </div>
+            {showMessage && (
+            <div className={`success-message ${showMessage ? 'show' : ''}`}>
+                {successMessage}
+            </div>
+          )}
           </div>
       </div>
   </>
