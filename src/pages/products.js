@@ -12,73 +12,89 @@ import './products.css';
 
 
 const Products = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
-  const [selectedOption, setSelectedOption] = useState();
-  const [filtered, setFiltered] = useState([]);
-  const [productFiltered, setProductsFiltered] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  let i = 0;
+    const [products, setProducts] = useState([]);
+    const [productsLoaded, setProductsLoaded] = useState(false);
+    const [cart, setCart] = useState([]);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  
-    const fetchProducts = async () => {
-      try {
-        const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-        let allProducts = [];
-  
-        const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
-          const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
-          productsQuerySnapshot.forEach((productDoc) => {
-            const productData = productDoc.data();
-            allProducts.push({
-              id: productDoc.id,
-              imageUrl: productData.src,
-              name: productData.name,
-              price: productData.price,
-              category: productData.category,
-              brand: productData.brand,
-              stock: productData.stock
-            });
-          });
-        });
-  
-        await Promise.all(productPromises);
-        
-        console.log('Fetched products:', allProducts); // Log fetched products
-        setProducts(allProducts);
-        setFiltered(allProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-  
-    fetchProducts();
-  }, []);
-  
-  const addToCart = async (product) => {
-    try {
-        // Get the current user
-        const currentUser = auth.currentUser;
+    
+    
 
-        if (currentUser) {
-            // If a user is logged in, update the cart in the database
-            const userId = currentUser.uid;
-            const userRef = doc(db, "users", userId);
 
-            // Add the product ID to the cart array in the database
-            await updateDoc(userRef, {
-                cart: arrayUnion(product.id)
-            });
+    // display the products page
+    ProductsPage();
+    // gets the value passed from the searchBar
+    const location = useLocation();
+    let searchItem = location.state || [];
 
+    
+
+    useEffect(() => {
+        // Load products on component mount
+        const fetchProducts = async () => {
+            try {
+                const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+                let allProducts = [];
+
+                // Map each shopDoc to a promise that fetches its products
+                const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
+                    const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
+                    productsQuerySnapshot.forEach((productDoc) => {
+                        const productData = productDoc.data();
+                        allProducts.push({
+                            id: productDoc.id,
+                            imageUrl: productData.src,
+                            name: productData.name,
+                            price: productData.price,
+                            category: productData.category,
+                            brand: productData.brand,
+                            stock:productData.stock
+                        });
+                    });
+                });
+
+                // Wait for all productPromises to resolve
+                await Promise.all(productPromises);
+
+          // Update state after all products are fetched
+          setProducts(allProducts);
+          console.log("The products are:");
+          console.log(products);    
+          
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+      };
+
+      fetchProducts();  
+      searchProducts(); 
+
+    }, []);
+
+  
+
+    
+ const addToCart = (product) => {
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    console.log(cart);
+  
+    // Get the current user
+    const currentUser = auth.currentUser;
+  
+    // Check if a user is logged in
+    if (currentUser) {
+        // Get the UID of the current user
+        const userId = currentUser.uid;
+  
+        // Retrieve the user document from Firestore
+        const userRef = doc(db, "users", userId);
+  
+        // Update the user document by adding the product ID to the cart array
+        updateDoc(userRef, {
+            cart: arrayUnion(product.id)
+        })
+        .then(() => {
             console.log("Product added to cart successfully!");
 
             // Update the cart state after the database operation is completed
@@ -114,45 +130,124 @@ const handleCheckout = () => {
 
 
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+const handleOptionChange = (event) => {
+  setSelectedOption(event.target.value);
+};
 
-  function applyFilters() {
-    let category = document.getElementById("categoriesDropdown").value;
-    let brand = document.getElementById("brandsDropdown").value;
-    console.log(category);
-    console.log(brand);
-    console.log(selectedOption);
+// the search function that works like filter and returns the products based on what the person searches 
+// function searchProducts()
+// {
+//   let j = 0;
+//   let storeProducts = [];
+//   if(searchItem !== null)
+//     {
+//       if(filtered.length !== 0)
+//         {
+//             let searchArray = [];
+//             products.forEach(product=>{
+//               if(product.category === searchItem || product.brand === searchItem|| product.name === searchItem)
+//                 {
+                  
+//                   console.log(product);
+//                     searchArray[j]=product;
+//                     i++;
+//                 }});
+//               setFiltered(searchArray);
 
-    let storeProducts = [];
+            
+//         }
+//         console.log("The following items were found");
+//         console.log(filtered);
+//   }
+//   else{
+//     console.log("Enter something to be searched");
+//   }
+//   j=0;
 
-    if (category !== "all" && brand !== 'all') {
-      products.forEach(product => {
-        if (product.category === category && product.brand === brand) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category !== "all" && brand === 'all') {
-      products.forEach(product => {
-        if (product.category === category) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category === "all" && brand !== "all") {
-      products.forEach(product => {
-        if (product.brand === brand) {
-          storeProducts[i] = product;
-          i++;
-        }
-      });
-    } else if (category === "all" && brand === "all") {
-      products.forEach(product => {
-        storeProducts[i] = product;
-        i++;
-      });
+// }
+
+const searchProducts = () => {
+  if (searchItem && searchItem.length > 0) {
+      const searchResults = products.filter(product => (
+          product.category === searchItem ||
+          product.brand === searchItem ||
+          product.name === searchItem
+      ));
+      setFiltered(searchResults);
+      setProductsFiltered(true);
+  } else {
+      setFiltered([]);
+      setProductsFiltered(false);
+  }
+};
+
+
+
+
+// filtering the products by what the user selects
+function applyFilters()
+{
+   let category = document.getElementById("categoriesDropdown").value;
+   let brand = document.getElementById("brandsDropdown").value;
+   console.log(searchItem);
+   console.log(category);
+   console.log(brand);
+   console.log(selectedOption);
+
+   // everytime the filter gets called, it must clear all the previous filter applications
+   let storeProducts = []
+
+  if(category !== "all" && brand!== 'all' ) // i.e there is a value for both categories and brands
+    {
+      
+      products.forEach(product=>{
+        if(product.category === category && product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }});
+      
+    }
+    else if(category !== "all" && brand=== 'all')// there is a category but no brand
+    {
+      
+      products.forEach(product=>{
+        if(product.category === category)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }
+
+       });
+
+    }
+    else if(category === "all" && brand !== "all")// brand with no category
+    {
+      
+      products.forEach(product=>{
+        if(product.brand === brand)
+          {
+            
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+          }
+
+       });
+
+    }
+    else if(category === "all" && brand=== "all")// no category and no brand
+    {
+      
+      products.forEach(product=>{
+            console.log(product);
+              storeProducts[i]=product;
+              i++;
+       });
     }
 
     if (selectedOption === "highToLow") {
@@ -163,68 +258,55 @@ const handleCheckout = () => {
 
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
-      setProductsFiltered(true);
+      //setProductsFiltered(true);
     }
     i = 0;
-  }
-  return (
-    <>
-        <div id='productPageLayout'>
-            <section id='filters'>
-                <section id='insideFilters'>
-                    <h2 className="productHeaders">Filters</h2>
-                    <h3 className="productHeaders">Categories</h3>
-                    <select className="dropdown" id="categoriesDropdown">
-                        <option value="all">All</option>
-                        <option value="beverages">Beverages</option>
-                        <option value="toiletries">Toiletries</option>
-                        <option value="snacks">Snacks</option>
-                        <option value="household">Household</option>
-                        <option value="dairy">Dairy</option>
-                        <option value="bakery">Bakery</option>
-                        <option value="cupboard food">Cupboard Food</option>
-                    </select>
+  
+}
 
-                    <h3 className="productHeaders">Brand</h3>
-                    <select className="dropdown" id="brandsDropdown">
-                        <option value="all">All</option>
-                        <option value="Johnson's">Johnson's</option>
-                        <option value="Simba">Simba</option>
-                        <option value="Kelloggs">Kelloggs</option>
-                        <option value="Koo">Koo</option>
-                        <option value="Sunlight">Sunlight</option>
-                    </select>
 
-                    <h3 className="productHeaders">Price</h3>
-                    <section className='radioButtons'>
-                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange}/>
-                        <label >Low to High</label>
 
-                        <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
-                        <label >High to Low</label>
+
+
+
+// check if the brands have actually been retrieved
+
+
+
+
+    return (
+        <>
+            <div id='productPageLayout'>
+                <section id='filters'>
+                    <section id='insideFilters'>
+                        <h2 className="productHeaders">Filters</h2>
+                        <h3 className="productHeaders">Categories</h3>
+                        <select className="dropdown" id="categoriesDropdown">
+                            <option value="all">All</option>
+                            {/* Add other options dynamically */}
+                        </select>
+                        {/* Other filter options */}
+                        <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
                     </section>
-                    <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
                 </section>
-                <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
-            </section>
 
-            <div className="products-container-wrapper">
-            <div className="products-container">
-    {filtered.map((product) => (
-        <Product
-            key={product.id}
-            imageUrl={product.imageUrl}
-            name={product.name}
-            price={product.price}
-            onAddToCart={() => addToCart(product)}
-            onRemoveFromCart={() => removeFromCart(product.id)}
-        />
-    ))}
-</div>
+                <div className="products-container-wrapper">
+                    <div className="products-container">
+                        {products.map((product) => (
+                            <Product
+                                key={product.id}
+                                imageUrl={product.imageUrl}
+                                name={product.name}
+                                price={product.price}
+                                onAddToCart={() => addToCart(product)}
+                                onRemoveFromCart={() => removeFromCart(product.id)}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
-    </>
-);
+        </>
+    );
 };
 
 function ProductsPage() {

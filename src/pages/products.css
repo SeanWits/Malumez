@@ -11,6 +11,10 @@
   overflow-y: auto;
 }
 
+.sellerPage.products-container-wrapper {
+  width: 100%;
+}
+
 #productPageLayout {
   display: flex;
   flex-direction: row;
@@ -47,6 +51,14 @@
 #sortByPrice {
   display: block;
 }
+
+#filters.shopDetails {
+  padding: 20px;
+  padding-left: 20%;
+  padding-right: 20%;
+  height: 200px;
+}
+
 #filters {
   background: linear-gradient(
     to bottom,
@@ -61,6 +73,7 @@
   height: 500px;
   display: inline-block;
 }
+
 
 .productHeaders {
   font-family: "MV Boli V1";

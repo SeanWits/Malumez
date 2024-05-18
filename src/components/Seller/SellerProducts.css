@@ -1,0 +1,10 @@
+/* sellerProducts.css */
+.container {
+    overflow-y: auto;
+  }
+
+.productsList{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

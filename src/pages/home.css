@@ -111,6 +111,8 @@ body {
   background-color: white;
 }
 
+
+
 .featuredProducts .brandImage {
   height: 184px;
   width: 184px;
@@ -133,6 +135,26 @@ body {
 
 ul {
   list-style-type: none;
+}
+
+.productLabelSection{
+  display: block;
+}
+
+#displayDiv
+{
+  height: 250px;
+  width: 100%;
+}
+.productImage
+{
+  width: 200px;
+  height:200px;
+}
+
+#productSection
+{
+  display: flex;
 }
 
 .moreOptions {
