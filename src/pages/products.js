@@ -208,8 +208,6 @@ const Products = () => {
     }
   };
   
-
-
   const handleCheckout = () => {
     if (currentUser) {
       navigate("/checkout", { state: { cart: cart } });
@@ -305,10 +303,10 @@ const Products = () => {
 
             <h3 className="productHeaders">Price</h3>
             <section className='radioButtons'>
-              <input type="radio" value="lowToHigh" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} />
+              <input type="radio" value="lowToHigh" name = "sortOrder" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} />
               <label>Low to High</label>
 
-              <input type="radio" value="highToLow" id='highToLow' checked={selectedOption === "highToLow"} onChange={handleOptionChange} />
+              <input type="radio" name = "sortOrder" value="highToLow" id='highToLow' checked={selectedOption === "highToLow"} onChange={handleOptionChange} />
               <label>High to Low</label>
             </section>
             <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
