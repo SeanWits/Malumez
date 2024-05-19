@@ -1,3 +1,5 @@
+// signUp.js
+
 import { auth, db } from '../firebase';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -20,8 +22,6 @@ function SignUp() {
   const navigate = useNavigate();
   const [successMessage, setSuccessMessage] = useState('');
 
-
-// this handles the type of user the customer chooses to become
   const handleRoleChange = (e) => {
     if (e.target.value === 'Buyer') {
       setBuyer(true);
@@ -120,7 +120,6 @@ function SignUp() {
     
   };
 
-
   return (
     // the layout of the signup page 
     <div id = "signUpBackground">
@@ -145,7 +144,6 @@ function SignUp() {
           <label htmlFor="password">Password</label>
           <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
-
           <label htmlFor="confirm-password">Confirm Password</label>
           <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
@@ -157,15 +155,13 @@ function SignUp() {
             </select>
           </section>
 
-          <button type="submit" id='signUpButton'>Sign Up</button>
-          {/* Message that will be displayed when the user signs up successfully */}
-          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+          <button type="submit" id='signUpButton' data-testid="signUpButton">Sign Up</button>
+          {successMessage && <p data-testid="successMessage" style={{ color: 'green' }}>{successMessage}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </section>
     </div>
   );
-
 }
 
 export default SignUp;
