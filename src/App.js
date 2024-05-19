@@ -14,6 +14,7 @@ import SellerProducts from "./components/Seller/SellerProducts";
 import Notifications from "./components/Seller/Notifications";
 import OrderStatus from "./pages/OrderStatus";
 import { auth } from "./firebase";
+import Dashboard from "./pages/Dashboard";
 
 export const UserContext = createContext(null);
 
@@ -40,12 +41,16 @@ function App() {
                     <Route path="/showProducts" element={<ShowProducts />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/checkOut" element={<Checkout />} />
-                    <Route path="/uploadImg" element={<StoreImageTextFirebase />} />
+                    <Route
+                        path="/uploadImg"
+                        element={<StoreImageTextFirebase />}
+                    />
                     <Route path="/seller" element={<Seller />} />
                     <Route path="/sean" element={<Sean />} />
                     <Route path="/sellerP" element={<SellerProducts />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/orderStatus" element={<OrderStatus />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
             </Router>
         </UserContext.Provider>
