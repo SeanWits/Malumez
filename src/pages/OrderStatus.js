@@ -17,7 +17,7 @@ function OrderStatusPage() {
             <Header />
             <SearchBar />
             <OrderTracking />
-            {/* <OrderStatus/> */}
+            <OrderStatus /> 
             <MoreOptions />
             <Footer />
         </>

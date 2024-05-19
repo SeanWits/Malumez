@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../../firebase"; // Assuming firebase is imported correctly
+import { db } from "../../firebase"; // Assuming firebase is imported correctly
 import {
     collection,
     getDocs,
@@ -12,13 +12,12 @@ import {
 import Product from "../productSeller"; // Importing the Product component
 import "./SellerProducts.css";
 
-function SellerProducts() {
+function SellerProducts({ user }) {
     const [shopId, setShopId] = useState(null);
     const [products, setProducts] = useState([]);
 
     const fetchShopId = async () => {
         try {
-            const user = auth.currentUser;
             if (user) {
                 const shopsQuerySnapshot = await getDocs(
                     query(
@@ -87,7 +86,7 @@ function SellerProducts() {
 
     useEffect(() => {
         fetchShopId();
-    }, []); // Fetch shop ID on component mount
+    }, [user]); // Fetch shop ID on component mount
 
     return (
         <div className="container">

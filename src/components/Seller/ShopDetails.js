@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import "../../pages/products.css";
-import { auth, db } from '../../firebase'; // Assuming firebase is imported correctly
+import { db } from '../../firebase'; // Assuming firebase is imported correctly
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-export function ShopDetails() {
+export function ShopDetails({ user }) {
   const [shopDetails, setShopDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchShopData = async () => {
       try {
-        const user = auth.currentUser;
         if (user) {
           const shopsQuerySnapshot = await getDocs(query(collection(db, "shops"), where("owner_id", "==", user.uid)));
 
@@ -18,6 +17,7 @@ export function ShopDetails() {
             const shopDoc = shopsQuerySnapshot.docs[0];
             const shopData = { id: shopDoc.id, ...shopDoc.data() };
             setShopDetails(shopData);
+            setErrorMessage(""); // Clear any previous error messages
             console.log("Shop Data:", shopData);
           } else {
             setErrorMessage("No shop found for the current user.");
@@ -33,7 +33,7 @@ export function ShopDetails() {
       }
     };
     fetchShopData();
-  }, []);
+  }, [user]);
 
   return (
     <>
