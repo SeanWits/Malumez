@@ -44,7 +44,7 @@ const fetchUserData = async (userId) => {
       };
   
       fetchUserDetails();
-    }, []);
+    }, [user]);
   
 
 
