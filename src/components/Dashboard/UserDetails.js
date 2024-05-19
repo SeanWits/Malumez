@@ -1,6 +1,6 @@
-import { OrderTracking } from "../OrderStatus/OrderTracking";
+export default function UserDetails({ user }) {
+    const userEmail = user.email;
 
-export default function UserDetails() {
     return (
         <>
             {/* UserDetailsArticle: Block for user details */}
@@ -14,8 +14,14 @@ export default function UserDetails() {
                 {/* User details */}
                 <section className="UserDetailsSection">
                     <ul className="UserDetailList">
-                        <li id="UserName">Name:</li>
-                        <li id="Email">Email Address:</li>
+                        <li id="UserName">
+                            Name:
+                            {/* Enter the user name that is fetched from the database here */}
+                        </li>
+                        <li id="Email">
+                            Email Address: {userEmail}
+                            {/* Enter the email that is fetched from the database here */}
+                        </li>
                     </ul>
                     <button
                         type="button"
@@ -24,23 +30,6 @@ export default function UserDetails() {
                     >
                         Edit info
                     </button>
-                </section>
-            </article>
-            <article className="OrderHistoryArticle">
-                <section className="Heading OrderHistorySectionHeading">
-                    <h2 className="HeadingText OrderHistoryHeadingText">
-                        Order History
-                    </h2>
-                </section>
-                <section className="OrderHistorySection">
-                    <section className="OrderHistoryEntrySection">
-                        <ul className="OrderHistoryEntryList">
-                            <li id="OrderNumber">Order Number:</li>
-                            <li id="OrderDate">Order Date:</li>
-                            <li id="OrderLocation">Order Location:</li>
-                            <li id="OrderTotal">Order Number:</li>
-                        </ul>
-                    </section>
                 </section>
             </article>
         </>
