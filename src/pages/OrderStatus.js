@@ -1,6 +1,7 @@
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
+import { OrderTracking } from "../components/OrderStatus/OrderTracking";
 import { SearchBar } from "../components/Home/Search";
 import { useEffect, useState } from "react";
 import { db } from '../firebase'; // Import the Firestore database instance
@@ -12,12 +13,7 @@ function OrderStatus() {
 
     console.log("We have reached the order Status page");
 
-
-
-    //DO NOT DELETE!! The code on this page is incomplete and commented out so as not to break the other pages
-
-
-
+    //DO NOT DELETE!! The code on this page is incomplete and commented out so as not to break the other page
 
     // useEffect(() => {
     //     fetchCarts();
@@ -87,7 +83,7 @@ function OrderStatusPage() {
     return (
         <>
         <Header />
-            <OrderTracking />
+        <OrderTracking />
         <SearchBar />
         <OrderStatus/>
         <MoreOptions />

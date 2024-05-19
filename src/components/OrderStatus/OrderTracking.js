@@ -1,6 +1,6 @@
 import "./OrderTracking.css";
 
-export default function OrderTracking() {
+export function OrderTracking() {
     const orderConfirmationStatus = "Pending Confirmation";
     return (
         <>
@@ -67,3 +67,5 @@ export default function OrderTracking() {
         </>
     );
 }
+
+
