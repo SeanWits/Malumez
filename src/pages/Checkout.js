@@ -101,25 +101,29 @@ const Checkout = () => {
         }
     };
 
-    const handleFinalizePurchase = () => {
-        console.log("Purchase finalized!");
-        setCart([]);
-        localStorage.removeItem("cart");
-        if (currentUser) {
-            setDoc(doc(db, "carts", currentUser.uid), { items: [] })
-                .then(() => {
-                    console.log("Cart cleared in the database.");
-                })
-                .catch((error) => {
-                    console.error(
-                        "Error clearing cart in the database:",
-                        error
-                    );
-                });
-        }
-        alert("Purchase finalized! Thank you for shopping with us!");
-        navigate("/OrderStatus");
-    };
+  const handleFinalizePurchase = () => {
+    console.log("Purchase finalized!");
+    setCart([]);
+    localStorage.removeItem("cart");
+    if (currentUser) {
+      setDoc(doc(db, "carts", currentUser.uid), { items: [] })
+        .then(() => {
+          // create a new file in the orders for
+          console.log("Cart cleared in the database.");
+        })
+        .catch((error) => {
+          console.error("Error clearing cart in the database:", error);
+        });
+    }
+    alert("Purchase finalized! Thank you for shopping with us!");
+    navigate("/OrderStatus");
+  };
+
+  function createOrder(){
+
+  }
+
+
 
     return (
         <>

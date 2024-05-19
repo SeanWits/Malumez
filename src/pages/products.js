@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { getDocs, collection, query, doc, setDoc } from 'firebase/firestore';
@@ -8,8 +8,9 @@ import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
+import { UserContext } from '../App';
 
-const Products = () => {
+const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState(() => {
       const storedCart = localStorage.getItem('cart');
@@ -22,7 +23,6 @@ const Products = () => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
     const navigate = useNavigate();
-    const [userId, setUserId] = useState();
 
   let i = 0;
 
@@ -31,58 +31,66 @@ const Products = () => {
     let searchItem = location.state || [];
     console.log("THe item is", searchItem);
 
+
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
+      setCurrentUser(user);
+      console.log(user);
     }, []);
-
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        setCurrentUser(user);
-      });
-    }, []);
-
+    
     //checks whether the filters have been applied or not
     function logClick()
     {
       setFilterClicked(true);
     }
 
-    useEffect(() => {
-      // This function runs when searchItem changes aka the search button gets pressed
-      const handleSearchItemChange = (newValue) => {
-          console.log("searchItem changed to:", newValue);
-          console.log("FilterClicked is: ",filterClicked);
+    // useEffect(() => {
+    //   // This function runs when searchItem changes aka the search button gets pressed
+    //   const handleSearchItemChange = (newValue) => {
+    //       console.log("searchItem changed to:", newValue);
+    //       console.log("searchItem type CHanged to ", newValue.type);
+    //       console.log("searchItem length CHanged to ", newValue.length);
+    //       console.log("FilterClicked is: ",filterClicked);
 
-          // if the search is empty but the search button has been pressed
-          if(newValue.length === 0 && filterClicked === false )
-            {
-              alert("Please enter something to search");
-              setFiltered(products);
-              console.log("The searched products are", filtered);
-            }
-            else{
-              // search the products by the value in newValue
-              let someProducts = [];
-              products.forEach(product=>{
-                if(product.brand === newValue || product.category === newValue || product.name === newValue)
-                  {
-                    console.log(product);
-                    someProducts[i]=product;
-                    i++;
-                  }});
-                setFiltered(someProducts);
-                console.log("The searched products based on newValue are", filtered);
-              }
-              // if there are no products with the value inputted in the search (garbage value)
-              if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
-                {
-                  alert("There are no products of this item: ",newValue);
-                  setFiltered(products);
-                }
-        };
-        handleSearchItemChange(searchItem);
-    }, [searchItem]);
+    //       // if the search is empty but the search button has been pressed
+    //       if(newValue.length === 0 && filterClicked === false )
+    //         {
+    //           alert("Please enter something to search");
+    //           setFiltered(products);
+    //           console.log("The searched products are", filtered);
+    //         }
+    //         else{
+    //           // search the products by the value in newValue
+    //           let someProducts = [];
+    //           if(typeof newValue.type === 'undefined' || newValue === "nothing")
+    //             {
+    //               products.forEach(product=>{
+    //                 someProducts[i] = product;
+    //                 i++;
+    //                   });
+
+    //             }else{
+    //           products.forEach(product=>{
+    //             if(product.brand === newValue || product.category === newValue || product.name === newValue)
+    //               {
+    //                 console.log(product);
+    //                 someProducts[i]=product;
+    //                 i++;
+    //               }});
+    //             }
+    //             setFiltered(someProducts);
+    //             console.log("The searched products based on newValue are", filtered);
+    //           }
+    //           // if there are no products with the value inputted in the search (garbage value)
+    //           if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
+    //             {
+    //               alert("There are no products of this item: ",newValue);
+    //               setFiltered(products);
+    //             }
+    //     };
+    //     handleSearchItemChange(searchItem);
+    // }, [searchItem]);
 
     // fetching the products from the database 
     async function fetchProducts() {
@@ -131,7 +139,6 @@ const Products = () => {
                             someProducts[i] = allProducts[i];
                           }
                       }
-                    
                   }
                   setFiltered(someProducts);
                   setProducts(allProducts);
@@ -158,7 +165,6 @@ const Products = () => {
   const updateCart = async (updatedCart) => {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-  
     if (currentUser) {
       try {
         await setDoc(doc(db, "users", currentUser.uid), {
@@ -345,12 +351,13 @@ const Products = () => {
 
 // Displaying the product page and all its components
 function ProductsPage() {
+  const user = useContext(UserContext);
   return (
     <>
-      <Header />
+      <Header/>
       <SearchBar />
-      <Products />
-      <MoreOptions />
+      <Products user={user}/>
+      <MoreOptions/>
       <Footer />
     </>
   );
