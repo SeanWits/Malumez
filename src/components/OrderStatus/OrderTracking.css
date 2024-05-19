@@ -2,7 +2,7 @@
     width: 800px;
     height: 600px;
     padding: 50px;
-    width:100%
+    width: 100%;
 }
 
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
@@ -21,12 +21,16 @@
     font-family: "MV Boli V1";
 }
 
-.OrderStatusHeadingSection {
+.Heading {
     background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
     height: 60px;
     display: flex;
     align-items: center;
     font-family: "MV Boli V1";
+}
+
+.HeadingText {
+    size: 20px;
 }
 
 .square {

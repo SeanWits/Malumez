@@ -1,10 +1,9 @@
 import "./OrderTracking.css";
 import { useEffect, useState } from "react";
-//import { db } from '../firebase'; 
+//import { db } from '../firebase';
 
 export function OrderTracking() {
     const [order, setOrder] = useState();
-
 
     const orderConfirmationStatus = "Pending Confirmation";
     // the order/ cart the person has clicked should be populated from here
@@ -13,8 +12,8 @@ export function OrderTracking() {
         <>
             <article className="OrderTrackingArticle">
                 <section className="OrderTrackingSection">
-                    <section className="OrderStatusHeadingSection">
-                        <h2 className="OrderStatusHeading">Order Status</h2>
+                    <section className="Heading OrderStatusHeadingSection">
+                        <h2 className="HeadingText OrderStatusHeading">Order Status</h2>
                     </section>
 
                     <section className="OrderProgressionSection">
@@ -50,11 +49,10 @@ export function OrderTracking() {
                             <div className="square" id="orderClosed">
                                 <p className="OrderStatusText">Order Closed</p>
                             </div>
-
                         </section>
                         <section className="OrderProgressionSection">
-                            <section className="OrderStatusHeadingSection">
-                                <h3 className="OrderDetailsHeading">
+                            <section className="Heading OrderStatusHeadingSection">
+                                <h3 className="HeadingText OrderDetailsHeading">
                                     Order Details
                                 </h3>
                             </section>
@@ -80,5 +78,3 @@ export function OrderTracking() {
         </>
     );
 }
-
-
