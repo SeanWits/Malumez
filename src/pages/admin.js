@@ -21,7 +21,7 @@ let initialRole = '';
 function Admin() {
   const [shopsData, setShopsData] = useState([]);
   const [usersData, setUsersData] = useState([]);
-
+ //Calls the user details from the details
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,21 +64,28 @@ function Admin() {
 
   const [openModal, setOpenModal] = useState(false);
 
+  //Displays every user of the database on a single page
   function dashboard() {
     //---------------------------------------------------------------------------------------------------------------
 
     //---------------------------------------------------------------------------------------------------------------
 
     const table = document.getElementById("adminTable");
+    //Gets the number of columns on the table to dynamically add on to
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
+    //Deletes the entire table to reconstruct it again to fit the structure of the dashbaord table idea
     if (rowCount != 0) {
       for (let k = 0; k < rowCount; k++) {
         table.deleteRow(0);
       }
     }
 
+    //Here it gets a bit confusing. So I had constructed the owners and buyers functions first and did this one last.
+    //So the owners table and buyers table are here, constructed separately
+
+    //Getting the list with the buyers and sellers and calculating the combined weight to see how many rows will be needed
     const count = test.length + test1.length;
     const newRow = table.insertRow(0);
     const cell = newRow.insertCell(0);
@@ -96,11 +103,12 @@ function Admin() {
     for (let i = 0; i < test.length; i++) {
       //Adds new rows
       const row = table.insertRow(-1);
-      //cell4.innerHTML = " ";
+      
       for (let j = 0; j < 5; j++) {
         //Adds new cells
         const cell = row.insertCell(j);
 
+        //Populate each row's cell with a specific user's information
         if (j == 0) {
           cell.textContent = test[i].name;
         }
@@ -117,6 +125,7 @@ function Admin() {
           cell.textContent = test[i].location;
         }
 
+        //This cell contains the button that must be click to reveal the modal and there after, the layout of the modal
         if (j == 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
@@ -178,7 +187,7 @@ function Admin() {
       }
     }
     
-
+    //This loop is for populating the table with the buyer's information
     for (let k = 0; k < test1.length; k++) {
       //Adds new rows
       const row = table.insertRow(-1);
@@ -267,6 +276,7 @@ function Admin() {
     }
   }
 
+  //This function is linked to the buyers only. Will display all the buyers when the function is called.
   function buyers() {
     const table = document.getElementById("adminTable");
     const rowCount = table.rows.length;
@@ -378,6 +388,7 @@ function Admin() {
     }
   }
 
+ //This function is linked to the sellers only. Will display all the sellers when the function is called.
   function owners() {
     //---------------------------------------------------------------------------------------------------------------
 

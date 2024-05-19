@@ -8,9 +8,6 @@ import { Categories } from "../components/Home/Categories";
 import { AdsBar } from "../components/Home/AdsBar";
 import { FeaturedProducts } from '../components/Home/FeaturedProduct';
 
-
-//Wassup
-
 function Home() 
 {
   return (

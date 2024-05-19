@@ -12,15 +12,11 @@ export function Categories()
     fetchHomeProducts();
   });
 
-
- 
   let categoryName = "Products";
   async function fetchHomeProducts() {
     try {
       const shopQuerySnapshot = await getDocs(collection(db, "shops"));
       let allProducts = [];
-
-
       const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
         const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
         if(!productsQuerySnapshot.empty)
@@ -39,10 +35,7 @@ export function Categories()
         
       await Promise.all(productPromises);
 
-     // this function may be integral to the search bar - try and use it in the 
-     // search bar and brands to populate it first
-      // this function makes sure that homeProducts gets populated first before
-      // the images are generated 
+      // this function makes sure that homeProducts gets populated first before the images are generated 
     async function checkHomeProducts() {
       if (homeProducts.length === 0) {
         // If homeProducts is not populated, put some products into it
@@ -66,7 +59,6 @@ export function Categories()
 
     // Call checkHomeProducts and wait for it to complete
     await checkHomeProducts();
-
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -76,7 +68,6 @@ export function Categories()
   function viewMore()
   {
      navigate('/products', {state: "nothing"})
-
   }
 
   return (

@@ -1,19 +1,12 @@
 import {useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
-
-
-// Your component code here
-
-
 export function SearchBar()
 {
 
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
-
-    
-  // fetching products from the database
+  // navigating to the products page and passing the value in the search 
   function searchItem()
   {
     console.log(search);
@@ -27,7 +20,6 @@ export function SearchBar()
         <section className="search">
           <input className="inputSearch" onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." id="searchInput"/>
           <i className='fa fa-search icon' id = "searchButton" onClick={searchItem}/>
-          
         </section>
       </section>
     </>

@@ -22,12 +22,6 @@
     padding: 25px;
   }
   
-  /*.modalContainer .title {
-    display: inline-block;
-    text-align: center;
-    margin-top: 10px;
-  }*/
-  
   .titleCloseBtn {
     display: flex;
     height: 40px;

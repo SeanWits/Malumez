@@ -59,5 +59,4 @@ describe('Login component', () => {
     });
   });
 
-  // Add more test cases for other scenarios if needed
 });

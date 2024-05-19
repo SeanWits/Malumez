@@ -1,9 +1,9 @@
 name: codecov
 on:
   push:
-    branches: [main]
+    branches: [develop]
   pull_request:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   codecov:
@@ -12,11 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.2.0
+        uses: actions/setup-node@v4
         with:
-          node-version: "14"
+          node-version: "18.x"
       - name: Install dependencies
         run: npm install
+      - name: List dependencies
+        run: npm ls
       - name: Run tests with coverage
         run: npm test -- --coverage
       - name: Upload coverage report to Codecov

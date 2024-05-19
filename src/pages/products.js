@@ -10,35 +10,85 @@ import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
 
 const Products = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
-  const [selectedOption, setSelectedOption] = useState();
-  const [filtered, setFiltered] = useState([]);
-  const [productFiltered, setProductsFiltered] = useState(false);
-  const navigate = useNavigate();
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [cart, setCart] = useState(() => {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    });
+    const [selectedOption, setSelectedOption] = useState();
+    const [filtered, setFiltered] = useState([]);
+    const [filterClicked, setFilterClicked] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState();
 
   let i = 0;
 
-  const location = useLocation();
-  let searchItem = location.state || [];
+    // gets the value in the searchInput passed from the searchbar
+    const location = useLocation();
+    let searchItem = location.state || [];
+    console.log("THe item is", searchItem);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  }, []);
+    // calls the function to display the products
+    useEffect(() => {
+      fetchProducts();
+    }, []);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const shopQuerySnapshot = await getDocs(collection(db, "shops"));
-        let allProducts = [];
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+      });
+    }, []);
+
+    //checks whether the filters have been applied or not
+    function logClick()
+    {
+      setFilterClicked(true);
+    }
+
+    useEffect(() => {
+      // This function runs when searchItem changes aka the search button gets pressed
+      const handleSearchItemChange = (newValue) => {
+          console.log("searchItem changed to:", newValue);
+          console.log("FilterClicked is: ",filterClicked);
+
+          // if the search is empty but the search button has been pressed
+          if(newValue.length === 0 && filterClicked === false )
+            {
+              alert("Please enter something to search");
+              setFiltered(products);
+              console.log("The searched products are", filtered);
+            }
+            else{
+              // search the products by the value in newValue
+              let someProducts = [];
+              products.forEach(product=>{
+                if(product.brand === newValue || product.category === newValue || product.name === newValue)
+                  {
+                    console.log(product);
+                    someProducts[i]=product;
+                    i++;
+                  }});
+                setFiltered(someProducts);
+                console.log("The searched products based on newValue are", filtered);
+              }
+              // if there are no products with the value inputted in the search (garbage value)
+              if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
+                {
+                  alert("There are no products of this item: ",newValue);
+                  setFiltered(products);
+                }
+        };
+        handleSearchItemChange(searchItem);
+    }, [searchItem]);
+
+    // fetching the products from the database 
+    async function fetchProducts() {
+            try {
+                const shopQuerySnapshot = await getDocs(collection(db, "shops"));
+                let allProducts = [];
 
         const productPromises = shopQuerySnapshot.docs.map(async (shopDoc) => {
           const productsQuerySnapshot = await getDocs(query(collection(db, 'shops', shopDoc.id, 'products')));
@@ -58,13 +108,52 @@ const Products = () => {
 
         await Promise.all(productPromises);
 
-        console.log('Fetched products:', allProducts);
-        setProducts(allProducts);
-        setFiltered(allProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
+                // checks that the products variable has been populated and calls it until it is
+                async function checkProducts() {
+                  if (products.length === 0) {
+                    // If products is not populated, put some products into it
+                    let someProducts = [];
+                    //checking to see if something has been searched
+                    if ( searchItem.length === 0 || searchItem === "nothing") {
+                      console.log("SearchItems is empty");
+                      for(let i = 0;i<allProducts.length; i++)
+                        {
+                          someProducts[i] = allProducts[i];
+                        }
+                    }
+                    else{
+                      // searches through based on the item the user has looked for on the home page
+                      // also searches based on which brand is clicked on the home page
+                      for(let i =0; i<allProducts.length; i++)
+                      {
+                        if(allProducts[i].brand === searchItem || allProducts[i].name === searchItem || allProducts[i].category === searchItem )
+                          {
+                            someProducts[i] = allProducts[i];
+                          }
+                      }
+                    
+                  }
+                  setFiltered(someProducts);
+                  setProducts(allProducts);
+                }
+              // Wait until Products is populated
+              await new Promise(resolve => {
+                const interval = setInterval(() => {
+                  if (products.length > 0 && filtered.length>0) {
+                    clearInterval(interval);
+                    resolve();
+                  }
+                }, 100); // Check every 100 milliseconds
+              });
+              }
+
+              // Call checkProducts and wait for it to complete
+              await checkProducts();
+              } catch (error) {
+                console.error('Error fetching products:', error);
+              }
+
+          }
 
     fetchProducts();
   }, []);
@@ -172,17 +261,19 @@ const Products = () => {
       });
     }
 
+    // sorting the items by price depending on the user's choice
     if (selectedOption === "highToLow") {
       storeProducts.sort((a, b) => b.price - a.price);
     } else if (selectedOption === "lowToHigh") {
       storeProducts.sort((a, b) => a.price - b.price);
     }
 
+    // populating the filtered products to be displayed on screen 
     if (storeProducts.length > 0) {
       setFiltered(storeProducts);
-      setProductsFiltered(true);
     }
     i = 0;
+    setFilterClicked(false);
   }
 
   return (
@@ -190,6 +281,7 @@ const Products = () => {
       <div id='productPageLayout'>
         <section id='filters'>
           <section id='insideFilters'>
+                  {/* the various filters a user can apply */}
             <h2 className="productHeaders">Filters</h2>
             <h3 className="productHeaders">Categories</h3>
             <select className="dropdown" id="categoriesDropdown">
@@ -226,6 +318,7 @@ const Products = () => {
           <button className="checkout-btn" onClick={handleCheckout} disabled={!currentUser}>Checkout</button>
         </section>
 
+          {/* the products are created dynamically depending on how many there are */}
         <div className="products-container-wrapper">
           <div className="products-container">
             {filtered.map((product) => {
@@ -254,6 +347,7 @@ const Products = () => {
   );
 };
 
+// Displaying the product page and all its components
 function ProductsPage() {
   return (
     <>

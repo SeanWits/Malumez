@@ -1,0 +1,50 @@
+.OrderTrackingSection {
+    width: 800px;
+    height: 600px;
+    padding: 50px;
+    width:100%
+}
+
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
+
+.OrderTrackingArticle {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: -2%;
+}
+
+.OrderStatusHeading {
+    color: white;
+    padding-left: 10px;
+    margin: 0;
+    font-family: "MV Boli V1";
+}
+
+.OrderStatusHeadingSection {
+    background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-family: "MV Boli V1";
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    outline: gray;
+    outline-style: solid;
+    outline-width: 1px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.OrderProgressionStatusSection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+}
