@@ -155,8 +155,6 @@ const Products = () => {
 
           }
 
-    fetchProducts();
-  }, []);
   const updateCart = async (updatedCart) => {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));

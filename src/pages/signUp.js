@@ -98,7 +98,7 @@ function SignUp() {
         await addUser(user);
         setSuccessMessage('User registered!');
         console.log("User registered:", user);
-        navigate('/signUp');
+        navigate('/login');
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("Email already linked to an account");
