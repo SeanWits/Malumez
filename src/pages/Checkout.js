@@ -11,7 +11,7 @@ import "./Checkout.css";
 const Checkout = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const location = useLocation();
-  const [cart, setCart] = useState(location.state?.cart || JSON.parse(localStorage.getItem('cart')) || []);
+  const [cart, setCart] = useState(location.state?.cart || JSON.parse(localStorage.getItem("cart")) || []);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -26,18 +26,20 @@ const Checkout = () => {
 
   useEffect(() => {
     if (cart.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
 
   const handleSignOut = () => {
-    auth.signOut().then(() => {
-      setCurrentUser(null);
-      navigate("/");
-    }).catch((error) => {
-      console.error("Error signing out: ", error);
-      setError("Error signing out. Please try again.");
-    });
+    auth.signOut()
+      .then(() => {
+        setCurrentUser(null);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error signing out: ", error);
+        setError("Error signing out. Please try again.");
+      });
   };
 
   const handleKeepShopping = () => {
@@ -54,8 +56,32 @@ const Checkout = () => {
     }
   };
 
+  const handleIncreaseQuantity = (index) => {
+    const updatedCart = [...cart];
+    updatedCart[index].quantity += 1;
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (currentUser) {
+      addCartForUser(currentUser.uid, updatedCart);
+    }
+  };
+
+  const handleDecreaseQuantity = (index) => {
+    const updatedCart = [...cart];
+    if (updatedCart[index].quantity > 1) {
+      updatedCart[index].quantity -= 1;
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (currentUser) {
+        addCartForUser(currentUser.uid, updatedCart);
+      }
+    } else {
+      handleRemoveFromCart(index);
+    }
+  };
+
   const calculateTotalPrice = () => {
-    return cart.reduce((total, product) => total + parseFloat(product.price || 0), 0).toFixed(2);
+    return cart.reduce((total, product) => total + parseFloat(product.price || 0) * product.quantity, 0).toFixed(2);
   };
 
   const addCartForUser = async (userId, cartItems) => {
@@ -72,11 +98,13 @@ const Checkout = () => {
     setCart([]);
     localStorage.removeItem("cart");
     if (currentUser) {
-      setDoc(doc(db, "carts", currentUser.uid), { items: [] }).then(() => {
-        console.log("Cart cleared in the database.");
-      }).catch((error) => {
-        console.error("Error clearing cart in the database:", error);
-      });
+      setDoc(doc(db, "carts", currentUser.uid), { items: [] })
+        .then(() => {
+          console.log("Cart cleared in the database.");
+        })
+        .catch((error) => {
+          console.error("Error clearing cart in the database:", error);
+        });
     }
     alert("Purchase finalized! Thank you for shopping with us!");
   };
@@ -100,10 +128,14 @@ const Checkout = () => {
               {cart.map((product, index) => (
                 <li key={product.id} className="cart-item">
                   <div className="cart-item-content">
-                    <span>{product.name} - R{product.price}</span>
-                    <button onClick={() => handleRemoveFromCart(index)}>
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </button>
+                    <span>{product.name} - R{product.price} x {product.quantity}</span>
+                    <div className="quantity-controls">
+                      <button onClick={() => handleDecreaseQuantity(index)}>-</button>
+                      <button onClick={() => handleIncreaseQuantity(index)}>+</button>
+                      <button onClick={() => handleRemoveFromCart(index)}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </button>
+                    </div>
                   </div>
                 </li>
               ))}
