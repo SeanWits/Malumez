@@ -2,22 +2,16 @@ import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import { SearchBar } from "../components/Home/Search";
+import OrderTracking from "../components/OrderStatus/OrderTracking";
 import { useEffect, useState } from "react";
-import { db } from '../firebase'; // Import the Firestore database instance
-
+import { db } from "../firebase"; // Import the Firestore database instance
 
 function OrderStatus() {
-
     const [carts, setCarts] = useState([]);
 
     console.log("We have reached the order Status page");
 
-
-
     //DO NOT DELETE!! The code on this page is incomplete and commented out so as not to break the other pages
-
-
-
 
     // useEffect(() => {
     //     fetchCarts();
@@ -32,8 +26,8 @@ function OrderStatus() {
 
     //         // currently this gets the carts of every user so we will edit the queries to get the cart of the user logged in
     //             cartsQuerySnapshot.forEach((cartDoc) => {
-    //                 //Loop through and only add the ones where each cart has the status>0, ordered or above 
-    //                 /*status: 0 = Active (Not yet checked out), 1 = Ordered (Checked out), 2 =  packing (preparing the order), 
+    //                 //Loop through and only add the ones where each cart has the status>0, ordered or above
+    //                 /*status: 0 = Active (Not yet checked out), 1 = Ordered (Checked out), 2 =  packing (preparing the order),
     //                 3 = Ready to collect, 4 =cancelled (either by the user or by the seller), 5 = Completed
     //                 */
     //                 const cartData = cartDoc.data();
@@ -56,15 +50,15 @@ function OrderStatus() {
     //   }
 
     return (
-    <>
-        <section>
-        <h1>Order Status</h1>
-        </section>
-        
-        <h2>Orders</h2>
-        <section id="orders-container">
-            {/* The carts will go here and will be formatted  */}
-            {/* <div className="cartContainers">
+        <>
+            <section>
+                <h1>Order Status</h1>
+            </section>
+
+            <h2>Orders</h2>
+            <section id="orders-container">
+                {/* The carts will go here and will be formatted  */}
+                {/* <div className="cartContainers">
             { carts.map((cart) => (
                       <Cart
                           key={cart.cartId}
@@ -76,24 +70,22 @@ function OrderStatus() {
                   ))}
 
             </div> */}
-            
-        </section>
-
-    </>  
+            </section>
+        </>
     );
 }
 
 function OrderStatusPage() {
     return (
         <>
-        <Header />
+            <Header />
+            <SearchBar />
             <OrderTracking />
-        <SearchBar />
-        <OrderStatus/>
-        <MoreOptions />
-        <Footer />
-    </>
+            {/* <OrderStatus/> */}
+            <MoreOptions />
+            <Footer />
+        </>
     );
-  }
-  
-  export default OrderStatusPage;
+}
+
+export default OrderStatusPage;
