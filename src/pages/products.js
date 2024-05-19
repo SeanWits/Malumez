@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { getDocs, collection, query, doc, setDoc } from 'firebase/firestore';
@@ -9,8 +9,9 @@ import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
 import { faThermometerEmpty } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '../App';
 
-const Products = () => {
+const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState(() => {
       const storedCart = localStorage.getItem('cart');
@@ -24,7 +25,6 @@ const Products = () => {
     const [successMessage, setSuccessMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
     const navigate = useNavigate();
-    const [userId, setUserId] = useState();
 
   let i = 0;
 
@@ -40,15 +40,10 @@ const Products = () => {
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
+      setCurrentUser(user);
+      console.log(user);
     }, []);
-
-
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        setCurrentUser(user);
-      });
-    }, []);
-
+    
     //checks whether the filters have been applied or not
     function logClick()
     {
@@ -187,7 +182,6 @@ const Products = () => {
   const updateCart = async (updatedCart) => {
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-  
     if (currentUser) {
       try {
         await setDoc(doc(db, "users", currentUser.uid), {
@@ -374,12 +368,13 @@ const Products = () => {
 
 // Displaying the product page and all its components
 function ProductsPage() {
+  const user = useContext(UserContext);
   return (
     <>
-      <Header />
+      <Header/>
       <SearchBar />
-      <Products />
-      <MoreOptions />
+      <Products user={user}/>
+      <MoreOptions/>
       <Footer />
     </>
   );
