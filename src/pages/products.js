@@ -31,6 +31,7 @@ const Products = () => {
     let searchItem = location.state || [];
     console.log("THe item is", searchItem);
 
+
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
@@ -48,41 +49,52 @@ const Products = () => {
       setFilterClicked(true);
     }
 
-    useEffect(() => {
-      // This function runs when searchItem changes aka the search button gets pressed
-      const handleSearchItemChange = (newValue) => {
-          console.log("searchItem changed to:", newValue);
-          console.log("FilterClicked is: ",filterClicked);
+    // useEffect(() => {
+    //   // This function runs when searchItem changes aka the search button gets pressed
+    //   const handleSearchItemChange = (newValue) => {
+    //       console.log("searchItem changed to:", newValue);
+    //       console.log("searchItem type CHanged to ", newValue.type);
+    //       console.log("searchItem length CHanged to ", newValue.length);
+    //       console.log("FilterClicked is: ",filterClicked);
 
-          // if the search is empty but the search button has been pressed
-          if(newValue.length === 0 && filterClicked === false )
-            {
-              alert("Please enter something to search");
-              setFiltered(products);
-              console.log("The searched products are", filtered);
-            }
-            else{
-              // search the products by the value in newValue
-              let someProducts = [];
-              products.forEach(product=>{
-                if(product.brand === newValue || product.category === newValue || product.name === newValue)
-                  {
-                    console.log(product);
-                    someProducts[i]=product;
-                    i++;
-                  }});
-                setFiltered(someProducts);
-                console.log("The searched products based on newValue are", filtered);
-              }
-              // if there are no products with the value inputted in the search (garbage value)
-              if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
-                {
-                  alert("There are no products of this item: ",newValue);
-                  setFiltered(products);
-                }
-        };
-        handleSearchItemChange(searchItem);
-    }, [searchItem]);
+    //       // if the search is empty but the search button has been pressed
+    //       if(newValue.length === 0 && filterClicked === false )
+    //         {
+    //           alert("Please enter something to search");
+    //           setFiltered(products);
+    //           console.log("The searched products are", filtered);
+    //         }
+    //         else{
+    //           // search the products by the value in newValue
+    //           let someProducts = [];
+    //           if(typeof newValue.type === 'undefined' || newValue === "nothing")
+    //             {
+    //               products.forEach(product=>{
+    //                 someProducts[i] = product;
+    //                 i++;
+    //                   });
+
+    //             }else{
+    //           products.forEach(product=>{
+    //             if(product.brand === newValue || product.category === newValue || product.name === newValue)
+    //               {
+    //                 console.log(product);
+    //                 someProducts[i]=product;
+    //                 i++;
+    //               }});
+    //             }
+    //             setFiltered(someProducts);
+    //             console.log("The searched products based on newValue are", filtered);
+    //           }
+    //           // if there are no products with the value inputted in the search (garbage value)
+    //           if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
+    //             {
+    //               alert("There are no products of this item: ",newValue);
+    //               setFiltered(products);
+    //             }
+    //     };
+    //     handleSearchItemChange(searchItem);
+    // }, [searchItem]);
 
     // fetching the products from the database 
     async function fetchProducts() {
@@ -131,7 +143,6 @@ const Products = () => {
                             someProducts[i] = allProducts[i];
                           }
                       }
-                    
                   }
                   setFiltered(someProducts);
                   setProducts(allProducts);

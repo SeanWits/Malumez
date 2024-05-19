@@ -100,6 +100,7 @@ const Checkout = () => {
     if (currentUser) {
       setDoc(doc(db, "carts", currentUser.uid), { items: [] })
         .then(() => {
+          // create a new file in the orders for
           console.log("Cart cleared in the database.");
         })
         .catch((error) => {
@@ -109,6 +110,12 @@ const Checkout = () => {
     alert("Purchase finalized! Thank you for shopping with us!");
     navigate("/OrderStatus");
   };
+
+  function createOrder(){
+
+  }
+
+
 
   return (
     <>
