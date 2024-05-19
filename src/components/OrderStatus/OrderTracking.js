@@ -67,7 +67,7 @@ export function OrderTracking() {
                                         Cart Total:
                                     </li>
                                     <li id="ShopDetails">
-                                        Cart Total:
+                                        Shop Details:
                                         <li id="ShopName">Name:</li>
                                         <li id="Location">Location:</li>
                                     </li>
