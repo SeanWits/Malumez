@@ -8,6 +8,7 @@ import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
+import { faThermometerEmpty } from '@fortawesome/free-solid-svg-icons';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -17,6 +18,7 @@ const Products = () => {
     });
     const [selectedOption, setSelectedOption] = useState();
     const [filtered, setFiltered] = useState([]);
+    const[filteredPopulated, setFilteredPopulated] = useState(false);
     const [filterClicked, setFilterClicked] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
@@ -26,16 +28,20 @@ const Products = () => {
 
   let i = 0;
 
-    // gets the value in the searchInput passed from the searchbar
+    // this stores the value of the cart in case the user decides to continue shopping on the cart page
     const location = useLocation();
-    let searchItem = location.state || [];
-    console.log("THe item is", searchItem);
+    let cartState= location.state || [];
+
+    // getting the searched item from the search Bar
+    let searchReceived = localStorage.getItem("searchInput");
+    console.log("Is the variable received? Then it can be used:", searchReceived);
 
 
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
     }, []);
+
 
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -49,52 +55,58 @@ const Products = () => {
       setFilterClicked(true);
     }
 
-    // useEffect(() => {
-    //   // This function runs when searchItem changes aka the search button gets pressed
-    //   const handleSearchItemChange = (newValue) => {
-    //       console.log("searchItem changed to:", newValue);
-    //       console.log("searchItem type CHanged to ", newValue.type);
-    //       console.log("searchItem length CHanged to ", newValue.length);
-    //       console.log("FilterClicked is: ",filterClicked);
+    
+    useEffect(() => {
+      // only run this function if there are actual products in the products variable
+      if(filteredPopulated)
+      {
+      // This function runs when searchReceived changes aka the search button gets pressed
+      const handleSearchReceivedChange = (newValue) => {
+         let someProducts = [];
+          console.log("The searchReceived changed to : ",newValue);
 
-    //       // if the search is empty but the search button has been pressed
-    //       if(newValue.length === 0 && filterClicked === false )
-    //         {
-    //           alert("Please enter something to search");
-    //           setFiltered(products);
-    //           console.log("The searched products are", filtered);
-    //         }
-    //         else{
-    //           // search the products by the value in newValue
-    //           let someProducts = [];
-    //           if(typeof newValue.type === 'undefined' || newValue === "nothing")
-    //             {
-    //               products.forEach(product=>{
-    //                 someProducts[i] = product;
-    //                 i++;
-    //                   });
+          if(filterClicked === false)// this only runs if the filter hasn't been clicked
+            {
+              if(searchReceived === "nothing" )// if there is nothing in the search, display all products
+              {
+                console.log("Does it even populate?");
+                products.forEach(product => {
+                  someProducts[i] = product;
+                  i++;
+                });
+                console.log("It does? That's wild");
+              }
+              else{// the searchReceived is populated
+                products.forEach(product => {
+                  if(product.brand === newValue || product.category === newValue || product.name === newValue)
+                    {
+                      someProducts[i] = product;
+                      i++;
 
-    //             }else{
-    //           products.forEach(product=>{
-    //             if(product.brand === newValue || product.category === newValue || product.name === newValue)
-    //               {
-    //                 console.log(product);
-    //                 someProducts[i]=product;
-    //                 i++;
-    //               }});
-    //             }
-    //             setFiltered(someProducts);
-    //             console.log("The searched products based on newValue are", filtered);
-    //           }
-    //           // if there are no products with the value inputted in the search (garbage value)
-    //           if(products.length>0 && filtered.length === 0 && searchItem !== "nothing" && filterClicked === false)
-    //             {
-    //               alert("There are no products of this item: ",newValue);
-    //               setFiltered(products);
-    //             }
-    //     };
-    //     handleSearchItemChange(searchItem);
-    // }, [searchItem]);
+                    }
+                  
+                });
+
+              }
+              if(someProducts.length === 0)// there are no products that match the search
+                {
+                  alert("There are no Products that match your search: ", newValue);
+                  console.log(newValue);
+
+                  products.forEach(product => {
+                    someProducts[i] = product;
+                    i++;
+                  });
+                }
+
+              setFiltered(someProducts);
+            }
+        };
+        handleSearchReceivedChange(searchReceived);
+
+      }
+      
+    }, [searchReceived]);
 
     // fetching the products from the database 
     async function fetchProducts() {
@@ -119,15 +131,15 @@ const Products = () => {
         });
 
         await Promise.all(productPromises);
-
+          //console.log("Search Input again", searchInput);
                 // checks that the products variable has been populated and calls it until it is
                 async function checkProducts() {
                   if (products.length === 0) {
                     // If products is not populated, put some products into it
                     let someProducts = [];
                     //checking to see if something has been searched
-                    if ( searchItem.length === 0 || searchItem === "nothing") {
-                      console.log("SearchItems is empty");
+                    if ( searchReceived.length === 0 || searchReceived ==="nothing" ) {
+                      console.log("Received is empty");
                       for(let i = 0;i<allProducts.length; i++)
                         {
                           someProducts[i] = allProducts[i];
@@ -138,14 +150,20 @@ const Products = () => {
                       // also searches based on which brand is clicked on the home page
                       for(let i =0; i<allProducts.length; i++)
                       {
-                        if(allProducts[i].brand === searchItem || allProducts[i].name === searchItem || allProducts[i].category === searchItem )
+                        if(allProducts[i].brand === searchReceived || allProducts[i].name === searchReceived|| allProducts[i].category === searchReceived )
                           {
                             someProducts[i] = allProducts[i];
                           }
                       }
+                      if(someProducts.length ===0)
+                        {
+                          alert("The product could not be found: ", searchReceived);
+                          someProducts = allProducts;
+                        }
                   }
                   setFiltered(someProducts);
                   setProducts(allProducts);
+                  setFilteredPopulated(true);
                 }
               // Wait until Products is populated
               await new Promise(resolve => {

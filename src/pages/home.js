@@ -10,6 +10,7 @@ import { FeaturedProducts } from '../components/Home/FeaturedProduct';
 
 function Home() 
 {
+  localStorage.setItem("searchInput","nothing");
   return (
   <>
     <Header />

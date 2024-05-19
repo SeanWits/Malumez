@@ -16,6 +16,7 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    localStorage.setItem("searchInput","");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });

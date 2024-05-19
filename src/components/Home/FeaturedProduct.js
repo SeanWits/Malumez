@@ -55,7 +55,8 @@ export function FeaturedProducts() {
   }
 
   function brandClicked(brandName) {
-    navigate('/products', { state: brandName });
+    localStorage.setItem("searchInput",brandName);
+    navigate('/products');
     console.log(brandName);
   }
 
