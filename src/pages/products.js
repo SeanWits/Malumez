@@ -12,20 +12,20 @@ import './products.css';
 
 
 const Products = () => {
-    const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState(() => {
-      const storedCart = localStorage.getItem('cart');
-      return storedCart ? JSON.parse(storedCart) : [];
-    });
-    const [selectedOption, setSelectedOption] = useState();
-    const [filtered, setFiltered] = useState([]);
-    const [filterClicked, setFilterClicked] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
-    const [showMessage, setShowMessage] = useState(false);
-    const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+  const [selectedOption, setSelectedOption] = useState();
+  const [filtered, setFiltered] = useState([]);
+  const [productFiltered, setProductsFiltered] = useState(false);
+  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
 
-    let i = 0;
+  let i = 0;
 
   
     // gets the value passed from the searchBar
@@ -230,7 +230,7 @@ const Products = () => {
                   <input type="radio" value = "lowToHigh" id='lowToHigh' checked={selectedOption === "highToLow"} onChange={handleOptionChange}/>
                   <label >High to Low</label>
                   </section>
-                  <button className="applyButton" onClick={() => { applyFilters(); logClick(); }}>Apply Filters</button>
+                  <button className="applyButton" onClick={() => { applyFilters(); }}>Apply Filters</button>
                   
               </section>
               <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
