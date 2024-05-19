@@ -6,7 +6,6 @@ export function SearchBar()
 
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
-
   // navigating to the products page and passing the value in the search 
   function searchItem()
   {
@@ -21,7 +20,6 @@ export function SearchBar()
         <section className="search">
           <input className="inputSearch" onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search.." id="searchInput"/>
           <i className='fa fa-search icon' id = "searchButton" onClick={searchItem}/>
-          
         </section>
       </section>
     </>

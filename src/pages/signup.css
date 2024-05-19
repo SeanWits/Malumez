@@ -4,6 +4,8 @@
   align-items: center;
 }
 
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
+
 #signUpButton{
   width: 200px;
   height: 20%;
@@ -22,6 +24,7 @@
 
 #signUpSign
 {
+  font-family: "MV Boli V1";
   margin-top: -5%;
   font-weight: 700;
   margin-left: 35%;
