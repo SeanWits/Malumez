@@ -107,6 +107,7 @@ const Checkout = () => {
         });
     }
     alert("Purchase finalized! Thank you for shopping with us!");
+    navigate("/AllOrders");
   };
 
   return (

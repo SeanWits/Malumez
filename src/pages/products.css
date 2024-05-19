@@ -29,10 +29,7 @@
   width: 50px;
   height: 40px;
 }
-/* Product.css */
-.product {
-  border: 1px solid red; /* Temporary border for debugging */
-}
+
 .success-message {
   position: fixed;
   top: 20px;
