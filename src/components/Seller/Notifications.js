@@ -48,7 +48,9 @@ function OrderNotification({ order, shopId, fetchOrders }) {
                                       )
                                     : "N/A"}
                             </li>
-                            <li className="orderListItem">Total Price: R{order.total}</li>
+                            <li className="orderListItem">
+                                Total Price: R{order.total}
+                            </li>
                         </ul>
                     </section>
                     <section className="orderDetails">
@@ -56,7 +58,10 @@ function OrderNotification({ order, shopId, fetchOrders }) {
                             {order.items
                                 .filter((item) => item.shop_id === shopId)
                                 .map((product) => (
-                                    <li key={product.id} className="orderListItem orderItem">
+                                    <li
+                                        key={product.id}
+                                        className="orderListItem orderItem"
+                                    >
                                         <span className="orderSpan">
                                             {product.name} - R{product.price} -{" "}
                                             {product.status}
@@ -154,7 +159,7 @@ export default function Notifications() {
 
     return (
         <>
-            <Header />
+            <Header user={user} />
             <section className="notificationHeadingSection Heading">
                 <h2 className="notificationHeading">Notifications</h2>
             </section>
