@@ -33,7 +33,10 @@ function SellerForm() {
       if (storedUsername) setUsername(storedUsername);
       if(storeUserID) setUserID(storeUserID);
       console.log(email, name, surname, username, userID);
-  }, []);
+      // eslint-disable-next-line
+  }, 
+  // eslint-disable-next-line
+  []);
 
   // checking if the user has formatted their shop location correctly
   const validateLocation = () => {

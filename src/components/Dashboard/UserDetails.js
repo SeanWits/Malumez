@@ -23,6 +23,7 @@ const fetchUserData = async (userId) => {
   };
   
   const UserDetails = ({ user }) => {
+    // eslint-disable-next-line
     const [userData, setUserData] = useState(null);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");

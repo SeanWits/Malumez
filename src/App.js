@@ -9,7 +9,6 @@ import Products from "./pages/products";
 import Checkout from "./pages/Checkout";
 import StoreImageTextFirebase from "./pages/uploadImg";
 import Seller from "./pages/Seller";
-import Sean from "./pages/sean";
 import SellerProducts from "./components/Seller/SellerProducts";
 import Notifications from "./components/Seller/Notifications";
 import OrderStatus from "./pages/OrderStatus";
@@ -48,7 +47,6 @@ function App() {
                         element={<StoreImageTextFirebase />}
                     />
                     <Route path="/seller" element={<Seller />} />
-                    <Route path="/sean" element={<Sean />} />
                     <Route path="/sellerP" element={<SellerProducts />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/orderStatus" element={<OrderStatus />} />
