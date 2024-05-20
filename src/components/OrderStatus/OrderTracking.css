@@ -25,6 +25,7 @@ i.orderStatusArrow{
     display: flex;
     align-items: center;
     font-family: "MV Boli V1";
+    color: white;
 }
 
 .HeadingText {
