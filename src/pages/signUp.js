@@ -71,8 +71,10 @@ function SignUp() {
           seller: seller
         },
         user_id: userAuth.uid
+        
       });
       console.log("User added with ID: ", userAuth.uid);
+      localStorage.setItem('userID', userAuth.uid);
     } catch (error) {
       console.error("Error adding user: ", error,"\n Please check your details and try again");
       //Clearing all the fields
@@ -105,11 +107,15 @@ function SignUp() {
           }
           else if(seller)
             {
+              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              await addUser(user);
+              setSuccessMessage('User registered!');
+              console.log("User registered:", user);
               localStorage.setItem('email', email);
               localStorage.setItem('name', name);
               localStorage.setItem('surname', surname);
               localStorage.setItem('username', username);
-              localStorage.setItem('password', password);
               console.log(name, surname, username);
               navigate('/sellerForm');
             }
