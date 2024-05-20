@@ -1,0 +1,58 @@
+.DashboardSection {
+    display: flex;
+    justify-content: center;
+    height: 541px;
+}
+
+.Dashboard {
+    width: 1440px;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.UserViewSection {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#logout {
+    margin: 20px;
+}
+
+.UserDetailsArticle {
+    width: 25%;
+}
+
+.UserDetailsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DashboardArticles {
+    border-style: outset;
+    border-image: linear-gradient(to bottom left, #d9357b, #23d9c4) 1;
+}
+
+#editUserDetails {
+    margin: 10px;
+}
+
+.OrderHistorySection {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.OrderHistoryEntrySection {
+    width: 80%;
+}
+
+.OrderHistoryArticle {
+    width: 40%;
+}

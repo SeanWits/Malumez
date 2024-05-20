@@ -1,3 +1,5 @@
+// signUp.js
+
 import { auth, db } from '../firebase';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -6,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 function SignUp() {
+
+  // variables to store the user's detauls 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [username, setUsername] = useState('');
@@ -16,6 +20,7 @@ function SignUp() {
   const [buyer, setBuyer] = useState(true);
   const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleRoleChange = (e) => {
     if (e.target.value === 'Buyer') {
@@ -27,19 +32,33 @@ function SignUp() {
     }
   };
 
+  // validating the password = Checking if it is inputted correctly 
+  //and whether it is 8 characters long or not (for security)
   const validatePassword = () => {
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return false;
-    } else if (password.length < 8) {
-      setError('Password should be at least 8 characters long');
-      return false;
+    let isValid = true;
+    if (password !== '' && confirmPassword !== '') {
+      if (password !== confirmPassword) {
+        isValid = false;
+        alert('Passwords do not match');
+        //only clearing the fields with incorrect information
+        setPassword('');
+        setConfirmPassword('');
+        
+      } else if (password.length < 8) {
+        isValid = false;
+        alert('Password should be at least 8 characters long');
+        //only clearing the fields with incorrect information
+        setPassword('');
+        setConfirmPassword('');
+      }
     }
     return true;
   };
 
+  // creating a new user using the details inputted on the signup Page
   const addUser = async (userAuth) => {
     try {
+
       await setDoc(doc(db, "users", userAuth.uid), {
         email: userAuth.email,
         name: name,
@@ -52,42 +71,84 @@ function SignUp() {
           seller: seller
         },
         user_id: userAuth.uid
+        
       });
       console.log("User added with ID: ", userAuth.uid);
+      localStorage.setItem('userID', userAuth.uid);
     } catch (error) {
-      console.error("Error adding user: ", error);
-    }
-  };
-
-  const register = async (e) => {
-    e.preventDefault();
-    setError('');
-    if (validatePassword()) {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        await addUser(user);
-        console.log("User registered:", user);
-        navigate('/home');
-      } catch (error) {
-        if (error.code === "auth/email-already-in-use") {
-          setError("Email already linked to an account");
-        } else {
-          console.error("Error registering user: ", error);
-          setError(error.message);
-        }
-      }
-    } else {
+      console.error("Error adding user: ", error,"\n Please check your details and try again");
+      //Clearing all the fields
+      setName('');
+      setSurname('');
+      setUsername('');
+      setEmail('');
       setPassword('');
       setConfirmPassword('');
     }
   };
 
+    // registering a new user using the details inputted on the signup Page
+    // this will be verified and authenticated by google (third party service)
+  const register = async (e) => {
+    e.preventDefault();
+    setError('');
+    //verifying the user has put in corresponding and correct information
+    if (validatePassword()) {
+      try {
+        
+        if(buyer && !(seller))
+          {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await addUser(user);
+            setSuccessMessage('User registered!');
+            console.log("User registered:", user);
+            navigate('/login');
+          }
+          else if(seller)
+            {
+              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              await addUser(user);
+              setSuccessMessage('User registered!');
+              console.log("User registered:", user);
+              localStorage.setItem('email', email);
+              localStorage.setItem('name', name);
+              localStorage.setItem('surname', surname);
+              localStorage.setItem('username', username);
+              console.log(name, surname, username);
+              navigate('/sellerForm');
+            }
+        
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("Email already linked to an account");
+          // clearing the email field as it is already in use
+          setEmail('');
+        } else {
+          console.error("Error registering user: ", error, "\n Please try again ");
+          alert(error.message);
+          // clearing all the fields
+          setName('');
+          setSurname('');
+          setUsername('');
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+        }
+      }
+    }
+    
+  };
+
   return (
-    <div>
+    // the layout of the signup page 
+    <div id = "signUpBackground">
       <section id='container'>
         <img src={require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250" />
         <h2 id='signUpSign'>Sign Up</h2>
+
+        {/* the form itself in the middle of the screen, this contains the different detail fields and their respective labels */}
         <form id="signup-form" onSubmit={register}>
           <label htmlFor="Name">Name</label>
           <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -108,14 +169,15 @@ function SignUp() {
           <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
           <section id='sectionUserType'>
-            <label id="userType" htmlFor="UserType">User type:</label>
+            <label htmlFor="type" id="userType">User type:</label>
             <select name="Account type" id="type" onChange={handleRoleChange}>
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
             </select>
           </section>
 
-          <button type="submit" id='signUpButton'>Sign Up</button>
+          <button type="submit" id='signUpButton' data-testid="signUpButton">Sign Up</button>
+          {successMessage && <p data-testid="successMessage" style={{ color: 'green' }}>{successMessage}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </section>

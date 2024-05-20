@@ -1,0 +1,70 @@
+.notificationHeadingSection {
+    color: white;
+    height: 75px;
+    font-size: x-large;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.noNotifications {
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.orderHeading {
+    font-size: 24px;
+    padding-left: 10px;
+}
+
+.orderNotification {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.orderInfoSection {
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttonSection {
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 280px;
+}
+
+.orders {
+    padding-left: 10px;
+}
+
+.orderNotificationItem {
+    width: 80%;
+    margin: 20px;
+}
+
+.orderListItem {
+    margin: 10px;
+    margin-left: 0;
+}
+
+.orderDetailsList {
+    padding: 0;
+}
+
+.orderDetails {
+    display: flex;
+    align-items: center;
+}
+
+.orderItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderSpan {
+    padding-right: 30px;
+}

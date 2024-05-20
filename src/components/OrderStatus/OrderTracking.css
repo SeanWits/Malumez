@@ -1,0 +1,101 @@
+.OrderTrackingSection {
+    width: 800px;
+    height: 400px;
+    margin: 50px;
+    width: 100%;
+}
+
+@import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
+
+
+i.orderStatusArrow{
+    font-size: 40px;
+}
+
+.OrderStatusHeading {
+    color: white;
+    padding-left: 10px;
+    margin: 0;
+    font-family: "MV Boli V1";
+}
+
+.Heading {
+    background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-family: "MV Boli V1";
+    color: white;
+}
+
+.HeadingText {
+    size: 20px;
+    color: white;
+    padding-left: 10px;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    outline: gray;
+    outline-style: solid;
+    outline-width: 1px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.OrderProgressionStatusSection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+}
+.OrderTrackingArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.orderBlock {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 15px;
+    width: 80%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.orderHeader {
+    margin-bottom: 10px;
+}
+
+.orderItemsList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.orderItem {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.orderItem:last-child {
+    border-bottom: none;
+}
+
+.orderItemDetails {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.orderItemDetails p {
+    margin: 5px 0;
+}

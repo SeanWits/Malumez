@@ -1,69 +1,118 @@
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 
-.products-container{
-    display: flex;
-    flex-wrap: wrap;
-    
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#productPageLayout
-{
-    display: flex;
-    flex-direction: row;
+.products-container-wrapper {
+  height: 80vh;
+  width: 84%;
+  overflow-y: auto;
 }
 
-#apply
-{
-    margin-left: 20%;
-    width: 50px;
-    height:40px
+.sellerPage.products-container-wrapper {
+  width: 100%;
 }
 
-.checkout-btn
-{
-    margin: 10%;
-    margin-left: 25%;
-    width: 100px;
-    height: 50px;
-   
+#productPageLayout {
+  display: flex;
+  flex-direction: row;
+}
+.product-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#apply {
+  margin-left: 20%;
+  width: 50px;
+  height: 40px;
 }
 
-#insideFilters
-{
-    margin: 15%;
-    display: block;
-    
-}
-.dropdown
-{
-    width: 100px;
-    height: 30px;
-    border: none;
-    border-radius: 5%;
-}
-#sortByPrice
-{
-    display: block;
-}
-#filters
-{
-    background: linear-gradient(to bottom, rgba(217, 53, 123, 0.7), rgba(35, 217, 196, 0.7));/*Background becomes a gradient with some opacity  */
-    border-radius: 5%;
-    color: whitesmoke;
-    margin-top: 3%;
-    margin-left: 2%;
-    width: 16%;
-    height: 500px;
-    display: inline-block;
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 1000;
 }
 
-.productHeaders
-{
-    font-family: "MV Boli V1";
+.success-message.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-#sortByPrice
-{
-    display:block;
+
+.checkout-btn {
+  margin: 10%;
+  margin-left: 25%;
+  width: 100px;
+  height: 50px;
 }
 
+#insideFilters {
+  margin: 15%;
+  display: block;
+}
+.dropdown {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 5%;
+}
+#sortByPrice {
+  display: block;
+}
+
+#filters.shopDetails {
+  padding: 20px;
+  padding-left: 20%;
+  padding-right: 20%;
+  height: 200px;
+}
+
+#filters {
+  background: linear-gradient(
+    to bottom,
+    rgba(217, 53, 123, 0.7),
+    rgba(35, 217, 196, 0.7)
+  ); /*Background becomes a gradient with some opacity  */
+  border-radius: 5%;
+  color: whitesmoke;
+  margin-top: 3%;
+  margin-left: 2%;
+  width: 16%;
+  height: 500px;
+  display: inline-block;
+}
+
+
+.productHeaders {
+  font-family: "MV Boli V1";
+}
+
+#sortByPrice {
+  display: block;
+}
+
+.sweet-loading {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 200px; /* Adjust height as needed */
+  margin-right: 50px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}

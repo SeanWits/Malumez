@@ -5,17 +5,22 @@ import ReactDOM from "react-dom/client";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { getDocs, collection } from "firebase/firestore";
-// import { render } from "@testing-library/react";
+//import { render } from "@testing-library/react";
 import Modal from "../components/modal";
+//import userStuff from "../components/modal";
+
 
 let test = [];
 let test1 = [];
+let emails = '';
+//Dynamic names that will be exported to modal for return
+let nameM = '';
+let roleM = '';
+let initialRole = '';
 
 function Admin() {
-   // eslint-disable-next-line 
-  const [shopsData, setShopsData] = useState([]);
-   // eslint-disable-next-line 
-  const [usersData, setUsersData] = useState([]);
+  // const [shopsData, setShopsData] = useState([]);
+  // const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +32,7 @@ function Admin() {
           const { name, email, location, contact, owner_name } = doc.data();
           shopsData.push({ name, email, location, contact, owner_name });
         });
-        setShopsData(shopsData);
+        //setShopsData(shopsData);
         test = shopsData;
         // Fetch data from the "users" collection
         const usersQuerySnapshot = await getDocs(collection(db, "users"));
@@ -45,11 +50,13 @@ function Admin() {
             verified,
           });
         });
-        setUsersData(usersData);
+        //setUsersData(usersData);
         test1 = usersData;
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+      
     };
 
     fetchData();
@@ -57,12 +64,14 @@ function Admin() {
 
   const [openModal, setOpenModal] = useState(false);
 
+  //Displays every user of the database on a single page
   function dashboard() {
     //---------------------------------------------------------------------------------------------------------------
 
     //---------------------------------------------------------------------------------------------------------------
 
     const table = document.getElementById("adminTable");
+    //Gets the number of columns on the table to dynamically add on to
     const rowCount = table.rows.length;
     //table.deleteRow(0);
 
@@ -89,7 +98,7 @@ function Admin() {
     for (let i = 0; i < test.length; i++) {
       //Adds new rows
       const row = table.insertRow(-1);
-      //cell4.innerHTML = " ";
+      
       for (let j = 0; j < 5; j++) {
         //Adds new cells
         const cell = row.insertCell(j);
@@ -113,43 +122,148 @@ function Admin() {
         if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
+          // eslint-disable-next-line
           btn.addEventListener("click", () => {
             setOpenModal(true);
+            emails = test[i].email;
+            nameM = test[i].name;
+            initialRole = test[i].roles;
+            let userDet = test1.find(item => item.email === test[i].email);
+            if (userDet.roles.admin === 1){
+              roleM = "Admin";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+
+            }
+
+            if (userDet.roles.buyer === 1){
+              roleM = "Buyer";
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.admin === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
+
+            if (userDet.roles.seller === 1){
+              roleM = "Seller";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.admin === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
+            
           });
           row.appendChild(btn);
         }
       }
     }
-
-    for (let i = 0; i < test1.length; i++) {
+    
+    //This loop is for populating the table with the buyer's information
+    for (let k = 0; k < test1.length; k++) {
       //Adds new rows
       const row = table.insertRow(-1);
       //cell4.innerHTML = " ";
-      for (let j = 0; j < 5; j++) {
+      for (let l = 0; l < 5; l++) {
         //Adds new cells
-        const cell = row.insertCell(j);
+        const cell = row.insertCell(l);
 
-        if (j === 0) {
-          cell.textContent = test1[i].name;
+        if (l === 0) {
+          cell.textContent = test1[k].name;
         }
 
-        if (j === 1) {
-          cell.textContent = test1[i].username;
+        if (l === 1) {
+          cell.textContent = test1[k].username;
         }
 
-        if (j === 2) {
-          cell.textContent = test1[i].email;
+        if (l === 2) {
+          cell.textContent = test1[k].email;
         }
 
-        if (j === 3) {
-          cell.textContent = test1[i].surname;
+        if (l === 3) {
+          cell.textContent = test1[k].surname;
         }
 
-        if (j === 4) {
+        if (l === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
+          // eslint-disable-next-line
           btn.addEventListener("click", () => {
             setOpenModal(true);
+            emails = test1[k].email;
+            nameM = test1[k].name;
+            initialRole = test1[k].roles;
+            if (test1[k].roles.admin === 1){
+              roleM = "Admin";
+            }
+
+            if (test1[k].roles.admin === 1){
+              roleM = "Admin";
+              if (test1[k].roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (test1[k].roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (test1[k].roles.seller === 1 && test1[k].roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+
+            }
+
+            if (test1[k].roles.buyer === 1){
+              roleM = "Buyer";
+              if (test1[k].roles.admin === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (test1[k].roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (test1[k].roles.seller === 1 && test1[k].roles.admin === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
+
+            if (test1[k].roles.seller === 1){
+              roleM = "Seller";
+              if (test1[k].roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (test1[k].roles.admin === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (test1[k].roles.admin === 1 && test1[k].roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
           });
           row.appendChild(btn);
         }
@@ -157,6 +271,7 @@ function Admin() {
     }
   }
 
+  //This function is linked to the buyers only. Will display all the buyers when the function is called.
   function buyers() {
     const table = document.getElementById("adminTable");
     const rowCount = table.rows.length;
@@ -209,8 +324,59 @@ function Admin() {
         if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
+          // eslint-disable-next-line
           btn.addEventListener("click", () => {
             setOpenModal(true);
+            emails = test1[i].email;
+            nameM = test1[i].name;
+            initialRole = test1[i].roles;
+            let userDet = test1.find(item => item.name === test1[i].name);
+            //console.log(userDet);
+            if (userDet.roles.admin === 1){
+              roleM = "Admin";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+
+            }
+
+            if (userDet.roles.buyer === 1){
+              roleM = "Buyer";
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.admin === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
+
+            if (userDet.roles.seller === 1){
+              roleM = "Seller";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.admin === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
           });
           row.appendChild(btn);
         }
@@ -218,6 +384,7 @@ function Admin() {
     }
   }
 
+ //This function is linked to the sellers only. Will display all the sellers when the function is called.
   function owners() {
     //---------------------------------------------------------------------------------------------------------------
 
@@ -233,7 +400,7 @@ function Admin() {
       }
     }
 
-    console.log(test);
+    
     const newRow = table.insertRow(0);
     const cell = newRow.insertCell(0);
     cell.innerHTML = "<b>BUYER OR SELLER</b>";
@@ -274,8 +441,59 @@ function Admin() {
         if (j === 4) {
           const btn = document.createElement("button");
           btn.innerHTML = "More";
+          // eslint-disable-next-line
           btn.addEventListener("click", () => {
             setOpenModal(true);
+            emails = test[i].email;
+            nameM = test[i].owner_name;
+            initialRole = test[i].roles;
+            let userDet = test1.find(item => item.email === test[i].email);
+            //console.log(userDet);
+            if (userDet.roles.admin === 1){
+              roleM = "Admin";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+
+            }
+
+            if (userDet.roles.buyer === 1){
+              roleM = "Buyer";
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.seller === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.seller === 1 && userDet.roles.admin === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
+
+            if (userDet.roles.seller === 1){
+              roleM = "Seller";
+              if (userDet.roles.buyer === 1){
+                roleM = "Admin, Buyer";
+              }
+
+              if (userDet.roles.admin === 1){
+                roleM = "Admin, Seller";
+              }
+
+              if (userDet.roles.admin === 1 && userDet.roles.buyer === 1){
+                roleM = "Admin, Seller, Buyer";
+              }
+            }
           });
           row.appendChild(btn);
         }
@@ -290,22 +508,22 @@ function Admin() {
           <img alt="" src={require("../assets/Malume'zLogoFull.png")} />
         </a>
       </header>
-      {openModal && <Modal closeModal={setOpenModal} />}
-      <section class="main-content">
+      {openModal && <Modal closeModal={setOpenModal} email={emails} name={nameM} role={roleM} initialRole={initialRole}/>}
+      <section className="main-content">
         <nav>
-          <button class="button" id="dashboardBtn" onClick={dashboard}>
+          <button className="button" id="dashboardBtn" onClick={dashboard}>
             Dashboard
           </button>
           {/* Toggle the visibility of Owners component when button is clicked */}
-          <button class="button" id="OwnersBtn" onClick={owners}>
+          <button className="button" id="OwnersBtn" onClick={owners}>
             Store Owners
           </button>
-          <button class="button" id="Buyers" onClick={buyers}>
+          <button className="button" id="Buyers" onClick={buyers}>
             Buyers
           </button>
         </nav>
 
-        <section class="main-idea">
+        <section className="main-idea">
           <table id="adminTable">
             <tr>
               <th>BUYER OR SELLER</th>
@@ -320,36 +538,7 @@ function Admin() {
   );
 }
 
-// const users = [
-//   {
-//     id: 0,
-//     buyer: true,
-//     username: "fairydust",
-//     contactNumber: "0230120304",
-//     email: "guineapigs@hotmail.com",
-//     shopName: "none",
-//     location: "Vosloorus",
-//   },
-//   {
-//     id: 1,
-//     buyer: false,
-//     username: "thegreez",
-//     contactNumber: "0112345304",
-//     email: "money@moneytalks.mail",
-//     shopName: "Danny's Supermarket",
-//     location: "Vosloorus",
-//   },
-//   {
-//     id: 2,
-//     buyer: true,
-//     username: "theOne",
-//     contactNumber: "0111111111",
-//     email: "crazy@gmail.com",
-//     shopName: "none",
-//     location: "Thembisa",
-//   },
-// ];
-
+// Boat-anchor!
 //     useEffect(() => {
 //         const fetchShopsData = async () => {
 //             try {
