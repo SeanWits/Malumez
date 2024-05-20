@@ -100,6 +100,7 @@ function StoreImageTextFirebase() {
                 brand: brand,
                 src: img, // Use the uploaded image URL
                 product_id: "", // Placeholder for product ID
+                shop_id: shopId,
             };
 
             const productRef = collection(db, `shops/${shopId}/products`);

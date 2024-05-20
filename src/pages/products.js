@@ -6,9 +6,9 @@ import Product from '../components/product';
 import { SearchBar } from '../components/Home/Search';
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
+import FadeLoader from "react-spinners/FadeLoader";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
-import { faThermometerEmpty } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../App';
 
 const Products = ({ user }) => {
@@ -24,6 +24,7 @@ const Products = ({ user }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [loading, setloading] = useState(false);
     const navigate = useNavigate();
 
   let i = 0;
@@ -34,9 +35,7 @@ const Products = ({ user }) => {
 
     // getting the searched item from the search Bar
     let searchReceived = localStorage.getItem("searchInput");
-    console.log("Is the variable received? Then it can be used:", searchReceived);
-
-
+    
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
@@ -58,18 +57,15 @@ const Products = ({ user }) => {
       // This function runs when searchReceived changes aka the search button gets pressed
       const handleSearchReceivedChange = (newValue) => {
          let someProducts = [];
-          console.log("The searchReceived changed to : ",newValue);
 
           if(filterClicked === false)// this only runs if the filter hasn't been clicked
             {
-              if(searchReceived === "nothing" )// if there is nothing in the search, display all products
+              if(searchReceived === "nothing")// if there is nothing in the search, display all products
               {
-                console.log("Does it even populate?");
                 products.forEach(product => {
                   someProducts[i] = product;
                   i++;
                 });
-                console.log("It does? That's wild");
               }
               else{// the searchReceived is populated
                 products.forEach(product => {
@@ -77,23 +73,18 @@ const Products = ({ user }) => {
                     {
                       someProducts[i] = product;
                       i++;
-
                     }
-                  
                 });
 
               }
               if(someProducts.length === 0)// there are no products that match the search
                 {
                   alert("There are no Products that match your search: ", newValue);
-                  console.log(newValue);
-
                   products.forEach(product => {
                     someProducts[i] = product;
                     i++;
                   });
                 }
-
               setFiltered(someProducts);
             }
         };
@@ -120,13 +111,13 @@ const Products = ({ user }) => {
               price: productData.price,
               category: productData.category,
               brand: productData.brand,
-              stock: productData.stock
+              stock: productData.stock, 
+              shopID: productData.shop_id
             });
           });
         });
 
         await Promise.all(productPromises);
-          //console.log("Search Input again", searchInput);
                 // checks that the products variable has been populated and calls it until it is
                 async function checkProducts() {
                   if (products.length === 0) {
@@ -202,6 +193,7 @@ const Products = ({ user }) => {
   };  
   
   const addToCart = async (product, quantity = 1) => {
+    setloading(true); // Show loader
     const existingItemIndex = cart.findIndex(item => item.id === product.id);
     let updatedCart;
     if (existingItemIndex !== -1) {
@@ -219,16 +211,25 @@ const Products = ({ user }) => {
     setTimeout(() => {
       setShowMessage(false);
     }, 3000);
+    setTimeout(() => {
+      setloading(false); // Hide loader after delay
+    }, 2000);
   };
   
-  const removeFromCart = (productId) => {
+  const removeFromCart = async (productId) => {
+    setloading(true); // Show loader
     const updatedCart = cart.map(item =>
       item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
     ).filter(item => item.quantity > 0);
-    updateCart(updatedCart);
+  
+    await updateCart(updatedCart);
     if (currentUser) {
-      addCartForUser(currentUser.uid, updatedCart);
+      await addCartForUser(currentUser.uid, updatedCart);
     }
+  
+    setTimeout(() => {
+      setloading(false); // Hide loader after delay
+    }, 2000);
   };
   
   const handleCheckout = () => {
@@ -246,10 +247,6 @@ const Products = ({ user }) => {
   function applyFilters() {
     let category = document.getElementById("categoriesDropdown").value;
     let brand = document.getElementById("brandsDropdown").value;
-    console.log(category);
-    console.log(brand);
-    console.log(selectedOption);
-
     let storeProducts = [];
 
     if (category !== "all" && brand !== 'all') {
@@ -339,6 +336,22 @@ const Products = ({ user }) => {
 
           {/* the products are created dynamically depending on how many there are */}
         <div className="products-container-wrapper">
+        {loading?(
+                        <div className="sweet-loading">
+                            <FadeLoader
+                                height={25}
+                                margin={50}
+                                radius={2}
+                                width={5}
+                                color={"#36d7b7"}
+                                loading={loading}
+                                speedMultiplier={1}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                                className="loader"
+                            />
+                        </div>
+        ) : (
           <div className="products-container">
             {filtered.map((product) => {
               const cartItem = cart.find(item => item.id === product.id);
@@ -355,6 +368,7 @@ const Products = ({ user }) => {
               );
             })}
           </div>
+        )}
           {showMessage && (
             <div className={`success-message ${showMessage ? 'show' : ''}`}>
               {successMessage}

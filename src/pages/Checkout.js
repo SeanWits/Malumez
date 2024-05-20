@@ -1,39 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import "./Checkout.css";
+import { UserContext } from '../App';
+import FadeLoader from "react-spinners/FadeLoader";
+
 
 const Checkout = () => {
+    const user = useContext(UserContext);
     const [currentUser, setCurrentUser] = useState(null);
     const location = useLocation();
+    const [loading, setloading] = useState(false);
     const [cart, setCart] = useState(
         location.state?.cart || JSON.parse(localStorage.getItem("cart")) || []
     );
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem("searchInput","");
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    useEffect(() => {
+        localStorage.setItem("searchInput", "");
+        setCurrentUser(user);
+    }, [user]);
 
     useEffect(() => {
-        if (cart.length > 0) {
-            localStorage.setItem("cart", JSON.stringify(cart));
+        if (currentUser) {
+            fetchCart(currentUser.uid);
         }
-    }, [cart]);
+    }, [currentUser]);
 
-    function handleSignOut() {
+    const fetchCart = async (userId) => {
+        try {
+            const cartDoc = await getDoc(doc(db, "carts", userId));
+            if (cartDoc.exists()) {
+                setCart(cartDoc.data().items);
+                console.log("Cart fetched from Database ", cart)
+            } else {
+                setCart([]);
+            }
+        } catch (error) {
+            console.error("Error fetching cart: ", error);
+        }
+    };
+
+    const handleSignOut = () => {
         auth.signOut()
             .then(() => {
                 setCurrentUser(null);
@@ -43,7 +57,7 @@ const Checkout = () => {
                 console.error("Error signing out: ", error);
                 setError("Error signing out. Please try again.");
             });
-    }
+    };
 
     const handleKeepShopping = () => {
         navigate("/products", { state: { cart: cart } });
@@ -94,38 +108,55 @@ const Checkout = () => {
     };
 
     const addCartForUser = async (userId, cartItems) => {
+        setloading(true); // Show loader
         try {
             await setDoc(doc(db, "carts", userId), { items: cartItems });
             console.log("Cart added for user with ID: ", userId);
+            setTimeout(() => {
+                setloading(false); // Hide loader after delay
+              }, 2000);
         } catch (error) {
             console.error("Error adding cart for user: ", error);
+            setTimeout(() => {
+                setloading(false); // Hide loader after delay
+              }, 2000);
         }
     };
 
-  const handleFinalizePurchase = () => {
-    console.log("Purchase finalized!");
-    setCart([]);
-    localStorage.removeItem("cart");
-    if (currentUser) {
-      setDoc(doc(db, "carts", currentUser.uid), { items: [] })
-        .then(() => {
-          // create a new file in the orders for
-          console.log("Cart cleared in the database.");
-        })
-        .catch((error) => {
-          console.error("Error clearing cart in the database:", error);
-        });
-    }
-    alert("Purchase finalized! Thank you for shopping with us!");
-    navigate("/OrderStatus");
-  };
+    const handleFinalizePurchase = async () => {
+        setloading(true); // Show loader
+        console.log("Purchase finalized!");
+        const total = calculateTotalPrice();
+        const orderData = {
+            dateOrdered: serverTimestamp(),
+            items: cart,
+            status: "ordered",
+            total: total,
+            userID: currentUser.uid,
+        };
 
-  function createOrder(){
-
-  }
-
-
-
+        try {
+            await addDoc(collection(db, "orders"), orderData);
+            console.log("Order added to the database.");
+            setCart([]);
+            localStorage.removeItem("cart");
+            if (currentUser) {
+                await setDoc(doc(db, "carts", currentUser.uid), { items: [] });
+                console.log("Cart cleared in the database.");
+            }
+            setTimeout(() => {
+                setloading(false); // Hide loader after delay
+              }, 2000);
+            alert("Purchase finalized! Thank you for shopping with us!");
+            navigate("/OrderStatus");
+        } catch (error) {
+            setTimeout(() => {
+                setloading(false); // Hide loader after delay
+              }, 2000);
+            console.error("Error finalizing purchase:", error);
+            setError("Error finalizing purchase. Please try again.");
+        }
+    };
     return (
         <>
             <Header />
@@ -135,6 +166,22 @@ const Checkout = () => {
                     <h2>Checkout</h2>
                 </section>
             </section>
+            {loading?(
+                        <div className="sweet-loading">
+                            <FadeLoader
+                                height={25}
+                                margin={50}
+                                radius={2}
+                                width={5}
+                                color={"#36d7b7"}
+                                loading={loading}
+                                speedMultiplier={1}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                                className="loader"
+                            />
+                        </div>
+        ) : (
             <div className="checkout-container">
                 <div className="cart-box">
                     <h2 className="centered-heading">Items in Cart</h2>
@@ -207,6 +254,7 @@ const Checkout = () => {
                     {error && <p style={{ color: "red" }}>{error}</p>}
                 </div>
             </div>
+        )}
             <Footer />
         </>
     );
