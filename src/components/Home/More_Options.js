@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export function MoreOptions() {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     return (
         <>
             <section className="moreOptions">
