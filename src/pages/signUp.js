@@ -35,7 +35,6 @@ function SignUp() {
   // validating the password = Checking if it is inputted correctly 
   //and whether it is 8 characters long or not (for security)
   const validatePassword = () => {
-    let isValid = true;
     if (password !== '' && confirmPassword !== '') {
       if (password !== confirmPassword) {
         isValid = false;

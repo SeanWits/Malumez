@@ -1,5 +1,5 @@
 import logo from "../../assets/Malume'zLogoFullNoBackground.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Header({user}) {
     const navigate = useNavigate();

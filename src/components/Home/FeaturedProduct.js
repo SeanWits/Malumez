@@ -68,6 +68,7 @@ export function FeaturedProducts() {
         {[1, 2, 3].map((index) => (
           <section key={`fPslide${index}`} id={`fPslide${index}`} style={{ display: index === 1 ? 'block' : 'none' }}>
             {brands.slice((index - 1) * 4, index * 4).map((brand) => (
+              // eslint-disable-next-line
               <img
                 key={brand.id}
                 className="brandImage"

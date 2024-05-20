@@ -11,7 +11,10 @@ export function AdsBar() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+    // eslint-disable-next-line
+  },
+  // eslint-disable-next-line 
+  []);
 
   function startingUp() {
     // Initially display the first slide and hide others

@@ -31,7 +31,10 @@ const Checkout = () => {
         if (currentUser) {
             fetchCart(currentUser.uid);
         }
-    }, [currentUser]);
+        // eslint-disable-next-line
+    }
+    // eslint-disable-next-line
+    , [currentUser]);
 
     const fetchCart = async (userId) => {
         try {

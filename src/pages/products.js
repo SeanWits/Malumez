@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import { getDocs, collection, query, doc, setDoc } from 'firebase/firestore';
 import Product from '../components/product';
 import { SearchBar } from '../components/Home/Search';
@@ -31,6 +31,7 @@ const Products = ({ user }) => {
 
     // this stores the value of the cart in case the user decides to continue shopping on the cart page
     const location = useLocation();
+    // eslint-disable-next-line
     let cartState= location.state || [];
 
     // getting the searched item from the search Bar
@@ -41,13 +42,10 @@ const Products = ({ user }) => {
       fetchProducts();
       setCurrentUser(user);
       console.log(user);
-    }, []);
-    
-    //checks whether the filters have been applied or not
-    function logClick()
-    {
-      setFilterClicked(true);
+      // eslint-disable-next-line
     }
+    // eslint-disable-next-line
+    , []);
 
     
     useEffect(() => {
@@ -91,8 +89,10 @@ const Products = ({ user }) => {
         handleSearchReceivedChange(searchReceived);
 
       }
-      
-    }, [searchReceived]);
+      // eslint-disable-next-line
+    }
+    // eslint-disable-next-line
+    , [searchReceived]);
 
     // fetching the products from the database 
     async function fetchProducts() {

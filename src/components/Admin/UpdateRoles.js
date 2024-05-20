@@ -51,7 +51,10 @@ function UpdateRoles({ initialEmail, initialRoles }) {
       buyer: true,
       seller: false
     });
-  }, []);
+    // eslint-disable-next-line
+  }, 
+  // eslint-disable-next-line
+  []);
 
   return(
     <>

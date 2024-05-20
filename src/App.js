@@ -4,7 +4,6 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import SignUp from "./pages/signUp";
 import Admin from "./pages/admin";
-import ShowProducts from "./components/showProducts";
 import Products from "./pages/products";
 import Checkout from "./pages/Checkout";
 import StoreImageTextFirebase from "./pages/uploadImg";
@@ -39,7 +38,6 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signUp" element={<SignUp />} />
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/showProducts" element={<ShowProducts />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/checkOut" element={<Checkout />} />
                     <Route
