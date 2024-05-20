@@ -27,7 +27,7 @@ const Products = ({ user }) => {
     const [loading, setloading] = useState(false);
     const navigate = useNavigate();
 
-  let i = 0;
+    let i = 0;
 
     // this stores the value of the cart in case the user decides to continue shopping on the cart page
     const location = useLocation();

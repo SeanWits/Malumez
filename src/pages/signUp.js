@@ -94,7 +94,7 @@ function SignUp() {
     if (validatePassword()) {
       try {
         
-        if(buyer)
+        if(buyer && !(seller))
           {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -105,8 +105,13 @@ function SignUp() {
           }
           else if(seller)
             {
-              // pass all the variables to the next page
-              navigate('/SellerForm');
+              localStorage.setItem('email', email);
+              localStorage.setItem('name', name);
+              localStorage.setItem('surname', surname);
+              localStorage.setItem('username', username);
+              localStorage.setItem('password', password);
+              console.log(name, surname, username);
+              navigate('/sellerForm');
             }
         
       } catch (error) {
