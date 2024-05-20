@@ -54,13 +54,11 @@ function SellerForm() {
     if(location.length === 0)
       {
         isValid = false;
-        alert("The Shop Name is not valid");
+        alert("Please enter a shop name");
         setShopname("");
       }
     return isValid;
   };
-
-  
 
   const validateContact = () => {
     let isValid = true;
@@ -93,26 +91,21 @@ function SellerForm() {
         location: location,
         name: shopname,
         owner_id: userID, 
-        usern: username,
-        verified: false,
-        roles: {
-          admin: false,
-          buyer: buyer,
-          seller: seller
-        },
-        user_id: userAuth.uid
+        owner_name: username,
+        shop_id: userAuth.uid
+        
       });
-      console.log("User added with ID: ", userAuth.uid);
+      console.log("shop added with ID: ", userAuth.uid);
     } catch (error) {
-      console.error("Error adding seller: ", error,"\n Please check your details and try again");
+      console.error("Error adding seller shop: ", error,"\n Please check your details and try again");
       //Clearing all the fields
-      setName('');
-      setSurname('');
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      navigate("/SignUp");
+      // setName('');
+      // setSurname('');
+      // setUsername('');
+      // setEmail('');
+      // setPassword('');
+      // setConfirmPassword('');
+      // navigate("/SignUp");
     }
   };
 
@@ -122,7 +115,7 @@ function SellerForm() {
       e.preventDefault();
       setError('');
       
-      if(validateLocation() && validateShopname && validateContact())
+      if(validateLocation() && validateShopname() && validateContact())
         {
 
 
