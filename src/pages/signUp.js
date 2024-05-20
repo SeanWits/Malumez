@@ -105,6 +105,11 @@ function SignUp() {
           }
           else if(seller)
             {
+              const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+              const user = userCredential.user;
+              await addUser(user);
+              setSuccessMessage('User registered!');
+              console.log("User registered:", user);
               localStorage.setItem('email', email);
               localStorage.setItem('name', name);
               localStorage.setItem('surname', surname);

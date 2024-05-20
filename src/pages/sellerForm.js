@@ -118,6 +118,9 @@ function SellerForm() {
       
       if(validateLocation() && validateShopname && validateContact())
         {
+          
+
+
 
         }
       
