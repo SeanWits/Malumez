@@ -83,29 +83,26 @@ function SellerForm() {
     return isValid;
   };
 
-  const addShop = async (userAuth) => {
+  const addShop = async () => {
     try {
-      await setDoc(doc(db, "shops", userAuth.uid), {
+      const shopData = {
         contact: contact,
         email: email,
         location: location,
         name: shopname,
         owner_id: userID, 
         owner_name: username,
-        shop_id: userAuth.uid
-        
-      });
-      console.log("shop added with ID: ", userAuth.uid);
+    };
+
+    await addDoc(collection(db, "shops"), shopData);
+    console.log("shop added to the database.");
+
     } catch (error) {
       console.error("Error adding seller shop: ", error,"\n Please check your details and try again");
       //Clearing all the fields
-      // setName('');
-      // setSurname('');
-      // setUsername('');
-      // setEmail('');
-      // setPassword('');
-      // setConfirmPassword('');
-      // navigate("/SignUp");
+      setShopname("");
+      setContact("");
+      setLocation("");
     }
   };
 
@@ -117,10 +114,8 @@ function SellerForm() {
       
       if(validateLocation() && validateShopname() && validateContact())
         {
-
-
-
-
+          addShop();
+          setSuccessMessage('User registered!');
         }
       
     };
@@ -145,8 +140,8 @@ function SellerForm() {
           <input type="text" id="location" name="location" value={location} onChange={(e) => setLocation(e.target.value)} required />
 
           <button type="submit" id='signUpButton' data-testid="signUpButton">Sign Up</button>
-          {/* {successMessage && <p data-testid="successMessage" style={{ color: 'green' }}>{successMessage}</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>} */}
+          {successMessage && <p data-testid="successMessage" style={{ color: 'green' }}>{successMessage}</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
       </section>
     </div>
