@@ -124,6 +124,11 @@ const Checkout = () => {
     };
 
     const handleFinalizePurchase = async () => {
+        if (cart.length === 0) {
+            alert("Your cart is empty. Please add items to your cart before finalizing the purchase.");
+            return;
+        }
+    
         setLoading(true); // Show loader
         console.log("Purchase finalized!");
     
@@ -262,12 +267,6 @@ const Checkout = () => {
                         </div>
                         <button className="button" onClick={handleKeepShopping}>
                             Continue Shopping
-                        </button>
-                        <button
-                            className="button sign-out-button"
-                            onClick={handleSignOut}
-                        >
-                            Sign Out
                         </button>
                         <button
                             className="finalize-button"
