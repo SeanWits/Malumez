@@ -9,7 +9,6 @@ import { Footer } from "../components/Home/Footer";
 import FadeLoader from "react-spinners/FadeLoader";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
-import { faThermometerEmpty } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../App';
 
 const Products = ({ user }) => {
