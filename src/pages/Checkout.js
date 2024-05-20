@@ -15,7 +15,7 @@ const Checkout = () => {
     const user = useContext(UserContext);
     const [currentUser, setCurrentUser] = useState(null);
     const location = useLocation();
-    const [loading, setloading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [cart, setCart] = useState(
         location.state?.cart || JSON.parse(localStorage.getItem("cart")) || []
     );
@@ -108,33 +108,45 @@ const Checkout = () => {
     };
 
     const addCartForUser = async (userId, cartItems) => {
-        setloading(true); // Show loader
+        setLoading(true); // Show loader
         try {
             await setDoc(doc(db, "carts", userId), { items: cartItems });
             console.log("Cart added for user with ID: ", userId);
             setTimeout(() => {
-                setloading(false); // Hide loader after delay
-              }, 2000);
+                setLoading(false); // Hide loader after delay
+            }, 2000);
         } catch (error) {
             console.error("Error adding cart for user: ", error);
             setTimeout(() => {
-                setloading(false); // Hide loader after delay
-              }, 2000);
+                setLoading(false); // Hide loader after delay
+            }, 2000);
         }
     };
 
     const handleFinalizePurchase = async () => {
-        setloading(true); // Show loader
+        setLoading(true); // Show loader
         console.log("Purchase finalized!");
         const total = calculateTotalPrice();
+    
+        // Add status field to each product in the cart and handle shop_id properly
+        const updatedCart = cart.map(product => ({
+            ...product,
+            status: "ordered",
+            shop_id: product.shopID || "unknown" // Use shopID if it exists
+        }));
+    
+        // Extract unique shop_ids from the cart
+        const shopIds = [...new Set(updatedCart.map(product => product.shop_id))];
+    
         const orderData = {
             dateOrdered: serverTimestamp(),
-            items: cart,
+            items: updatedCart,
             status: "ordered",
             total: total,
             userID: currentUser.uid,
+            shops: shopIds,
         };
-
+    
         try {
             await addDoc(collection(db, "orders"), orderData);
             console.log("Order added to the database.");
@@ -145,18 +157,19 @@ const Checkout = () => {
                 console.log("Cart cleared in the database.");
             }
             setTimeout(() => {
-                setloading(false); // Hide loader after delay
-              }, 2000);
+                setLoading(false); // Hide loader after delay
+            }, 2000);
             alert("Purchase finalized! Thank you for shopping with us!");
             navigate("/OrderStatus");
         } catch (error) {
             setTimeout(() => {
-                setloading(false); // Hide loader after delay
-              }, 2000);
+                setLoading(false); // Hide loader after delay
+            }, 2000);
             console.error("Error finalizing purchase:", error);
             setError("Error finalizing purchase. Please try again.");
         }
     };
+    
     return (
         <>
             <Header />
@@ -166,95 +179,95 @@ const Checkout = () => {
                     <h2>Checkout</h2>
                 </section>
             </section>
-            {loading?(
-                        <div className="sweet-loading">
-                            <FadeLoader
-                                height={25}
-                                margin={50}
-                                radius={2}
-                                width={5}
-                                color={"#36d7b7"}
-                                loading={loading}
-                                speedMultiplier={1}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                                className="loader"
-                            />
-                        </div>
-        ) : (
-            <div className="checkout-container">
-                <div className="cart-box">
-                    <h2 className="centered-heading">Items in Cart</h2>
-                    {cart.length === 0 ? (
-                        <p>Your cart is empty.</p>
-                    ) : (
-                        <ul className="cart-list">
-                            {cart.map((product, index) => (
-                                <li key={product.id} className="cart-item">
-                                    <div className="cart-item-content">
-                                        <span>
-                                            {product.name} - R{product.price} x{" "}
-                                            {product.quantity}
-                                        </span>
-                                        <div className="quantity-controls">
-                                            <button
-                                                onClick={() =>
-                                                    handleDecreaseQuantity(
-                                                        index
-                                                    )
-                                                }
-                                            >
-                                                -
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleIncreaseQuantity(
-                                                        index
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleRemoveFromCart(index)
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faTrashAlt}
-                                                />
-                                            </button>
+            {loading ? (
+                <div className="sweet-loading">
+                    <FadeLoader
+                        height={25}
+                        margin={50}
+                        radius={2}
+                        width={5}
+                        color={"#36d7b7"}
+                        loading={loading}
+                        speedMultiplier={1}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        className="loader"
+                    />
+                </div>
+            ) : (
+                <div className="checkout-container">
+                    <div className="cart-box">
+                        <h2 className="centered-heading">Items in Cart</h2>
+                        {cart.length === 0 ? (
+                            <p>Your cart is empty.</p>
+                        ) : (
+                            <ul className="cart-list">
+                                {cart.map((product, index) => (
+                                    <li key={product.id} className="cart-item">
+                                        <div className="cart-item-content">
+                                            <span>
+                                                {product.name} - R{product.price} x{" "}
+                                                {product.quantity}
+                                            </span>
+                                            <div className="quantity-controls">
+                                                <button
+                                                    onClick={() =>
+                                                        handleDecreaseQuantity(
+                                                            index
+                                                        )
+                                                    }
+                                                >
+                                                    -
+                                                </button>
+                                                <button
+                                                    onClick={() =>
+                                                        handleIncreaseQuantity(
+                                                            index
+                                                        )
+                                                    }
+                                                >
+                                                    +
+                                                </button>
+                                                <button
+                                                    onClick={() =>
+                                                        handleRemoveFromCart(index)
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faTrashAlt}
+                                                    />
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-                <div className="checkout-page-box">
-                    <h1>Checkout</h1>
-                    <div className="checkout-details">
-                        <p>Total Price: R{calculateTotalPrice()}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
-                    <button className="button" onClick={handleKeepShopping}>
-                        Continue Shopping
-                    </button>
-                    <button
-                        className="button sign-out-button"
-                        onClick={handleSignOut}
-                    >
-                        Sign Out
-                    </button>
-                    <button
-                        className="finalize-button"
-                        onClick={handleFinalizePurchase}
-                    >
-                        Finalize Purchase
-                    </button>
-                    {error && <p style={{ color: "red" }}>{error}</p>}
+                    <div className="checkout-page-box">
+                        <h1>Checkout</h1>
+                        <div className="checkout-details">
+                            <p>Total Price: R{calculateTotalPrice()}</p>
+                        </div>
+                        <button className="button" onClick={handleKeepShopping}>
+                            Continue Shopping
+                        </button>
+                        <button
+                            className="button sign-out-button"
+                            onClick={handleSignOut}
+                        >
+                            Sign Out
+                        </button>
+                        <button
+                            className="finalize-button"
+                            onClick={handleFinalizePurchase}
+                        >
+                            Finalize Purchase
+                        </button>
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
             <Footer />
         </>
     );

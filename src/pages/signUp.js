@@ -93,12 +93,22 @@ function SignUp() {
     //verifying the user has put in corresponding and correct information
     if (validatePassword()) {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        await addUser(user);
-        setSuccessMessage('User registered!');
-        console.log("User registered:", user);
-        navigate('/login');
+        
+        if(buyer)
+          {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await addUser(user);
+            setSuccessMessage('User registered!');
+            console.log("User registered:", user);
+            navigate('/login');
+          }
+          else if(seller)
+            {
+              // pass all the variables to the next page
+              navigate('/SellerForm');
+            }
+        
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("Email already linked to an account");
