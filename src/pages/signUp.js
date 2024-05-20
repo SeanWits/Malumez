@@ -116,7 +116,6 @@ function SignUp() {
               localStorage.setItem('name', name);
               localStorage.setItem('surname', surname);
               localStorage.setItem('username', username);
-              localStorage.setItem('password', password);
               console.log(name, surname, username);
               navigate('/sellerForm');
             }
