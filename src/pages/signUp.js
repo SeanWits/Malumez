@@ -46,6 +46,7 @@ function SignUp() {
         setConfirmPassword('');
         
       } else if (password.length < 8) {
+        // eslint-disable-next-line
         isValid = false;
         alert('Password should be at least 8 characters long');
         //only clearing the fields with incorrect information

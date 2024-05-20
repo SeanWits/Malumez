@@ -42,16 +42,16 @@ export function MoreOptions() {
                     <h3 className="storeHeading">Stores</h3>
                     <ul className="storeList">
                         <li>
-                            <i className="fa fa-seacrh icon"></i>
-                            <a>Find a store</a>
+                            <i className="fa fa-search icon"></i>
+                            <a href="#">Find a store</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-money icon"></i>
-                            <a href="">Become a seller</a>
+                            <a href="#">Become a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-phone icon"></i>
-                            <a href="">Contact a seller</a>
+                            <a href="#">Contact a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-user-circle icon"></i>
@@ -64,7 +64,7 @@ export function MoreOptions() {
                     <ul className="accountList">
                         <li>
                             <i className="fa fa-user icon"></i>
-                            <a href="">Manage my account</a>
+                            <a href="#">Manage my account</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-truck icon"></i>
@@ -79,15 +79,15 @@ export function MoreOptions() {
                     <ul className="helpList">
                         <li>
                             <i className="fa fa-question-circle icon"></i>
-                            <a href="">FAQ</a>
+                            <a href="#">FAQ</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-question-circle icon"></i>
-                            <a href="">Support</a>
+                            <a href="#">Support</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                         <li>
                             <i className="fa fa-flag icon"></i>
-                            <a href="">Report a seller</a>
+                            <a href="#">Report a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                     </ul>
                 </section>

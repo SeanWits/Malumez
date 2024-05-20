@@ -106,7 +106,10 @@ export default function Notifications() {
 
     useEffect(() => {
         fetchShopId();
-    }, [user]);
+        // eslint-disable-next-line
+    }
+    // eslint-disable-next-line
+    , [user]);
 
     const fetchShopId = async () => {
         try {

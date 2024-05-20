@@ -86,7 +86,10 @@ function SellerProducts({ user }) {
 
     useEffect(() => {
         fetchShopId();
-    }, [user]); // Fetch shop ID on component mount
+        // eslint-disable-next-line
+    }
+    // eslint-disable-next-line
+    , [user]); // Fetch shop ID on component mount
 
     return (
         <div className="container">
