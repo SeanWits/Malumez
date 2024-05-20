@@ -15,6 +15,8 @@ import Notifications from "./components/Seller/Notifications";
 import OrderStatus from "./pages/OrderStatus";
 import { auth } from "./firebase";
 import Dashboard from "./pages/Dashboard";
+import SellerForm from "./pages/sellerForm";
+
 
 export const UserContext = createContext(null);
 
@@ -51,6 +53,8 @@ function App() {
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/orderStatus" element={<OrderStatus />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/SellerForm" element={<SellerForm />} />
+                    
                 </Routes>
             </Router>
         </UserContext.Provider>
