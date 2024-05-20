@@ -1,6 +1,7 @@
 .DashboardSection {
     display: flex;
     justify-content: center;
+    height: 541px;
 }
 
 .Dashboard {
@@ -9,6 +10,7 @@
     padding: 20px;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .UserViewSection {
@@ -33,7 +35,6 @@
 }
 
 .DashboardArticles {
-    width: 25%;
     border-style: outset;
     border-image: linear-gradient(to bottom left, #d9357b, #23d9c4) 1;
 }

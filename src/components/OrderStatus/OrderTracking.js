@@ -1,6 +1,8 @@
 import "./OrderTracking.css";
 import { useEffect, useState } from "react";
 //import { db } from '../firebase';
+import "../../pages/Dashboard.css";
+import "../../pages/home.css";
 
 export function OrderTracking() {
     const [order, setOrder] = useState();
@@ -11,9 +13,11 @@ export function OrderTracking() {
     return (
         <>
             <article className="OrderTrackingArticle">
-                <section className="OrderTrackingSection">
+                <section className="DashboardArticles OrderTrackingSection">
                     <section className="Heading OrderStatusHeadingSection">
-                        <h2 className="HeadingText OrderStatusHeading">Order Status</h2>
+                        <h2 className="HeadingText OrderStatusHeading">
+                            Order Status
+                        </h2>
                     </section>
 
                     <section className="OrderProgressionSection">
@@ -24,28 +28,28 @@ export function OrderTracking() {
                                 </p>
                             </div>
 
-                            <i className="fa fa-long-arrow-right icon" />
+                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
                             <div className="square" id="orderConfirmation">
                                 <p className="OrderStatusText">
                                     {orderConfirmationStatus}
                                 </p>
                             </div>
 
-                            <i className="fa fa-long-arrow-right icon" />
+                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
                             <div className="square" id="orderAvailable">
                                 <p className="OrderStatusText">
                                     Order Available for collection
                                 </p>
                             </div>
 
-                            <i className="fa fa-long-arrow-right icon" />
+                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
                             <div className="square" id="orderCollected">
                                 <p className="OrderStatusText">
                                     Order Collected
                                 </p>
                             </div>
 
-                            <i className="fa fa-long-arrow-right icon" />
+                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
                             <div className="square" id="orderClosed">
                                 <p className="OrderStatusText">Order Closed</p>
                             </div>
@@ -66,14 +70,17 @@ export function OrderTracking() {
                                     </li>
                                     <li id="ShopDetails">
                                         Shop Details:
-                                        <li id="ShopName">Name:</li>
-                                        <li id="Location">Location:</li>
+                                        <ul>
+                                            <li id="ShopName">Name:</li>
+                                            <li id="Location">Location:</li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </section>
                         </section>
                     </section>
                 </section>
+                <i className="fa fa-arrow-circle-left icon" id="backButton"></i>
             </article>
         </>
     );
