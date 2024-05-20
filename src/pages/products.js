@@ -35,9 +35,7 @@ const Products = ({ user }) => {
 
     // getting the searched item from the search Bar
     let searchReceived = localStorage.getItem("searchInput");
-    console.log("Is the variable received? Then it can be used:", searchReceived);
-
-
+    
     // calls the function to display the products
     useEffect(() => {
       fetchProducts();
@@ -59,18 +57,15 @@ const Products = ({ user }) => {
       // This function runs when searchReceived changes aka the search button gets pressed
       const handleSearchReceivedChange = (newValue) => {
          let someProducts = [];
-          console.log("The searchReceived changed to : ",newValue);
 
           if(filterClicked === false)// this only runs if the filter hasn't been clicked
             {
-              if(searchReceived === "nothing" )// if there is nothing in the search, display all products
+              if(searchReceived === "nothing")// if there is nothing in the search, display all products
               {
-                console.log("Does it even populate?");
                 products.forEach(product => {
                   someProducts[i] = product;
                   i++;
                 });
-                console.log("It does? That's wild");
               }
               else{// the searchReceived is populated
                 products.forEach(product => {
@@ -78,23 +73,18 @@ const Products = ({ user }) => {
                     {
                       someProducts[i] = product;
                       i++;
-
                     }
-                  
                 });
 
               }
               if(someProducts.length === 0)// there are no products that match the search
                 {
                   alert("There are no Products that match your search: ", newValue);
-                  console.log(newValue);
-
                   products.forEach(product => {
                     someProducts[i] = product;
                     i++;
                   });
                 }
-
               setFiltered(someProducts);
             }
         };
@@ -128,7 +118,6 @@ const Products = ({ user }) => {
         });
 
         await Promise.all(productPromises);
-          //console.log("Search Input again", searchInput);
                 // checks that the products variable has been populated and calls it until it is
                 async function checkProducts() {
                   if (products.length === 0) {
@@ -258,10 +247,6 @@ const Products = ({ user }) => {
   function applyFilters() {
     let category = document.getElementById("categoriesDropdown").value;
     let brand = document.getElementById("brandsDropdown").value;
-    console.log(category);
-    console.log(brand);
-    console.log(selectedOption);
-
     let storeProducts = [];
 
     if (category !== "all" && brand !== 'all') {
