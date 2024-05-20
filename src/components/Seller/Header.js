@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Malume'zLogoFullNoBackground.png";
 import "../../pages/home.css";
 
-const Header = () => {
+const Header = ({user}) => {
     const navigate = useNavigate();
+    let route = "/login";
+    console.log(user);
+    if (user) {
+        route = "/dashboard";
+    }
 
     return (
         <>
@@ -27,6 +32,10 @@ const Header = () => {
                     <i
                         className="fa fa-bell icon"
                         onClick={() => navigate("/notifications")}
+                    />
+                    <i
+                        onClick={() => navigate(route)}
+                        className="fa fa-user-circle icon"
                     />
                 </section>
             </header>

@@ -1,7 +1,7 @@
 .OrderTrackingSection {
     width: 800px;
-    height: 600px;
-    padding: 50px;
+    height: 400px;
+    margin: 50px;
     width: 100%;
 }
 
@@ -11,7 +11,13 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: -2%;
+    height: 541px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+i.orderStatusArrow{
+    font-size: 40px;
 }
 
 .OrderStatusHeading {

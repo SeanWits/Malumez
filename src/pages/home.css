@@ -54,6 +54,16 @@ body {
     font-size: 18px;
 }
 
+.icon {
+    font-size: 40px;
+    padding: 10px;
+    color: #23d9c4;
+}
+
+#backButton {
+    font-size: 50px;
+}
+
 .adsBar .adsImage {
     height: 200px;
 }
