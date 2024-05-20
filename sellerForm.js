@@ -6,7 +6,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
-function SignUp() {
+function SellerForm() {
 
   // variables to store the user's detauls 
   const [name, setName] = useState('');
@@ -163,4 +163,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SellerForm;
