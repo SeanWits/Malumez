@@ -97,6 +97,24 @@ input[type=password]
     
 }
 
+#sellerFormHeading
+{
+  margin-left: 20%;
+  font-family: 'MV Boli V1';
+  font-size: xx-large;
+  margin-top: 0%;
+}
+
+#formContainer{
+  background-color: white;
+  width: 30%;
+  height: 500px;
+  align-self: center;
+  margin-left: 35%;
+  border-radius: 5%;
+
+}
+
 #signUpBackground {
   height: 100vh;
   width: auto;

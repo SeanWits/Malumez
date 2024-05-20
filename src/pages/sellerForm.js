@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './signup.css';
 
 function SellerForm() {
-
+  // All the variables that store the data
     const [contact, setContact] = useState();
     const [name, setName] = useState();
     const [surname, setSurname] = useState();
@@ -35,34 +35,37 @@ function SellerForm() {
       console.log(email, name, surname, username, userID);
   }, []);
 
+  // checking if the user has formatted their shop location correctly
   const validateLocation = () => {
     let isValid = true;
     if(location.length === 0)
       {
         isValid = false;
-        alert("The location is not valid");
+        setError("The location is not valid");
         setLocation("");
       }
     return isValid;
   };
 
+  // checking if the user has entered a shop name
   const validateShopname = () => {
     let isValid = true;
     if(location.length === 0)
       {
         isValid = false;
-        alert("Please enter a shop name");
+        setError("Please enter a shop name");
         setShopname("");
       }
     return isValid;
   };
 
+  // checking if the 
   const validateContact = () => {
     let isValid = true;
-    if(location.length === 0)
+    if(contact.length === 0)
       {
         isValid = false;
-        alert("The Shop Name is not valid");
+        setError("The contact is not valid");
         setShopname("");
       }
       else{
@@ -73,9 +76,13 @@ function SellerForm() {
         if (!(isNumericString()))
           {
             isValid = false;
-            alert("The Contact number is not valid");
+            setError("The Contact number is not valid");
             setContact("");
-          }
+          }else if(contact.length !==10)
+            {
+              setError("The contact number is too short");
+              setContact("");
+            }
       }
     return isValid;
   };
@@ -120,9 +127,9 @@ function SellerForm() {
   return (
     // the layout of the  page 
     <div id = "signUpBackground">
-      <section id='container'>
+      <section id='formContainer'>
         <img src={require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250" />
-        <h2 id='sellerForm'>Seller form </h2>
+        <h2 id='sellerFormHeading'>Shop registration </h2>
 
         {/* the form itself in the middle of the screen, this contains the different detail fields and their respective labels */}
         <form id="seller-form" onSubmit={register} >
@@ -130,10 +137,10 @@ function SellerForm() {
           <label htmlFor="ShopName">Shop Name</label>
           <input type="text" id="shopName" name="shopName" value={shopname} onChange={(e) => setShopname(e.target.value)} required />
 
-          <label htmlFor="contact">Contact</label>
+          <label htmlFor="contact Number">Contact</label>
           <input type="text" id="contact" name="contact" value={contact} onChange={(e) => setContact(e.target.value)} />
 
-          <label htmlFor="location">location</label>
+          <label htmlFor="location">Location</label>
           <input type="text" id="location" name="location" value={location} onChange={(e) => setLocation(e.target.value)} required />
 
           <button type="submit" id='signUpButton' data-testid="signUpButton">Create Shop</button>
