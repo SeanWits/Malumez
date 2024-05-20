@@ -121,7 +121,8 @@ const Products = ({ user }) => {
               price: productData.price,
               category: productData.category,
               brand: productData.brand,
-              stock: productData.stock
+              stock: productData.stock, 
+              shopID: productData.shop_id
             });
           });
         });
