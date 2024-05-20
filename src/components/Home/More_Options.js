@@ -55,6 +55,7 @@ export function MoreOptions() {
                         </li>
                         <li>
                             <i className="fa fa-user-circle icon"></i> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                             <a onClick={() => navigate("/seller")}>My store</a>
                         </li>
                     </ul>
@@ -68,6 +69,7 @@ export function MoreOptions() {
                         </li>
                         <li>
                             <i className="fa fa-truck icon"></i>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                             <a onClick={() => navigate("/orderStatus")}>
                                 Track my order
                             </a>
