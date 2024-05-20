@@ -1,7 +1,7 @@
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function MoreOptions() {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     return (
         <>
             <section className="moreOptions">
@@ -53,6 +53,12 @@ export function MoreOptions() {
                             <i className="fa fa-phone icon"></i>
                             <a href="#">Contact a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
+                        <li>
+                            <i className="fa fa-user-circle icon"></i> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}<a onClick={() => navigate("/seller")
+                            }>My store</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                        </li>
                     </ul>
                 </section>
                 <section className="accountSection">
@@ -61,6 +67,13 @@ export function MoreOptions() {
                         <li>
                             <i className="fa fa-user icon"></i>
                             <a href="#">Manage my account</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                        </li>
+                        <li>
+                            <i className="fa fa-truck icon"></i>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}<a onClick={() => navigate("/orderStatus")}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                                Track my order
+                            </a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                     </ul>
                 </section>
