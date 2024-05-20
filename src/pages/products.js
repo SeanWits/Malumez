@@ -6,6 +6,7 @@ import Product from '../components/product';
 import { SearchBar } from '../components/Home/Search';
 import { Header } from "../components/Home/Header";
 import { Footer } from "../components/Home/Footer";
+import FadeLoader from "react-spinners/FadeLoader";
 import { MoreOptions } from "../components/Home/More_Options";
 import './products.css';
 import { faThermometerEmpty } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +25,7 @@ const Products = ({ user }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [loading, setloading] = useState(false);
     const navigate = useNavigate();
 
   let i = 0;
@@ -202,6 +204,7 @@ const Products = ({ user }) => {
   };  
   
   const addToCart = async (product, quantity = 1) => {
+    setloading(true); // Show loader
     const existingItemIndex = cart.findIndex(item => item.id === product.id);
     let updatedCart;
     if (existingItemIndex !== -1) {
@@ -219,16 +222,25 @@ const Products = ({ user }) => {
     setTimeout(() => {
       setShowMessage(false);
     }, 3000);
+    setTimeout(() => {
+      setloading(false); // Hide loader after delay
+    }, 2000);
   };
   
-  const removeFromCart = (productId) => {
+  const removeFromCart = async (productId) => {
+    setloading(true); // Show loader
     const updatedCart = cart.map(item =>
       item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
     ).filter(item => item.quantity > 0);
-    updateCart(updatedCart);
+  
+    await updateCart(updatedCart);
     if (currentUser) {
-      addCartForUser(currentUser.uid, updatedCart);
+      await addCartForUser(currentUser.uid, updatedCart);
     }
+  
+    setTimeout(() => {
+      setloading(false); // Hide loader after delay
+    }, 2000);
   };
   
   const handleCheckout = () => {
@@ -339,6 +351,22 @@ const Products = ({ user }) => {
 
           {/* the products are created dynamically depending on how many there are */}
         <div className="products-container-wrapper">
+        {loading?(
+                        <div className="sweet-loading">
+                            <FadeLoader
+                                height={25}
+                                margin={50}
+                                radius={2}
+                                width={5}
+                                color={"#36d7b7"}
+                                loading={loading}
+                                speedMultiplier={1}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                                className="loader"
+                            />
+                        </div>
+        ) : (
           <div className="products-container">
             {filtered.map((product) => {
               const cartItem = cart.find(item => item.id === product.id);
@@ -355,6 +383,7 @@ const Products = ({ user }) => {
               );
             })}
           </div>
+        )}
           {showMessage && (
             <div className={`success-message ${showMessage ? 'show' : ''}`}>
               {successMessage}
