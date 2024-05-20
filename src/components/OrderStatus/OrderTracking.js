@@ -4,6 +4,81 @@ import { useEffect, useState } from "react";
 import "../../pages/Dashboard.css";
 import "../../pages/home.css";
 
+function OrderInfo() {
+    return (
+        <>
+            <section
+                className="DashboardArticles OrderTrackingSection"
+                style={{ display: "none" }}
+            >
+                <section className="Heading OrderStatusHeadingSection">
+                    <h2 className="HeadingText OrderStatusHeading">
+                        Order Status
+                    </h2>
+                </section>
+
+                <section className="OrderProgressionSection">
+                    <section className="OrderProgressionStatusSection">
+                        <div className="square" id="orderSubmitted">
+                            <p className="OrderStatusText">Order Submitted</p>
+                        </div>
+
+                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
+                        <div className="square" id="orderConfirmation">
+                            <p className="OrderStatusText">
+                                {orderConfirmationStatus}
+                            </p>
+                        </div>
+
+                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
+                        <div className="square" id="orderAvailable">
+                            <p className="OrderStatusText">
+                                Order Available for collection
+                            </p>
+                        </div>
+
+                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
+                        <div className="square" id="orderCollected">
+                            <p className="OrderStatusText">Order Collected</p>
+                        </div>
+
+                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
+                        <div className="square" id="orderClosed">
+                            <p className="OrderStatusText">Order Closed</p>
+                        </div>
+                    </section>
+                    <section className="OrderProgressionSection">
+                        <section className="Heading OrderStatusHeadingSection">
+                            <h3 className="HeadingText OrderDetailsHeading">
+                                Order Details
+                            </h3>
+                        </section>
+                        <section className="OrderDetailsSection">
+                            <ul className="OrderDetailsList">
+                                <li className="OrderStatusText" id="CartTotal">
+                                    Cart Total:
+                                </li>
+                                <li id="ShopDetails">
+                                    Shop Details:
+                                    <ul>
+                                        <li id="ShopName">Name:</li>
+                                        <li id="Location">Location:</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <i
+                className="fa fa-arrow-circle-left icon"
+                id="backButton"
+                style={{ display: "none" }}
+            ></i>
+        </>
+    );
+}
+
 export function OrderTracking() {
     const [order, setOrder] = useState();
 
@@ -12,76 +87,7 @@ export function OrderTracking() {
 
     return (
         <>
-            <article className="OrderTrackingArticle">
-                <section className="DashboardArticles OrderTrackingSection">
-                    <section className="Heading OrderStatusHeadingSection">
-                        <h2 className="HeadingText OrderStatusHeading">
-                            Order Status
-                        </h2>
-                    </section>
-
-                    <section className="OrderProgressionSection">
-                        <section className="OrderProgressionStatusSection">
-                            <div className="square" id="orderSubmitted">
-                                <p className="OrderStatusText">
-                                    Order Submitted
-                                </p>
-                            </div>
-
-                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                            <div className="square" id="orderConfirmation">
-                                <p className="OrderStatusText">
-                                    {orderConfirmationStatus}
-                                </p>
-                            </div>
-
-                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                            <div className="square" id="orderAvailable">
-                                <p className="OrderStatusText">
-                                    Order Available for collection
-                                </p>
-                            </div>
-
-                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                            <div className="square" id="orderCollected">
-                                <p className="OrderStatusText">
-                                    Order Collected
-                                </p>
-                            </div>
-
-                            <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                            <div className="square" id="orderClosed">
-                                <p className="OrderStatusText">Order Closed</p>
-                            </div>
-                        </section>
-                        <section className="OrderProgressionSection">
-                            <section className="Heading OrderStatusHeadingSection">
-                                <h3 className="HeadingText OrderDetailsHeading">
-                                    Order Details
-                                </h3>
-                            </section>
-                            <section className="OrderDetailsSection">
-                                <ul className="OrderDetailsList">
-                                    <li
-                                        className="OrderStatusText"
-                                        id="CartTotal"
-                                    >
-                                        Cart Total:
-                                    </li>
-                                    <li id="ShopDetails">
-                                        Shop Details:
-                                        <ul>
-                                            <li id="ShopName">Name:</li>
-                                            <li id="Location">Location:</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </section>
-                        </section>
-                    </section>
-                </section>
-                <i className="fa fa-arrow-circle-left icon" id="backButton"></i>
-            </article>
+            <article className="OrderTrackingArticle"></article>
         </>
     );
 }
