@@ -1,5 +1,5 @@
 import { auth, db } from '../firebase';
-import {useState} from 'react';
+import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +17,6 @@ function SignUp() {
   const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
 
-
-
   const handleRoleChange = (e) => {
     if (e.target.value === 'Buyer') {
       setBuyer(true);
@@ -30,17 +28,14 @@ function SignUp() {
   };
 
   const validatePassword = () => {
-    let isValid = true;
-    if (password !== '' && confirmPassword !== '') {
-      if (password !== confirmPassword) {
-        isValid = false;
-        alert('Passwords do not match');
-      } else if (password.length < 8) {
-        isValid = false;
-        alert('Password should be at least 8 characters long');
-      }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return false;
+    } else if (password.length < 8) {
+      setError('Password should be at least 8 characters long');
+      return false;
     }
-    return isValid;
+    return true;
   };
 
   const addUser = async (userAuth) => {
@@ -74,56 +69,51 @@ function SignUp() {
         await addUser(user);
         console.log("User registered:", user);
         navigate('/home');
-      } catch (error) { 
+      } catch (error) {
         if (error.code === "auth/email-already-in-use") {
-          alert("Email already linked to an account");
+          setError("Email already linked to an account");
         } else {
           console.error("Error registering user: ", error);
-          alert(error.message);
+          setError(error.message);
         }
       }
+    } else {
+      setPassword('');
+      setConfirmPassword('');
     }
-    setName('');
-    setSurname('');
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
   };
-
 
   return (
     <div>
       <section id='container'>
-        <img src= {require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250"/>
+        <img src={require("../assets/Malume'z Logo.png")} id='logoHat' alt="Malume'z Logo" height="130" width="250" />
         <h2 id='signUpSign'>Sign Up</h2>
         <form id="signup-form" onSubmit={register}>
-            <label htmlFor="Name">Name</label>
-            <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)}  />
-          
-            <label htmlFor="Surname">Surname</label>
-            <input type="text" id="Surname" name="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
-          
-            <label htmlFor="Username">Username</label>
-            <input type="text" id="Username" name="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-          
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  required />
-          
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          
-          
-            <label htmlFor="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-          
-            <section id='sectionUserType'>
-            <label id = "userType" htmlFor="UserType">User type:</label>
+          <label htmlFor="Name">Name</label>
+          <input type="text" id="Name" name="Name" value={name} onChange={(e) => setName(e.target.value)} />
+
+          <label htmlFor="Surname">Surname</label>
+          <input type="text" id="Surname" name="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} required />
+
+          <label htmlFor="Username">Username</label>
+          <input type="text" id="Username" name="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+          <label htmlFor="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+
+          <section id='sectionUserType'>
+            <label id="userType" htmlFor="UserType">User type:</label>
             <select name="Account type" id="type" onChange={handleRoleChange}>
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
             </select>
-            </section>
+          </section>
 
           <button type="submit" id='signUpButton'>Sign Up</button>
           {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -131,7 +121,7 @@ function SignUp() {
       </section>
     </div>
   );
-  
 }
 
 export default SignUp;
+
