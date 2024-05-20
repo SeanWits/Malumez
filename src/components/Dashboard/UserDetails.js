@@ -51,7 +51,7 @@ const fetchUserData = async (userId) => {
     return (
         <>
             {/* UserDetailsArticle: Block for user details */}
-            <article className="UserDetailsArticle">
+            <article className="UserDetailsArticle DashboardArticles">
                 {/* Heading for UserDetailsArticle */}
                 <section className="Heading UserDetailsHeadingSection">
                     <h2 className="HeadingText UserDetailsHeadingText">

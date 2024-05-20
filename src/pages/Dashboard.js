@@ -7,6 +7,7 @@ import UserDetails from "../components/Dashboard/UserDetails";
 import { UserContext } from "../App";
 import OrderHistory from "../components/Dashboard/OrderHistory";
 import { useNavigate } from "react-router-dom"; // Assuming you are using react-router for navigation
+import "./Dashboard.css";
 
 export default function Dashboard() {
     const user = useContext(UserContext);
@@ -26,16 +27,16 @@ export default function Dashboard() {
     return (
         <>
             <Header />
-            <section className="Dashboard">
-                <UserDetails user={user} />
-                <OrderHistory />
-                <button
-                    type="button"
-                    id="logout"
-                    onClick={handleLogout}
-                >
-                    Logout
-                </button>
+            <section className="DashboardSection">
+                <article className="Dashboard">
+                    <section className="UserViewSection">
+                        <UserDetails user={user} />
+                        <OrderHistory />
+                    </section>
+                    <button type="button" id="logout" onClick={handleLogout}>
+                        Logout
+                    </button>
+                </article>
             </section>
             <MoreOptions />
             <Footer />
