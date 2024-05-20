@@ -5,6 +5,7 @@ import "../../pages/Dashboard.css";
 import "../../pages/home.css";
 
 function OrderInfo() {
+    const orderConfirmationStatus = "Pending Confirmation";
     return (
         <>
             <section
@@ -82,7 +83,6 @@ function OrderInfo() {
 export function OrderTracking() {
     const [order, setOrder] = useState();
 
-    const orderConfirmationStatus = "Pending Confirmation";
     // the order/ cart the person has clicked should be populated from here
 
     return (
