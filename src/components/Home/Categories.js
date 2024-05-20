@@ -68,7 +68,7 @@ export function Categories()
   function viewMore()
   {
     localStorage.setItem("searchInput","nothing");
-     navigate('/products');
+    navigate('/products');
   }
 
   return (
