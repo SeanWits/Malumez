@@ -128,7 +128,7 @@ function SellerForm() {
         <h2 id='sellerForm'>Seller form </h2>
 
         {/* the form itself in the middle of the screen, this contains the different detail fields and their respective labels */}
-        <form id="seller-form" > {/* onSubmit={register} */}
+        <form id="seller-form" onSubmit={register} >
 
           <label htmlFor="ShopName">Shop Name</label>
           <input type="text" id="shopName" name="shopName" value={shopname} onChange={(e) => setShopname(e.target.value)} required />
