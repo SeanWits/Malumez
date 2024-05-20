@@ -71,8 +71,10 @@ function SignUp() {
           seller: seller
         },
         user_id: userAuth.uid
+        
       });
       console.log("User added with ID: ", userAuth.uid);
+      localStorage.setItem('userID', userAuth.uid);
     } catch (error) {
       console.error("Error adding user: ", error,"\n Please check your details and try again");
       //Clearing all the fields

@@ -16,22 +16,26 @@ function SellerForm() {
     const [location, setLocation] = useState();
     const [shopname, setShopname] = useState();
     const [username, setUsername] = useState();
+    const [userID, setUserID] = useState();
     const [error, setError] =useState();
     const navigate = useNavigate();
 
+    // getting all the data passed from the 
     useEffect(() => {
       const storedEmail = localStorage.getItem('email');
       const storedPassword = localStorage.getItem('password');
       const storedName = localStorage.getItem('name');
       const storedSurname = localStorage.getItem('surname');
       const storedUsername = localStorage.getItem('username');
+      const storeUserID = localStorage.getItem('userID');
 
       if (storedEmail) setEmail(storedEmail);
       if (storedPassword) setPassword(storedPassword);
       if (storedName) setName(storedName);
       if (storedSurname) setSurname(storedSurname);
       if (storedUsername) setUsername(storedUsername);
-      console.log(email, password, name, surname, username);
+      if(storeUserID) setUserID(storeUserID);
+      console.log(email, password, name, surname, username, userID);
   }, []);
 
   const validateLocation = () => {
@@ -81,34 +85,36 @@ function SellerForm() {
     return isValid;
   };
 
-  // const addUser = async (userAuth) => {
-  //   try {
-
-  //     await setDoc(doc(db, "shops", userAuth.uid), {
-  //       email: userAuth.email,
-  //       name: name,
-  //       surname: surname,
-  //       username: username,
-  //       verified: false,
-  //       roles: {
-  //         admin: false,
-  //         buyer: buyer,
-  //         seller: seller
-  //       },
-  //       user_id: userAuth.uid
-  //     });
-  //     console.log("User added with ID: ", userAuth.uid);
-  //   } catch (error) {
-  //     console.error("Error adding user: ", error,"\n Please check your details and try again");
-  //     //Clearing all the fields
-  //     setName('');
-  //     setSurname('');
-  //     setUsername('');
-  //     setEmail('');
-  //     setPassword('');
-  //     setConfirmPassword('');
-  //   }
-  // };
+  const addShop = async (userAuth) => {
+    try {
+      await setDoc(doc(db, "shops", userAuth.uid), {
+        contact: contact,
+        email: email,
+        location: location,
+        name: shopname,
+        owner_id: userID, 
+        usern: username,
+        verified: false,
+        roles: {
+          admin: false,
+          buyer: buyer,
+          seller: seller
+        },
+        user_id: userAuth.uid
+      });
+      console.log("User added with ID: ", userAuth.uid);
+    } catch (error) {
+      console.error("Error adding seller: ", error,"\n Please check your details and try again");
+      //Clearing all the fields
+      setName('');
+      setSurname('');
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      navigate("/SignUp");
+    }
+  };
 
    // registering a new user using the details inputted on the signup Page
     // this will be verified and authenticated by google (third party service)
@@ -118,15 +124,13 @@ function SellerForm() {
       
       if(validateLocation() && validateShopname && validateContact())
         {
-          
+
 
 
 
         }
       
     };
-  
-    
 
   return (
     // the layout of the signup page 
