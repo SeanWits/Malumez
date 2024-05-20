@@ -126,28 +126,39 @@ const Checkout = () => {
     const handleFinalizePurchase = async () => {
         setLoading(true); // Show loader
         console.log("Purchase finalized!");
-        const total = calculateTotalPrice();
-    
-        // Add status field to each product in the cart and handle shop_id properly
-        const updatedCart = cart.map(product => ({
-            ...product,
-            status: "ordered",
-            shop_id: product.shopID || "unknown" // Use shopID if it exists
-        }));
-    
-        // Extract unique shop_ids from the cart
-        const shopIds = [...new Set(updatedCart.map(product => product.shop_id))];
-    
-        const orderData = {
-            dateOrdered: serverTimestamp(),
-            items: updatedCart,
-            status: "ordered",
-            total: total,
-            userID: currentUser.uid,
-            shops: shopIds,
-        };
     
         try {
+            // Fetch the username from the users collection
+            const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+            let username = "";
+            if (userDoc.exists()) {
+                username = userDoc.data().username || "Unknown User";
+            } else {
+                console.log("No user document found.");
+            }
+    
+            const total = calculateTotalPrice();
+    
+            // Add status field to each product in the cart and handle shop_id properly
+            const updatedCart = cart.map(product => ({
+                ...product,
+                status: "ordered",
+                shop_id: product.shopID || "unknown" // Use shopID if it exists
+            }));
+    
+            // Extract unique shop_ids from the cart
+            const shopIds = [...new Set(updatedCart.map(product => product.shop_id))];
+    
+            const orderData = {
+                dateOrdered: serverTimestamp(),
+                items: updatedCart,
+                status: "ordered",
+                total: total,
+                userID: currentUser.uid,
+                username: username,
+                shops: shopIds,
+            };
+    
             await addDoc(collection(db, "orders"), orderData);
             console.log("Order added to the database.");
             setCart([]);
