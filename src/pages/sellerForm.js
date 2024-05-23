@@ -122,7 +122,7 @@ function SellerForm() {
         {
           addShop();
           setSuccessMessage('Shop and seller Registered!');
-          navigate("/Dashboard");
+          navigate("/login");
         }
       
     };

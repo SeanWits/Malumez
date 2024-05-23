@@ -69,13 +69,16 @@ const Products = ({ user }) => {
               }
               else{// the searchReceived is populated
                 products.forEach(product => {
-                  if(product.brand === newValue || product.category === newValue || product.name === newValue)
+                  
+                  if(product.brand && product.brand.toLowerCase() === newValue.toLowerCase() ||
+                   product.category && product.category.toLowerCase() === newValue.toLowerCase()||
+                   product.name && product.name.toLowerCase().includes(newValue.toLowerCase()))
                     {
                       someProducts[i] = product;
                       i++;
                     }
                 });
-
+        
               }
               if(someProducts.length === 0)// there are no products that match the search
                 {
@@ -136,7 +139,10 @@ const Products = ({ user }) => {
                       // also searches based on which brand is clicked on the home page
                       for(let i =0; i<allProducts.length; i++)
                       {
-                        if(allProducts[i].brand === searchReceived || allProducts[i].name === searchReceived|| allProducts[i].category === searchReceived )
+                        
+                       if((allProducts[i].brand && allProducts[i].brand.toLowerCase() === searchReceived.toLowerCase()) ||
+                   (allProducts[i].category && allProducts[i].category.toLowerCase() === searchReceived.toLowerCase())||
+                  (allProducts[i].name && allProducts[i].name.toLowerCase().includes(searchReceived.toLowerCase())))
                           {
                             someProducts[i] = allProducts[i];
                           }
