@@ -186,104 +186,101 @@ const Checkout = () => {
     
     return (
         <>
-            <Header />
-            <section className="searchBar">
-                <i className="fa fa-bars icon" />
-                <section id="checkoutBanner">
-                    <h2>Checkout</h2>
-                </section>
+        <Header />
+        <section className="searchBar">
+            <i className="fa fa-bars icon" />
+            <section id="checkoutBanner">
+                <h2>Checkout</h2>
             </section>
-            {loading ? (
-                <div className="sweet-loading">
-                    <FadeLoader
-                        height={25}
-                        margin={50}
-                        radius={2}
-                        width={5}
-                        color={"#36d7b7"}
-                        loading={loading}
-                        speedMultiplier={1}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                        className="loader"
-                    />
-                </div>
-            ) : (
-                <div className="checkout-container">
-                    <div className="cart-box">
-                        <h2 className="centered-heading">Items in Cart</h2>
-                        {cart.length === 0 ? (
-                            <p>Your cart is empty.</p>
-                        ) : (
-                            <ul className="cart-list">
-                                {cart.map((product, index) => (
-                                    <li key={product.id} className="cart-item">
-                                        <div className="cart-item-content">
-                                            <span>
-                                                {product.name} - R{product.price} x{" "}
-                                                {product.quantity}
-                                            </span>
-                                            <div className="quantity-controls">
-                                                <button
-                                                    onClick={() =>
-                                                        handleDecreaseQuantity(
-                                                            index
-                                                        )
-                                                    }
-                                                >
-                                                    -
-                                                </button>
-                                                <button
-                                                    onClick={() =>
-                                                        handleIncreaseQuantity(
-                                                            index
-                                                        )
-                                                    }
-                                                >
-                                                    +
-                                                </button>
-                                                <button
-                                                    onClick={() =>
-                                                        handleRemoveFromCart(index)
-                                                    }
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faTrashAlt}
-                                                    />
-                                                </button>
-                                            </div>
+        </section>
+        {loading ? (
+            <div className="sweet-loading">
+                <FadeLoader
+                    height={25}
+                    margin={50}
+                    radius={2}
+                    width={5}
+                    color={"#36d7b7"}
+                    loading={loading}
+                    speedMultiplier={1}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                    className="loader"
+                />
+            </div>
+        ) : (
+            <div className="checkout-container">
+                <div className="cart-box">
+                    <h2 className="centered-heading">Items in Cart</h2>
+                    {cart.length === 0 ? (
+                        <p>Your cart is empty.</p>
+                    ) : (
+                        <ul className="cart-list">
+                            {cart.map((product, index) => (
+                                <li key={product.id} className="cart-item">
+                                    <div className="cart-item-content">
+                                        <span>
+                                            {product.name} - R{product.price} x{" "}
+                                            {product.quantity}
+                                        </span>
+                                        <div className="quantity-controls">
+                                            <button
+                                                onClick={() =>
+                                                    handleDecreaseQuantity(index)
+                                                }
+                                            >
+                                                -
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleIncreaseQuantity(index)
+                                                }
+                                            >
+                                                +
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleRemoveFromCart(index)
+                                                }
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTrashAlt}
+                                                />
+                                            </button>
                                         </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    <div className="checkout-page-box">
-                        <h1>Checkout</h1>
-                        <div className="checkout-details">
-                            <p>Total Price: R{calculateTotalPrice()}</p>
-                        </div>
-                        <button className="button" onClick={handleKeepShopping}>
-                            Continue Shopping
-                        </button>
-                        <button
-                            className="button sign-out-button"
-                            onClick={handleSignOut}
-                        >
-                            Sign Out
-                        </button>
-                        <button
-                            className="finalize-button"
-                            onClick={handleFinalizePurchase}
-                        >
-                            Finalize Purchase
-                        </button>
-                        {error && <p style={{ color: "red" }}>{error}</p>}
-                    </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
-            )}
-            <Footer />
-        </>
+                <div className="checkout-page-box">
+                    <h1>Checkout</h1>
+                    <div className="checkout-details">
+                        <p>Total Price: R{calculateTotalPrice()}</p>
+                    </div>
+                    <button className="button" onClick={handleKeepShopping}>
+                        Continue Shopping
+                    </button>
+                    <button
+                        className="button sign-out-button"
+                        onClick={handleSignOut}
+                    >
+                        Sign Out
+                    </button>
+                    <button
+                        className="finalize-button"
+                        onClick={handleFinalizePurchase}
+                    >
+                        Finalize Purchase
+                    </button>
+                    {error && <p style={{ color: "red" }}>{error}</p>}
+                </div>
+            </div>
+        )}
+        <Footer />
+    </>
+    
     );
 };
 
