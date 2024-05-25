@@ -99,3 +99,8 @@ i.orderStatusArrow{
 .orderItemDetails p {
     margin: 5px 0;
 }
+
+#map{
+    position: relative;
+    z-index: 0;
+}
