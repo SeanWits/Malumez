@@ -85,6 +85,9 @@ function OrderNotification({ order, shopId, fetchOrders }) {
                                             <option value="ready_to_collect">
                                                 Ready to Collect
                                             </option>
+                                            <option value="complete">
+                                                Complete
+                                            </option>
                                             <option value="cancelled">
                                                 Cancelled
                                             </option>
