@@ -300,10 +300,10 @@ const Products = ({ user }) => {
 
   return (
     <>
-      <div id='productPageLayout'>
+      <section id='productPageLayout'>
         <section id='filters'>
           <section id='insideFilters'>
-                  {/* the various filters a user can apply */}
+            {/* the various filters a user can apply */}
             <h2 className="productHeaders">Filters</h2>
             <h3 className="productHeaders">Categories</h3>
             <select className="dropdown" id="categoriesDropdown">
@@ -316,7 +316,7 @@ const Products = ({ user }) => {
               <option value="bakery">Bakery</option>
               <option value="cupboard food">Cupboard Food</option>
             </select>
-
+  
             <h3 className="productHeaders">Brand</h3>
             <select className="dropdown" id="brandsDropdown">
               <option value="all">All</option>
@@ -326,64 +326,64 @@ const Products = ({ user }) => {
               <option value="Koo">Koo</option>
               <option value="Sunlight">Sunlight</option>
             </select>
-
+  
             <h3 className="productHeaders">Price</h3>
             <section className='radioButtons'>
-              <input type="radio" value="lowToHigh" name = "sortOrder" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} />
+              <input type="radio" value="lowToHigh" name="sortOrder" id='lowToHigh' checked={selectedOption === "lowToHigh"} onChange={handleOptionChange} />
               <label>Low to High</label>
-
-              <input type="radio" name = "sortOrder" value="highToLow" id='highToLow' checked={selectedOption === "highToLow"} onChange={handleOptionChange} />
+  
+              <input type="radio" name="sortOrder" value="highToLow" id='highToLow' checked={selectedOption === "highToLow"} onChange={handleOptionChange} />
               <label>High to Low</label>
             </section>
             <button className="applyButton" onClick={applyFilters}>Apply Filters</button>
           </section>
           <button className="checkout-btn" onClick={handleCheckout} disabled={!currentUser}>Checkout</button>
         </section>
-
-          {/* the products are created dynamically depending on how many there are */}
-        <div className="products-container-wrapper">
-        {loading?(
-                        <div className="sweet-loading">
-                            <FadeLoader
-                                height={25}
-                                margin={50}
-                                radius={2}
-                                width={5}
-                                color={"#36d7b7"}
-                                loading={loading}
-                                speedMultiplier={1}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                                className="loader"
-                            />
-                        </div>
-        ) : (
-          <div className="products-container">
-            {filtered.map((product) => {
-              const cartItem = cart.find(item => item.id === product.id);
-              return (
-                <Product
-                  key={product.id}
-                  imageUrl={product.imageUrl}
-                  name={product.name}
-                  price={product.price}
-                  quantity={cartItem ? cartItem.quantity : 0}
-                  onIncreaseQuantity={() => addToCart(product)}
-                  onDecreaseQuantity={() => removeFromCart(product.id)}
-                />
-              );
-            })}
-          </div>
-        )}
+  
+        {/* the products are created dynamically depending on how many there are */}
+        <section className="products-container-wrapper">
+          {loading ? (
+            <div className="sweet-loading">
+              <FadeLoader
+                height={25}
+                margin={50}
+                radius={2}
+                width={5}
+                color={"#36d7b7"}
+                loading={loading}
+                speedMultiplier={1}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                className="loader"
+              />
+            </div>
+          ) : (
+              <section className="products-container">
+                {filtered.map((product) => {
+                  const cartItem = cart.find(item => item.id === product.id);
+                  return (
+                    <Product
+                      key={product.id}
+                      imageUrl={product.imageUrl}
+                      name={product.name}
+                      price={product.price}
+                      quantity={cartItem ? cartItem.quantity : 0}
+                      onIncreaseQuantity={() => addToCart(product)}
+                      onDecreaseQuantity={() => removeFromCart(product.id)}
+                    />
+                  );
+                })}
+              </section>
+            )}
           {showMessage && (
             <div className={`success-message ${showMessage ? 'show' : ''}`}>
               {successMessage}
             </div>
           )}
-        </div>
-      </div>
+        </section>
+      </section>
     </>
-  );
+  );  
 };
 
 // Displaying the product page and all its components
