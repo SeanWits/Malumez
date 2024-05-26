@@ -27,8 +27,8 @@ const OrderHistory = () => {
         try {
             const q = query(
                 collection(db, "orders"),
-                where("userID", "==", uid), 
-                where("status", "==", )
+                where("userID", "==", uid),
+                where("status", "==", "complete")
             );
             const querySnapshot = await getDocs(q);
             const ordersData = querySnapshot.docs.map((doc) => ({
@@ -56,38 +56,40 @@ const OrderHistory = () => {
                 </section>
                 {loading && <p className="loading">Loading...</p>}
                 {!loading && orders.length === 0 && <p>No orders found.</p>}
-                <ul>
-                    {orders.map((order) => (
-                        <li key={order.id}>
-                            <p>
-                                <strong>Order ID:</strong> {order.id}
-                            </p>
-                            <p>
-                                <strong>Date:</strong>{" "}
-                                {order.dateOrdered
-                                    .toDate()
-                                    .toLocaleDateString()}
-                            </p>
-                            <p>
-                                <strong>Total:</strong> R{order.total}
-                            </p>
-                            <p>
-                                <strong>Status:</strong> {order.status}
-                            </p>
-                            <p>
-                                <strong>Items:</strong>
-                            </p>
-                            <ul>
-                                {order.items.map((item, index) => (
-                                    <li key={index}>
-                                        {item.name} - {item.quantity} x R
-                                        {item.price}
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
+                <section className="OrderHistoryList">
+                    <ul>
+                        {orders.map((order) => (
+                            <li key={order.id}>
+                                <p>
+                                    <strong>Order ID:</strong> {order.id}
+                                </p>
+                                <p>
+                                    <strong>Date:</strong>{" "}
+                                    {order.dateOrdered
+                                        .toDate()
+                                        .toLocaleDateString()}
+                                </p>
+                                <p>
+                                    <strong>Total:</strong> R{order.total}
+                                </p>
+                                <p>
+                                    <strong>Status:</strong> {order.status}
+                                </p>
+                                <p>
+                                    <strong>Items:</strong>
+                                </p>
+                                <ul>
+                                    {order.items.map((item, index) => (
+                                        <li key={index}>
+                                            {item.name} - {item.quantity} x R
+                                            {item.price}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
             </main>
             {/* <MoreOptions /> */}
             {/* <Footer /> */}
