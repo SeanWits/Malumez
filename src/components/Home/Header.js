@@ -62,11 +62,11 @@ export function Header({ user }) {
                         onClick={() => navigate(route)}
                         className="fa fa-user-circle icon"
                     />
-                     <i
+                    {/* <i
                         onClick={() => navigate("/order-history")}
                         className="fa fa-history icon"
                         title="Order History"
-                    />
+                    /> */}
                 </section>
             </header>
         </>
