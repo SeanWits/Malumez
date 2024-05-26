@@ -10,7 +10,7 @@ export function Categories()
 
   useEffect(() => {
     fetchHomeProducts();
-  });
+  },[]);
 
   let categoryName = "Products";
   async function fetchHomeProducts() {

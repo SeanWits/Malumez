@@ -62,26 +62,26 @@ export function FeaturedProducts() {
 
   return (
     <>
-      <h2 id="brandsHeading">Brands</h2>
-      <section className="featuredProducts">
-        <i className="fa fa-chevron-left icon left" onClick={() => currentSlide(-1)}></i>
-        {[1, 2, 3].map((index) => (
-          <section key={`fPslide${index}`} id={`fPslide${index}`} style={{ display: index === 1 ? 'block' : 'none' }}>
-            {brands.slice((index - 1) * 4, index * 4).map((brand) => (
-              // eslint-disable-next-line
-              <img
-                key={brand.id}
-                className="brandImage"
-                id={brand.name}
-                src={brand.src}
-                alt="Image of a featured product"
-                onClick={() => brandClicked(brand.name)}
-              />
-            ))}
-          </section>
-        ))}
-        <i className="fa fa-chevron-right icon right" onClick={() => currentSlide(1)}></i>
-      </section>
-    </>
-  );
+    <h2 id="brandsHeading">Brands</h2>
+    <section className="featuredProducts">
+      <i data-testid="left-icon" className="fa fa-chevron-left icon left" onClick={() => currentSlide(-1)}></i>
+      {[1, 2, 3].map((index) => (
+        <section key={`fPslide${index}`} id={`fPslide${index}`} style={{ display: index === 1 ? 'block' : 'none' }}>
+          {brands.slice((index - 1) * 4, index * 4).map((brand) => (
+            // eslint-disable-next-line
+            <img
+              key={brand.id}
+              className="brandImage"
+              id={brand.name}
+              src={brand.src}
+              alt="Image of a featured product"
+              onClick={() => brandClicked(brand.name)}
+            />
+          ))}
+        </section>
+      ))}
+      <i data-testid="right-icon" className="fa fa-chevron-right icon right" onClick={() => currentSlide(1)}></i>
+    </section>
+  </>
+);
 }
