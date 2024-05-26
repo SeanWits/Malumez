@@ -26,7 +26,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <Header />
+            <Header user={user}/>
             <section className="DashboardSection">
                 <article className="Dashboard">
                     <section className="UserViewSection">

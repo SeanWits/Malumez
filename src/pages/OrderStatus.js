@@ -3,21 +3,19 @@ import { Footer } from "../components/Home/Footer";
 import { MoreOptions } from "../components/Home/More_Options";
 import { SearchBar } from "../components/Home/Search";
 import { OrderTracking } from "../components/OrderStatus/OrderTracking";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../App";
+
 //import { db } from '../firebase'; // Import the Firestore database instance
 
-
-function OrderStatus() {
- 
-}
-
 function OrderStatusPage() {
+    const user = useContext(UserContext);
+
     return (
         <>
-            <Header />
+            <Header user={user} />
             <SearchBar />
             <OrderTracking />
-            <OrderStatus /> 
             <MoreOptions />
             <Footer />
         </>
