@@ -1,2 +1,2 @@
-const admin = () => null;
-export default admin;
+const Admin = () => <div>Admin</div>;
+export default Admin;
