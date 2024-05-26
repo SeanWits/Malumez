@@ -81,7 +81,7 @@ export function Categories()
           <button onClick={viewMore} className="viewMoreLink"> View More</button>
         </section>
 
-        <section id="productSection">
+        <section id="productSection" onClick={()=>navigate("/products")}>
           {homeProducts.map((product, index)=>(
             <div id = "displayDiv" key={index} >
             <img
