@@ -123,7 +123,7 @@ const OrderHistory = () => {
                         ))}
                     </ul>
                 </section>
-                <button onClick={downloadPDF} className="download-btn">
+                <button onClick={downloadPDF} className="button OrderHistoryButton">
                     Download Order History
                 </button>
             </main>

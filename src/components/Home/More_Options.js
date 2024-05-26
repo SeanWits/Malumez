@@ -42,18 +42,6 @@ export function MoreOptions() {
                     <h3 className="storeHeading">Stores</h3>
                     <ul className="storeList">
                         <li>
-                            <i className="fa fa-seacrh icon"></i>
-                            <a>Find a store</a>
-                        </li>
-                        <li>
-                            <i className="fa fa-money icon"></i>
-                            <a href="">Become a seller</a>
-                        </li>
-                        <li>
-                            <i className="fa fa-phone icon"></i>
-                            <a href="">Contact a seller</a>
-                        </li>
-                        <li>
                             <i className="fa fa-user-circle icon"></i>
                             <a onClick={() => navigate("/seller")}>My store</a>
                         </li>
@@ -64,30 +52,13 @@ export function MoreOptions() {
                     <ul className="accountList">
                         <li>
                             <i className="fa fa-user icon"></i>
-                            <a href="">Manage my account</a>
+                            <a onClick={()=>navigate(("/dashboard"))}>My account</a>
                         </li>
                         <li>
                             <i className="fa fa-truck icon"></i>
                             <a onClick={() => navigate("/orderStatus")}>
                                 Track my order
                             </a>
-                        </li>
-                    </ul>
-                </section>
-                <section className="helpSection">
-                    <h3 className="helpHeading">Help and support</h3>
-                    <ul className="helpList">
-                        <li>
-                            <i className="fa fa-question-circle icon"></i>
-                            <a href="">FAQ</a>
-                        </li>
-                        <li>
-                            <i className="fa fa-question-circle icon"></i>
-                            <a href="">Support</a>
-                        </li>
-                        <li>
-                            <i className="fa fa-flag icon"></i>
-                            <a href="">Report a seller</a>
                         </li>
                     </ul>
                 </section>

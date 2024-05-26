@@ -4,6 +4,12 @@
     max-width: 800px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.OrderHistoryButton {
+    margin: 20px;
 }
 
 /* .order-history-container h2 {
@@ -68,6 +74,6 @@
 }
 
 .OrderHistoryList {
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 542px;
 }

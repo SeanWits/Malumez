@@ -71,13 +71,6 @@ const fetchUserData = async (userId) => {
                             {/* Enter the email that is fetched from the database here */}
                         </li>
                     </ul>
-                    <button
-                        type="button"
-                        className="EditUserDetailsButton"
-                        id="editUserDetails"
-                    >
-                        Edit info
-                    </button>
                 </section>
             </article>
         </>
