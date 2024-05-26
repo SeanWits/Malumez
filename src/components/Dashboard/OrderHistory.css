@@ -1,0 +1,79 @@
+/* OrderHistory.css */
+.order-history-container {
+    background-color: #f9f9f9;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.OrderHistoryButton {
+    margin: 20px;
+}
+
+/* .order-history-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    font-size: 28px;
+    border-bottom: 2px solid #e2e2e2;
+    padding-bottom: 10px;
+} */
+
+.order-history-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.order-history-container li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.order-history-container li:hover {
+    transform: scale(1.02);
+}
+
+.order-history-container li p {
+    margin-bottom: 10px;
+    font-family: "Roboto", sans-serif;
+    color: #555;
+    font-size: 16px;
+}
+
+.order-history-container li strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.order-history-container li ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.order-history-container li ul li {
+    margin-bottom: 5px;
+    font-family: "Roboto", sans-serif;
+    color: #666;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    font-family: "Roboto", sans-serif;
+    margin-top: 20px;
+}
+
+.OrderHistoryList {
+    overflow-y: scroll;
+    max-height: 542px;
+}

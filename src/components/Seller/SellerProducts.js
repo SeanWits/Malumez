@@ -10,6 +10,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import Product from "../productSeller"; // Importing the Product component
+import { jsPDF } from "jspdf"; // Importing jsPDF
 import "./SellerProducts.css";
 
 function SellerProducts({ user }) {
@@ -84,6 +85,29 @@ function SellerProducts({ user }) {
         }
     };
 
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        let yOffset = 10;
+
+        doc.text("Stock on Hand", 10, yOffset);
+        yOffset += 10;
+
+        products.forEach((product, index) => {
+            doc.text(`Name: ${product.name}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Stock: ${product.stock}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Price: R${product.price}`, 10, yOffset);
+            yOffset += 10;
+
+            if (index < products.length - 1) {
+                yOffset += 10; // Add extra space between products
+            }
+        });
+
+        doc.save("stock_on_hand.pdf");
+    };
+
     useEffect(() => {
         fetchShopId();
         // eslint-disable-next-line
@@ -93,9 +117,19 @@ function SellerProducts({ user }) {
 
     return (
         <div className="container">
+            {shopId && (
+                <section className="downloadButtonSection">
+                    <button
+                        onClick={downloadPDF}
+                        className="button downloadButton"
+                    >
+                        Download Stock on Hand
+                    </button>
+                </section>
+            )}
             <div className="productsList">
                 {products.map((product) => (
-                    <div key={product.id}>
+                    <div className="productSection" key={product.id}>
                         <Product
                             imageUrl={product.src}
                             price={product.price}
@@ -103,6 +137,7 @@ function SellerProducts({ user }) {
                             stockCount={product.stock}
                         />
                         <input
+                            id="stockCount"
                             type="number"
                             value={product.stock}
                             onChange={(e) => {
@@ -121,13 +156,17 @@ function SellerProducts({ user }) {
                             }}
                         />
                         <button
+                            className="button stockButtons"
                             onClick={() =>
                                 handleStockUpdate(product.id, product.stock)
                             }
                         >
                             Update Stock
                         </button>
-                        <button onClick={() => handleDeleteProduct(product.id)}>
+                        <button
+                            className="button stockButtons"
+                            onClick={() => handleDeleteProduct(product.id)}
+                        >
                             Delete Product
                         </button>
                     </div>

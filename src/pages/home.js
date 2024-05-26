@@ -8,23 +8,25 @@ import { Categories } from "../components/Home/Categories";
 import { AdsBar } from "../components/Home/AdsBar";
 import { FeaturedProducts } from "../components/Home/FeaturedProduct";
 import { UserContext } from "../App";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
-function Home() 
-{
-  const user = useContext(UserContext);
-  localStorage.setItem("searchInput","nothing");
-  return (
-  <>
-    <Header user={user} />
-    <SearchBar />
-    <AdsBar />
-    <FeaturedProducts />
-    <Categories />
-    <MoreOptions />
-    <Footer />  
-  </>
-  )
+function Home() {
+    useEffect(() => {
+        document.body.classList.remove("bodyHidden");
+    }, []);
+    const user = useContext(UserContext);
+    localStorage.setItem("searchInput", "nothing");
+    return (
+        <>
+            <Header user={user} />
+            <SearchBar />
+            <AdsBar />
+            <FeaturedProducts />
+            <Categories />
+            <MoreOptions />
+            <Footer />
+        </>
+    );
 }
 
 export default Home;

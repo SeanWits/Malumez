@@ -8,31 +8,31 @@ export function MoreOptions() {
                 <section className="contactSection">
                     <h3 className="contactUsHeading">Contact Us</h3>
                     <ul className="contactList">
-                        <li>
+                        <li href="mailto:malumez@gmail.com">
                             <i className="fa fa-at icon"></i>
-                            <a href="mailto:malumez@gmail.com">
+                            <a >
                                 malumez@gmail.com
                             </a>
                         </li>
-                        <li>
+                        <li href="tel:malumez@gmail.com">
                             <i className="fa fa-phone icon"></i>
-                            <a href="tel:malumez@gmail.com">011 625 8639</a>
+                            <a >011 625 8639</a>
                         </li>
-                        <li>
+                        <li href="https://www.instagram.com/malumez/" rel="noopener noreferrer" target="_blank">
                             <i className="fa fa-instagram icon"></i>
-                            <a href="https://www.instagram.com/malumez/">
+                            <a>
                                 @malumez
                             </a>
                         </li>
-                        <li>
+                        <li href="https://www.facebook.com/malumez/" rel="noopener noreferrer" target="_blank">
                             <i className="fa fa-facebook icon"></i>
-                            <a href="https://www.facebook.com/malumez/">
+                            <a >
                                 @malumez
                             </a>
                         </li>
-                        <li>
+                        <li href="https://www.twitter.com/malumez/" rel="noopener noreferrer" target="_blank">
                             <i className="fa fa-twitter icon"></i>
-                            <a href="https://www.twitter.com/malumez/">
+                            <a >
                                 @malumez
                             </a>
                         </li>
@@ -41,56 +41,24 @@ export function MoreOptions() {
                 <section className="storeSection">
                     <h3 className="storeHeading">Stores</h3>
                     <ul className="storeList">
-                        <li>
-                            <i className="fa fa-search icon"></i>
-                            <a href="#">Find a store</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                        <li>
-                            <i className="fa fa-money icon"></i>
-                            <a href="#">Become a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                        <li>
-                            <i className="fa fa-phone icon"></i>
-                            <a href="#">Contact a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                        <li>
-                            <i className="fa fa-user-circle icon"></i> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}<a onClick={() => navigate("/seller")
-                            }>My store</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                        <li  onClick={() => navigate("/seller")}>
+                            <i className="fa fa-user-circle icon"></i>
+                            <a>My store</a>
                         </li>
                     </ul>
                 </section>
                 <section className="accountSection">
                     <h3 className="accountHeading">Account</h3>
                     <ul className="accountList">
-                        <li>
+                        <li onClick={()=>navigate(("/dashboard"))}>
                             <i className="fa fa-user icon"></i>
-                            <a href="#">Manage my account</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                            <a >My account</a>
                         </li>
-                        <li>
-                            <i className="fa fa-truck icon"></i>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}<a onClick={() => navigate("/orderStatus")}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+                        <li onClick={() => navigate("/orderStatus")}>
+                            <i className="fa fa-truck icon"></i>
+                            <a>
                                 Track my order
                             </a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                    </ul>
-                </section>
-                <section className="helpSection">
-                    <h3 className="helpHeading">Help and support</h3>
-                    <ul className="helpList">
-                        <li>
-                            <i className="fa fa-question-circle icon"></i>
-                            <a href="#">FAQ</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                        <li>
-                            <i className="fa fa-question-circle icon"></i>
-                            <a href="#">Support</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                        </li>
-                        <li>
-                            <i className="fa fa-flag icon"></i>
-                            <a href="#">Report a seller</a> {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                         </li>
                     </ul>
                 </section>

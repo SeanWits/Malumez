@@ -20,15 +20,16 @@ body {
 
 .searchBar {
     display: flex;
-    /* background-color: #D9357B ; */
-    justify-content: space-between;
+    justify-content: right;
     background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
+    height: 60px;
 }
 
 .searchBar .icon {
     font-size: 40px;
     padding: 10px;
     color: #fff;
+    cursor: pointer;
 }
 
 .searchBar .search {
@@ -58,6 +59,11 @@ body {
     font-size: 40px;
     padding: 10px;
     color: #23d9c4;
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
 }
 
 #backButton {
@@ -130,6 +136,7 @@ body {
     padding: 20px;
     margin-left: 70px;
     margin-right: 70px;
+    cursor: pointer;
 }
 
 .featuredProducts .icon {
@@ -163,6 +170,7 @@ ul {
 
 #productSection {
     display: flex;
+    cursor: pointer;
 }
 
 .moreOptions {

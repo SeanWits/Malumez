@@ -13,8 +13,8 @@ import Notifications from "./components/Seller/Notifications";
 import OrderStatus from "./pages/OrderStatus";
 import { auth } from "./firebase";
 import Dashboard from "./pages/Dashboard";
+import OrderHistory from "./components/Dashboard/OrderHistory";
 import SellerForm from "./pages/sellerForm";
-
 
 export const UserContext = createContext(null);
 
@@ -48,9 +48,9 @@ function App() {
                     <Route path="/sellerP" element={<SellerProducts />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/orderStatus" element={<OrderStatus />} />
+                    {/* <Route path="/order-history" element={<OrderHistory />} /> */}
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/SellerForm" element={<SellerForm />} />
-                    
                 </Routes>
             </Router>
         </UserContext.Provider>

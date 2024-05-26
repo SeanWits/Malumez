@@ -1,125 +1,136 @@
 /* Checkout.css */
 @import url("https://db.onlinewebfonts.com/c/a7e3822358f6dcb2f986a68cf24721b2?family=MV+Boli+V1");
 .checkout-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 20px auto; /* Add margin on top and bottom for better spacing */
+    padding: 20px;
+}
+
+#CheckOutBanner {
   display: flex;
-  justify-content: space-between;
-  max-width: 800px;
-  margin: 20px auto; /* Add margin on top and bottom for better spacing */
-  padding: 20px;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 #checkoutBanner {
-  font-family: "MV Boli V1";
-  text-align: center;
-  margin-right: auto; /* Center the banner */
-  margin-left: auto;
-  color: white;
-  font-size: 20px;
+    font-family: "MV Boli V1";
+    text-align: center;
+    margin-right: auto; /* Center the banner */
+    margin-left: auto;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+    padding-left: 10px;
 }
 .quantity-controls {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .quantity-controls button {
-  padding: 5px 10px;
-  margin: 0 5px;
-  cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
 }
 
 .centered-heading {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .cart-box {
-  flex: 1;
-  background-color: #f2f0f7;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    background-color: #f2f0f7;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .checkout-page-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end; /* Align items to the end of the column */
-  background-color: #f2f1f7;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end; /* Align items to the end of the column */
+    background-color: #f2f1f7;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .checkout-page-box h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #050505;
-  text-align: center; /* Center the heading */
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #050505;
+    text-align: center; /* Center the heading */
 }
 .finalize-button {
-  padding: 10px 20px;
-  background-color: #28a745; /* Green color for the finalize button */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
+    padding: 10px 20px;
+    background-color: #28a745; /* Green color for the finalize button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
 }
 
 .checkout-details {
-  margin-bottom: 20px;
-  text-align: center; /* Center the details */
+    margin-bottom: 20px;
+    text-align: center; /* Center the details */
 }
 
 .cart-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 .cart-item-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cart-item {
-  margin-bottom: 10px;
-  text-align: center; /* Center the cart items */
+    margin-bottom: 10px;
+    text-align: center; /* Center the cart items */
+}
+
+.CheckOutButton {
+  margin: 10px;
 }
 
 .button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
+    padding: 10px 20px;
+    background-image: linear-gradient(to bottom left, #d9357b, #23d9c4);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
 }
 
 .sign-out-button {
-  background-color: #dc3545; /* Change button color to red */
+    background-color: #dc3545; /* Change button color to red */
 }
 
 .price {
-  color: #4f31c5;
-  font-weight: bold;
+    color: #4f31c5;
+    font-weight: bold;
 }
 
 .sweet-loading {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 200px; /* Adjust height as needed */
-  margin-right: 50px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 200px; /* Adjust height as needed */
+    margin-right: 50px;
 }
 
 .loader {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }

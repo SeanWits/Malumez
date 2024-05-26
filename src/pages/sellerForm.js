@@ -103,17 +103,19 @@ function SellerForm() {
     }
   };
 
-  // registering a new shop using the details inputted on the seller form Page
-  const register = async (e) => {
-    e.preventDefault();
-    setError('');
-    
-    if(validateLocation() && validateShopname() && validateContact()) {
-      addShop();
-      setSuccessMessage('Shop and seller Registered!');
-      navigate("/Dashboard");
-    }
-  };
+   // registering a new shop using the details inputted on the seller form Page
+    const register = async (e) => {
+      e.preventDefault();
+      setError('');
+      
+      if(validateLocation() && validateShopname() && validateContact())
+        {
+          addShop();
+          setSuccessMessage('Shop and seller Registered!');
+          navigate("/login");
+        }
+      
+    };
 
   return (
     <div id="signUpBackground">

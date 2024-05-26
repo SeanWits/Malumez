@@ -1,16 +1,24 @@
 import logo from "../../assets/Malume'zLogoFullNoBackground.png";
 import { useNavigate } from "react-router-dom";
-
-export function Header({user}) {
+import React, { useEffect, useState } from "react";
+import { auth } from "../../firebase";
+export function Header({ user }) {
     const navigate = useNavigate();
-    const removeBodyClass = (className) =>
-        document.body.classList.remove(className);
-    removeBodyClass("bodyHidden");
+    const [currentUser, setCurrentUser] = useState(null);
+    const [loading, setLoading] = useState(false);
+    //check if user is logged in, and change route to dashboard if user is logged in
     let route = "/login";
     console.log(user);
     if (user) {
         route = "/dashboard";
     }
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setCurrentUser(user);
+        });
+        return unsubscribe;
+    }, []);
 
     return (
         <>
@@ -28,11 +36,15 @@ export function Header({user}) {
                 />
                 <section>
                     <i
-                        className="fa fa-archive"
+                        className="fa fa-archive icon"
                         id="orderStatusIcon"
                         onClick={() => navigate("/OrderStatus")}
+                        style={{
+                            pointerEvents:
+                                !currentUser || loading ? "none" : "auto",
+                            opacity: !currentUser || loading ? 0.5 : 1,
+                        }}
                     ></i>
-
                     <i
                         onClick={() => navigate("/seller")}
                         className="fa fa-question-circle icon"
@@ -40,11 +52,21 @@ export function Header({user}) {
                     <i
                         onClick={() => navigate("/checkOut")}
                         className="fa fa-shopping-basket icon"
+                        style={{
+                            pointerEvents:
+                                !currentUser || loading ? "none" : "auto",
+                            opacity: !currentUser || loading ? 0.5 : 1,
+                        }}
                     />
                     <i
                         onClick={() => navigate(route)}
                         className="fa fa-user-circle icon"
                     />
+                    {/* <i
+                        onClick={() => navigate("/order-history")}
+                        className="fa fa-history icon"
+                        title="Order History"
+                    /> */}
                 </section>
             </header>
         </>

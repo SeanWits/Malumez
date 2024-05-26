@@ -26,14 +26,14 @@ export default function Dashboard() {
 
     return (
         <>
-            <Header />
+            <Header user={user}/>
             <section className="DashboardSection">
                 <article className="Dashboard">
                     <section className="UserViewSection">
                         <UserDetails user={user} />
                         <OrderHistory />
                     </section>
-                    <button type="button" id="logout" onClick={handleLogout}>
+                    <button type="button" id="logout" className="button" onClick={handleLogout}>
                         Logout
                     </button>
                 </article>

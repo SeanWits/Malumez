@@ -127,6 +127,11 @@ const Checkout = () => {
     };
 
     const handleFinalizePurchase = async () => {
+        if (cart.length === 0) {
+            alert("Your cart is empty. Please add items to your cart before finalizing the purchase.");
+            return;
+        }
+    
         setLoading(true); // Show loader
         console.log("Purchase finalized!");
     
@@ -187,8 +192,7 @@ const Checkout = () => {
     return (
         <>
         <Header />
-        <section className="searchBar">
-            <i className="fa fa-bars icon" />
+        <section className="searchBar" id="CheckOutBanner">
             <section id="checkoutBanner">
                 <h2>Checkout</h2>
             </section>
@@ -209,8 +213,8 @@ const Checkout = () => {
                 />
             </div>
         ) : (
-            <div className="checkout-container">
-                <div className="cart-box">
+            <section className="checkout-container">
+                <section className="cart-box">
                     <h2 className="centered-heading">Items in Cart</h2>
                     {cart.length === 0 ? (
                         <p>Your cart is empty.</p>
@@ -224,21 +228,25 @@ const Checkout = () => {
                                             {product.quantity}
                                         </span>
                                         <div className="quantity-controls">
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
-                                                    handleDecreaseQuantity(index)
+                                                    handleDecreaseQuantity(
+                                                        index
+                                                    )
                                                 }
                                             >
                                                 -
                                             </button>
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
-                                                    handleIncreaseQuantity(index)
+                                                    handleIncreaseQuantity(
+                                                        index
+                                                    )
                                                 }
                                             >
                                                 +
                                             </button>
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
                                                     handleRemoveFromCart(index)
                                                 }
@@ -253,34 +261,27 @@ const Checkout = () => {
                             ))}
                         </ul>
                     )}
-                </div>
-                <div className="checkout-page-box">
+                </section>
+                <section className="checkout-page-box">
                     <h1>Checkout</h1>
                     <div className="checkout-details">
                         <p>Total Price: R{calculateTotalPrice()}</p>
                     </div>
-                    <button className="button" onClick={handleKeepShopping}>
+                    <button className="button CheckOutButton" onClick={handleKeepShopping}>
                         Continue Shopping
                     </button>
                     <button
-                        className="button sign-out-button"
-                        onClick={handleSignOut}
-                    >
-                        Sign Out
-                    </button>
-                    <button
-                        className="finalize-button"
+                        className="button CheckOutButton"
                         onClick={handleFinalizePurchase}
                     >
                         Finalize Purchase
                     </button>
                     {error && <p style={{ color: "red" }}>{error}</p>}
-                </div>
-            </div>
+                </section>
+            </section>
         )}
         <Footer />
     </>
-    
     );
 };
 
