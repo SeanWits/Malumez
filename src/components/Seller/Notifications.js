@@ -24,6 +24,14 @@ function OrderNotification({ order, shopId, fetchOrders }) {
 
             await updateDoc(orderDocRef, { items: updatedItems });
             console.log("Order status updated.");
+            
+            // Check if all products are complete
+            const allComplete = updatedItems.every(item => item.status === "complete");
+            if (allComplete) {
+                await updateDoc(orderDocRef, { status: "complete" });
+                console.log("Order is now complete.");
+            }
+
             fetchOrders(); // Refresh orders after update
         } catch (error) {
             console.error("Error updating order status:", error);
@@ -85,11 +93,11 @@ function OrderNotification({ order, shopId, fetchOrders }) {
                                             <option value="ready_to_collect">
                                                 Ready to Collect
                                             </option>
-                                            <option value="complete">
-                                                Complete
-                                            </option>
                                             <option value="cancelled">
                                                 Cancelled
+                                            </option>
+                                            <option value="complete">
+                                                Complete
                                             </option>
                                         </select>
                                     </li>

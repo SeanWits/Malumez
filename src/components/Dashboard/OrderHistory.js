@@ -6,6 +6,7 @@ import { Header } from "../Home/Header";
 import { Footer } from "../Home/Footer";
 import { MoreOptions } from "../Home/More_Options";
 import "./OrderHistory.css";
+import { jsPDF } from "jspdf";
 
 const OrderHistory = () => {
     const [orders, setOrders] = useState([]);
@@ -45,6 +46,38 @@ const OrderHistory = () => {
 
     const formatPrice = (price) => {
         return typeof price === "number" ? price.toFixed(2) : "0.00";
+    };
+
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        let yOffset = 10;
+
+        doc.text("Order History", 10, yOffset);
+        yOffset += 10;
+
+        orders.forEach((order, index) => {
+            doc.text(`Order ID: ${order.id}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Date: ${order.dateOrdered.toDate().toLocaleDateString()}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Total: R${order.total}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Status: ${order.status}`, 10, yOffset);
+            yOffset += 10;
+            doc.text("Items:", 10, yOffset);
+            yOffset += 10;
+
+            order.items.forEach((item) => {
+                doc.text(`${item.name} - ${item.quantity} x R${item.price}`, 20, yOffset);
+                yOffset += 10;
+            });
+
+            if (index < orders.length - 1) {
+                yOffset += 10; // Add extra space between orders
+            }
+        });
+
+        doc.save("order_history.pdf");
     };
 
     return (
@@ -90,6 +123,9 @@ const OrderHistory = () => {
                         ))}
                     </ul>
                 </section>
+                <button onClick={downloadPDF} className="download-btn">
+                    Download Order History
+                </button>
             </main>
             {/* <MoreOptions /> */}
             {/* <Footer /> */}
