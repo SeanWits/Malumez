@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'; // Ensure this import is correct
 import { ShopDetails } from './ShopDetails';
-import { auth} from '../../firebase'; // Assuming firebase is imported correctly
-import { getDocs } from "firebase/firestore";
+import { auth, db } from '../../firebase'; // Assuming firebase is imported correctly
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 // Mock Firebase auth and firestore functions
 jest.mock('../../firebase', () => ({
@@ -20,6 +20,15 @@ jest.mock('firebase/firestore', () => ({
   where: jest.fn(),
 }));
 
+// Mock console.log to silence the logs and to check for log messages
+beforeAll(() => {
+  jest.spyOn(console, 'log').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  console.log.mockRestore();
+});
+
 describe('ShopDetails Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -28,7 +37,7 @@ describe('ShopDetails Component', () => {
   it('renders "User is not logged in" when no user is authenticated', async () => {
     auth.currentUser = null;
 
-    render(<ShopDetails />);
+    render(<ShopDetails user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("User is not logged in.")).toBeInTheDocument();
@@ -42,7 +51,7 @@ describe('ShopDetails Component', () => {
       docs: [],
     });
 
-    render(<ShopDetails />);
+    render(<ShopDetails user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("No shop found for the current user.")).toBeInTheDocument();
@@ -68,7 +77,7 @@ describe('ShopDetails Component', () => {
       ],
     });
 
-    render(<ShopDetails />);
+    render(<ShopDetails user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("Shop Name: Test Shop")).toBeInTheDocument();

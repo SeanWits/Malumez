@@ -11,7 +11,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 test('should render header correctly', () => {
-  const { getByAltText, getByRole } = render(
+  const { getByAltText, getByTestId } = render(
     <Router>
       <Header />
     </Router>
@@ -20,10 +20,10 @@ test('should render header correctly', () => {
   const logo = getByAltText("Malume'z Logo");
   expect(logo).toBeInTheDocument();
 
-  const uploadIcon = getByRole('button', { name: /upload/i });
+  const uploadIcon = getByTestId('upload-icon');
   expect(uploadIcon).toBeInTheDocument();
 
-  const bellIcon = getByRole('button', { name: /bell/i });
+  const bellIcon = getByTestId('bell-icon');
   expect(bellIcon).toBeInTheDocument();
 });
 
@@ -46,28 +46,58 @@ test('should navigate to upload page when upload icon is clicked', () => {
   const navigate = jest.fn();
   jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValue(navigate);
 
-  const { getByRole } = render(
+  const { getByTestId } = render(
     <Router>
       <Header />
     </Router>
   );
 
-  const uploadIcon = getByRole('button', { name: /upload/i });
+  const uploadIcon = getByTestId('upload-icon');
   fireEvent.click(uploadIcon);
   expect(navigate).toHaveBeenCalledWith('/uploadImg');
 });
 
-test('should navigate to login page when bell icon is clicked', () => {
+test('should navigate to notifications page when bell icon is clicked', () => {
   const navigate = jest.fn();
   jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValue(navigate);
 
-  const { getByRole } = render(
+  const { getByTestId } = render(
     <Router>
       <Header />
     </Router>
   );
 
-  const bellIcon = getByRole('button', { name: /bell/i });
+  const bellIcon = getByTestId('bell-icon');
   fireEvent.click(bellIcon);
+  expect(navigate).toHaveBeenCalledWith('/notifications');
+});
+
+test('should navigate to login or dashboard page when user icon is clicked', () => {
+  const navigate = jest.fn();
+  jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValue(navigate);
+
+  const { getByTestId } = render(
+    <Router>
+      <Header user={null} />
+    </Router>
+  );
+
+  const userIcon = getByTestId('user-icon');
+  fireEvent.click(userIcon);
   expect(navigate).toHaveBeenCalledWith('/login');
+});
+
+test('should navigate to dashboard page when user icon is clicked and user is logged in', () => {
+  const navigate = jest.fn();
+  jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValue(navigate);
+
+  const { getByTestId } = render(
+    <Router>
+      <Header user={{ uid: 'test-user' }} />
+    </Router>
+  );
+
+  const userIcon = getByTestId('user-icon');
+  fireEvent.click(userIcon);
+  expect(navigate).toHaveBeenCalledWith('/dashboard');
 });

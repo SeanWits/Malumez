@@ -23,6 +23,15 @@ jest.mock('firebase/firestore', () => ({
   deleteDoc: jest.fn(),
 }));
 
+// Mock console.log to silence the logs and to check for log messages
+beforeAll(() => {
+  jest.spyOn(console, 'log').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  console.log.mockRestore();
+});
+
 describe('SellerProducts Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -45,7 +54,7 @@ describe('SellerProducts Component', () => {
       docs: [],
     });
 
-    render(<SellerProducts />);
+    render(<SellerProducts user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(console.log).toHaveBeenCalledWith("No shop found for the current user.");
@@ -58,27 +67,26 @@ describe('SellerProducts Component', () => {
       id: 'shop-id',
       data: jest.fn(),
     };
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: [mockShopDoc],
-    });
+    getDocs
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [mockShopDoc],
+      })
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [
+          {
+            id: 'product-1',
+            data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
+          },
+          {
+            id: 'product-2',
+            data: () => ({ name: 'Product 2', price: 200, stock: 20, src: 'image2.jpg' }),
+          },
+        ],
+      });
 
-    const mockProductDocs = [
-      {
-        id: 'product-1',
-        data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
-      },
-      {
-        id: 'product-2',
-        data: () => ({ name: 'Product 2', price: 200, stock: 20, src: 'image2.jpg' }),
-      },
-    ];
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: mockProductDocs,
-    });
-
-    render(<SellerProducts />);
+    render(<SellerProducts user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("Product 1")).toBeInTheDocument();
@@ -92,26 +100,25 @@ describe('SellerProducts Component', () => {
       id: 'shop-id',
       data: jest.fn(),
     };
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: [mockShopDoc],
-    });
-
-    const mockProductDocs = [
-      {
-        id: 'product-1',
-        data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
-      },
-    ];
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: mockProductDocs,
-    });
+    getDocs
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [mockShopDoc],
+      })
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [
+          {
+            id: 'product-1',
+            data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
+          },
+        ],
+      });
 
     const mockDocRef = { id: 'product-1' };
     doc.mockReturnValue(mockDocRef);
 
-    render(<SellerProducts />);
+    render(<SellerProducts user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("Product 1")).toBeInTheDocument();
@@ -137,26 +144,25 @@ describe('SellerProducts Component', () => {
       id: 'shop-id',
       data: jest.fn(),
     };
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: [mockShopDoc],
-    });
-
-    const mockProductDocs = [
-      {
-        id: 'product-1',
-        data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
-      },
-    ];
-    getDocs.mockResolvedValueOnce({
-      empty: false,
-      docs: mockProductDocs,
-    });
+    getDocs
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [mockShopDoc],
+      })
+      .mockResolvedValueOnce({
+        empty: false,
+        docs: [
+          {
+            id: 'product-1',
+            data: () => ({ name: 'Product 1', price: 100, stock: 10, src: 'image1.jpg' }),
+          },
+        ],
+      });
 
     const mockDocRef = { id: 'product-1' };
     doc.mockReturnValue(mockDocRef);
 
-    render(<SellerProducts />);
+    render(<SellerProducts user={auth.currentUser} />);
 
     await waitFor(() => {
       expect(screen.getByText("Product 1")).toBeInTheDocument();
@@ -170,13 +176,4 @@ describe('SellerProducts Component', () => {
       expect(screen.queryByText("Product 1")).not.toBeInTheDocument();
     });
   });
-});
-
-// Mock console.log to silence the logs and to check for log messages
-beforeAll(() => {
-  jest.spyOn(console, 'log').mockImplementation(() => {});
-});
-
-afterAll(() => {
-  console.log.mockRestore();
 });

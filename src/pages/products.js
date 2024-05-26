@@ -118,6 +118,9 @@ const Products = ({ user }) => {
         });
 
         await Promise.all(productPromises);
+
+        console.log('All products fetched:', allProducts);
+        
                 // checks that the products variable has been populated and calls it until it is
                 async function checkProducts() {
                   if (products.length === 0) {
@@ -300,7 +303,7 @@ const Products = ({ user }) => {
             {/* the various filters a user can apply */}
             <h2 className="productHeaders">Filters</h2>
             <h3 className="productHeaders">Categories</h3>
-            <select className="dropdown" id="categoriesDropdown">
+            <select className="dropdown" id="categoriesDropdown" data-testid="categoriesDropdown">
               <option value="all">All</option>
               <option value="beverages">Beverages</option>
               <option value="toiletries">Toiletries</option>

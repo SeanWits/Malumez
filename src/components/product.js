@@ -11,9 +11,9 @@ const Product = ({ imageUrl, name, price, quantity, onIncreaseQuantity, onDecrea
       <h2 className="product-name">{name}</h2>
       <p className="product-price">R{formattedPrice}</p>
       <div className="product-quantity">
-        <button className="quantity-button" onClick={onDecreaseQuantity}>-</button>
+        <button className="quantity-button" onClick={onDecreaseQuantity} data-testid="decrease-quantity">-</button>
         <span>{quantity}</span>
-        <button className="quantity-button" onClick={onIncreaseQuantity}>+</button>
+        <button className="quantity-button" onClick={onIncreaseQuantity} data-testid="increase-quantity">+</button>
       </div>
     </div>
   );
