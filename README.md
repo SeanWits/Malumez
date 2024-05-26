@@ -11,6 +11,8 @@ Before you begin, ensure you have met the following requirements:
 
 - You have installed the latest version of [Node.js and npm](https://nodejs.org/).
 - You have installed [Git](https://git-scm.com/).
+- All documentation can be found in the documentation folder on the master branch: https://github.com/SeanWits/Malumez/tree/master/Documentation/UML%20diagrams%20(all)
+- The link to the walk-through youtube video: https://youtu.be/DBR9y82R3DU 
 
 ### Installation
 
