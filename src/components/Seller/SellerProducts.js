@@ -10,6 +10,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import Product from "../productSeller"; // Importing the Product component
+import { jsPDF } from "jspdf"; // Importing jsPDF
 import "./SellerProducts.css";
 
 function SellerProducts({ user }) {
@@ -84,6 +85,29 @@ function SellerProducts({ user }) {
         }
     };
 
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        let yOffset = 10;
+
+        doc.text("Stock on Hand", 10, yOffset);
+        yOffset += 10;
+
+        products.forEach((product, index) => {
+            doc.text(`Name: ${product.name}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Stock: ${product.stock}`, 10, yOffset);
+            yOffset += 10;
+            doc.text(`Price: R${product.price}`, 10, yOffset);
+            yOffset += 10;
+
+            if (index < products.length - 1) {
+                yOffset += 10; // Add extra space between products
+            }
+        });
+
+        doc.save("stock_on_hand.pdf");
+    };
+
     useEffect(() => {
         fetchShopId();
     }, [user]); // Fetch shop ID on component mount
@@ -130,6 +154,9 @@ function SellerProducts({ user }) {
                     </div>
                 ))}
             </div>
+            <button onClick={downloadPDF} className="download-btn">
+                Download Stock on Hand
+            </button>
         </div>
     );
 }
