@@ -114,9 +114,19 @@ function SellerProducts({ user }) {
 
     return (
         <div className="container">
+            {shopId && (
+                <section className="downloadButtonSection">
+                    <button
+                        onClick={downloadPDF}
+                        className="button downloadButton"
+                    >
+                        Download Stock on Hand
+                    </button>
+                </section>
+            )}
             <div className="productsList">
                 {products.map((product) => (
-                    <div key={product.id}>
+                    <div className="productSection" key={product.id}>
                         <Product
                             imageUrl={product.src}
                             price={product.price}
@@ -124,6 +134,7 @@ function SellerProducts({ user }) {
                             stockCount={product.stock}
                         />
                         <input
+                            id="stockCount"
                             type="number"
                             value={product.stock}
                             onChange={(e) => {
@@ -142,23 +153,22 @@ function SellerProducts({ user }) {
                             }}
                         />
                         <button
+                            className="button stockButtons"
                             onClick={() =>
                                 handleStockUpdate(product.id, product.stock)
                             }
                         >
                             Update Stock
                         </button>
-                        <button onClick={() => handleDeleteProduct(product.id)}>
+                        <button
+                            className="button stockButtons"
+                            onClick={() => handleDeleteProduct(product.id)}
+                        >
                             Delete Product
                         </button>
                     </div>
                 ))}
             </div>
-            {shopId && (
-                <button onClick={downloadPDF} className="download-btn">
-                    Download Stock on Hand
-                </button>
-            )}
         </div>
     );
 }

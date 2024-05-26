@@ -189,8 +189,7 @@ const Checkout = () => {
     return (
         <>
         <Header />
-        <section className="searchBar">
-            <i className="fa fa-bars icon" />
+        <section className="searchBar" id="CheckOutBanner">
             <section id="checkoutBanner">
                 <h2>Checkout</h2>
             </section>
@@ -226,7 +225,7 @@ const Checkout = () => {
                                             {product.quantity}
                                         </span>
                                         <div className="quantity-controls">
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
                                                     handleDecreaseQuantity(
                                                         index
@@ -235,7 +234,7 @@ const Checkout = () => {
                                             >
                                                 -
                                             </button>
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
                                                     handleIncreaseQuantity(
                                                         index
@@ -244,7 +243,7 @@ const Checkout = () => {
                                             >
                                                 +
                                             </button>
-                                            <button
+                                            <button className="button"
                                                 onClick={() =>
                                                     handleRemoveFromCart(index)
                                                 }
@@ -265,17 +264,11 @@ const Checkout = () => {
                     <div className="checkout-details">
                         <p>Total Price: R{calculateTotalPrice()}</p>
                     </div>
-                    <button className="button" onClick={handleKeepShopping}>
+                    <button className="button CheckOutButton" onClick={handleKeepShopping}>
                         Continue Shopping
                     </button>
                     <button
-                        className="button sign-out-button"
-                        onClick={handleSignOut}
-                    >
-                        Sign Out
-                    </button>
-                    <button
-                        className="finalize-button"
+                        className="button CheckOutButton"
                         onClick={handleFinalizePurchase}
                     >
                         Finalize Purchase

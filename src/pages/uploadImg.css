@@ -6,3 +6,10 @@
     flex-direction: column;
     flex-wrap: wrap;
 }
+.margin{
+    margin: 10px;
+}
+
+.categoryMargin{
+    margin-right: 10px;
+}

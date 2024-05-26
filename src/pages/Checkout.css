@@ -8,6 +8,12 @@
     padding: 20px;
 }
 
+#CheckOutBanner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 #checkoutBanner {
     font-family: "MV Boli V1";
     text-align: center;
@@ -15,6 +21,8 @@
     margin-left: auto;
     color: white;
     font-size: 20px;
+    margin: 0;
+    padding-left: 10px;
 }
 .quantity-controls {
     display: flex;
@@ -87,6 +95,10 @@
 .cart-item {
     margin-bottom: 10px;
     text-align: center; /* Center the cart items */
+}
+
+.CheckOutButton {
+  margin: 10px;
 }
 
 .button {

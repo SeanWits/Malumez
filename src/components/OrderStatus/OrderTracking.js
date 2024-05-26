@@ -13,66 +13,6 @@ import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 
-function OrderInfo({ order }) {
-    return (
-        <>
-            <section className="DashboardArticles OrderTrackingSection">
-                <section className="Heading OrderStatusHeadingSection">
-                    <h2 className="HeadingText OrderStatusHeading">
-                        Order Status
-                    </h2>
-                </section>
-
-                <section className="OrderProgressionSection">
-                    <section className="OrderProgressionStatusSection">
-                        <div className="square" id="orderSubmitted">
-                            <p className="OrderStatusText">Order Submitted</p>
-                        </div>
-
-                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                        <div className="square" id="orderConfirmation">
-                            <p className="OrderStatusText">
-                                {order.status === "confirmed" ? "Order Confirmed" : "Pending Confirmation"}
-                            </p>
-                        </div>
-
-                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                        <div className="square" id="orderAvailable">
-                            <p className="OrderStatusText">
-                                {order.status === "available" ? "Order Available for collection" : "Not Available"}
-                            </p>
-                        </div>
-
-                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                        <div className="square" id="orderCollected">
-                            <p className="OrderStatusText">Order Collected</p>
-                        </div>
-
-                        <i className="fa fa-long-arrow-right icon orderStatusArrow" />
-                        <div className="square" id="orderClosed">
-                            <p className="OrderStatusText">Order Closed</p>
-                        </div>
-                    </section>
-
-                    <section className="OrderDetailsSection">
-                        <section className="Heading OrderStatusHeadingSection">
-                            <h3 className="HeadingText OrderDetailsHeading">
-                                Order Details
-                            </h3>
-                        </section>
-                        <ul className="OrderDetailsList">
-                            <li className="OrderStatusText" id="CartTotal">
-                                Cart Total: R{order.total}
-                            </li>
-                        </ul>
-                    </section>
-                </section>
-            </section>
-            <i className="fa fa-arrow-circle-left icon" id="backButton" style={{ display: "none" }}></i>
-        </>
-    );
-}
-
 export function OrderTracking() {
     const user = useContext(UserContext);
     const [orders, setOrders] = useState([]);
@@ -183,7 +123,7 @@ export function OrderTracking() {
         <article className="OrderTrackingArticle">
             {orders.length > 0 ? (
                 orders.map(order => (
-                    <div key={order.id} className="orderBlock" onClick={() => console.log("Order clicked:", order.id)}>
+                    <div key={order.id} className="orderBlock DashboardArticles" onClick={() => console.log("Order clicked:", order.id)}>
                         <div className="orderHeader">
                             <h3>Order ID: {order.id}</h3>
                             <p>Total Price: R{order.total}</p>

@@ -188,10 +188,9 @@ function StoreImageTextFirebase() {
         setShowCamera(false);
     }, []);
 
-
     return (
         <div className="scrollable-container">
-            <button onClick={switchMode} className="btn btn-success">
+            <button onClick={switchMode} className="button margin">
                 {buttonText}
             </button>
             {showCamera && !HideCameraOnly && (
@@ -206,7 +205,7 @@ function StoreImageTextFirebase() {
                             videoConstraints={videoConstraints}
                         />
                     ) : (
-                        <img src={picture}  alt="Webcam capture" />
+                        <img src={picture} alt="Webcam capture" />
                     )}
                 </div>
             )}
@@ -214,40 +213,37 @@ function StoreImageTextFirebase() {
                 {showCamera && picture !== "" ? (
                     <>
                         <button
+                            className="button"
                             onClick={() => {
                                 setPicture("");
                                 setHideCameraOnly(false);
                                 setFile("");
                             }}
-                            className="btn btn-primary mr-2"
                         >
                             Retake
                         </button>
-                        <button
-                            onClick={savePicture}
-                            className="btn btn-success"
-                        >
+                        <button className="button" onClick={savePicture}>
                             Save Picture
                         </button>
                     </>
                 ) : (
                     showCamera && (
                         <button
+                            className="button"
                             onClick={(e) => {
                                 e.preventDefault();
                                 capture();
                             }}
-                            className="btn btn-danger"
                         >
                             Capture
                         </button>
                     )
                 )}
             </div>
-            <input />
+            <input className="margin" />
             <br />
             {!showCamera && (
-                <input
+                <input className="margin"
                     type="file"
                     accept=".png, .jpg, .jpeg"
                     onChange={(e) => setFile(e.target.files[0])}
@@ -262,8 +258,8 @@ function StoreImageTextFirebase() {
                 />
             )}{" "}
             {/* Show the selected image */}
-            <form>
-                <div>
+            <form >
+                <div className="margin">
                     <label htmlFor="productName">Name:</label>
                     <input
                         id="productName"
@@ -273,8 +269,8 @@ function StoreImageTextFirebase() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label htmlFor="price">Price (R):</label>
+                <div className="margin">
+                    <label className="categoryMargin" htmlFor="price">Price (R):</label>
                     <input
                         id="price"
                         name="price"
@@ -283,8 +279,8 @@ function StoreImageTextFirebase() {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label htmlFor="stock">Stock:</label>
+                <div className="margin">
+                    <label className="categoryMargin" htmlFor="stock">Stock:</label>
                     <input
                         id="stock"
                         name="stock"
@@ -293,8 +289,8 @@ function StoreImageTextFirebase() {
                         onChange={(e) => setStock(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label htmlFor="category">Category:</label>
+                <div className="margin">
+                    <label className="categoryMargin" htmlFor="category">Category:</label>
                     <select
                         id="category"
                         name="category"
@@ -313,8 +309,8 @@ function StoreImageTextFirebase() {
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div>
-                    <label htmlFor="brand">Brand:</label>
+                <div className="margin">
+                    <label className="categoryMargin" htmlFor="brand">Brand:</label>
                     <select
                         id="brand"
                         name="brand"
@@ -329,10 +325,18 @@ function StoreImageTextFirebase() {
                         <option value="Coca-Cola">Coca-Cola</option>
                     </select>
                 </div>
-                <button type="button" onClick={uploadProductImg}>
+                <button
+                    className="button"
+                    type="button"
+                    onClick={uploadProductImg}
+                >
                     Submit
                 </button>
-                <button type="button" onClick={() => navigate("/seller")}>
+                <button
+                    className="button"
+                    type="button"
+                    onClick={() => navigate("/seller")}
+                >
                     return to home
                 </button>
             </form>
