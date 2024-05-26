@@ -45,7 +45,7 @@ import {
     convertToSnakeCase,
     getRandomInt,
     getRandomFloat
-  } from './UpdateState';
+  } from './Mock';
   
   test('add function', () => {
     expect(add(1, 2)).toBe(3);
