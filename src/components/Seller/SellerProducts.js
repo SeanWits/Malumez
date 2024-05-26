@@ -154,9 +154,11 @@ function SellerProducts({ user }) {
                     </div>
                 ))}
             </div>
-            <button onClick={downloadPDF} className="download-btn">
-                Download Stock on Hand
-            </button>
+            {shopId && (
+                <button onClick={downloadPDF} className="download-btn">
+                    Download Stock on Hand
+                </button>
+            )}
         </div>
     );
 }
